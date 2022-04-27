@@ -8,6 +8,8 @@ public class GLRExtension : ICloneable {
     public List<GLREnumValue> Enums;
     public List<GLRCommand> Commands;
 
+    public string Ext { get => Name.Substring(3, Name.IndexOf('_', 3) - 3); }
+
     public GLRExtension() {
         SupportedAPIs = new();
         RequireEnums = new();
@@ -33,10 +35,10 @@ public class GLRExtension : ICloneable {
             XPathNavigator nav = it.Current.CreateNavigator();
             string name = GLRegistry.ParseString(nav.Select("./@name"));
             string supported = GLRegistry.ParseString(nav.Select("./@supported"));
-            string[] supportedAPIs = !string.IsNullOrEmpty(supported) ? 
-                (supported.IndexOf('|') >= 0) ? 
-                supported.Split('|') 
-                : new string[1] { supported } 
+            string[] supportedAPIs = !string.IsNullOrEmpty(supported) ?
+                (supported.IndexOf('|') >= 0) ?
+                supported.Split('|')
+                : new string[1] { supported }
             : new string[0];
 
             GLRExtension extension = new() {

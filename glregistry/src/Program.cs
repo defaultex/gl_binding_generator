@@ -41,6 +41,7 @@
 
             string ifdef = string.Format("({0} && {1}_API)", feature.Name, feature.API.ToUpper());
             Directory.CreateDirectory(string.Format(References.OutputFeatureFolder, feature.Name));
+            Directory.CreateDirectory(String.Format(References.OutputFeatureEnumFolder, feature.Name));
 
             #region Write - Feature - Constants
 
@@ -191,7 +192,7 @@
         }
 
         foreach (GLRExtension extension in MasterRegistry.Extensions) {
-            string extAbbr = extension.Name.Substring(3, extension.Name.IndexOf('_', 3) - 3);
+            string extAbbr = extension.Ext;
 
             List<GLREnumValue> usedEnumValues;
             if (!usedEnumValuesMap.TryGetValue(extension.Name, out usedEnumValues)) {
@@ -218,6 +219,7 @@
                 ifdef = extension.Name;
             }
             Directory.CreateDirectory(string.Format(References.OutputExtensionFolder, extAbbr + "/" + extension.Name));
+            Directory.CreateDirectory(string.Format(References.OutputExtensionEnumFolder, extAbbr));
 
             #region Write - Extension - Constants
 
@@ -355,6 +357,23 @@
 
             string outGroupName = group.Name;
             string enumFilename = string.Format(References.EnumFilename, outGroupName);
+
+            string outExt = Regex.Match(outGroupName, "[A-Z][A-Z]+").Value;
+            if (outExt == "PN") {
+                outExt = Regex.Match(outGroupName, "[A-Z][A-Z][A-Z]+").Value;
+            }
+
+            if (MasterRegistry.Extensions.Exists((x) => x.Ext == outExt)) {
+                enumFilename = string.Format(References.ExtensionEnumFilename, outExt, outGroupName);
+            } else if (allAPIs.Count == 1) {
+                GLRExtension ext = MasterRegistry.Extensions.Find((x) => x.Name == allAPIs[0]);
+                if (ext != null) {
+                    enumFilename = string.Format(References.ExtensionEnumFilename, ext.Ext, outGroupName);
+                } else {
+                    enumFilename = string.Format(References.FeatureEnumFilename, allAPIs[0], outGroupName);
+                }
+            }
+
 
             using (FileStream stream = File.Open(enumFilename, FileMode.Append))
             using (StreamWriter writer = new StreamWriter(stream)) {
