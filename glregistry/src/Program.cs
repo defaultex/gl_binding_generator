@@ -15,6 +15,7 @@
         }
         Directory.CreateDirectory(References.OutputFolder);
         Directory.CreateDirectory(References.OutputEnumFolder);
+        WriteGitignore();
         WriteCSProj();
         WriteUsings(MasterRegistry);
         WriteClasses(MasterRegistry);
@@ -472,6 +473,13 @@
         // foreach (string groupName in usedGroups) {
         //     WriteEnum(groupName, removeEnums, usedConsts);
         // }
+    }
+
+    static void WriteGitignore() {
+        using (FileStream stream = File.OpenWrite(References.GitignoreFilename))
+        using (StreamWriter writer = new StreamWriter(stream)) {
+            writer.Write(References.GitignoreCode);
+        }
     }
 
     static void WriteCSProj() {
