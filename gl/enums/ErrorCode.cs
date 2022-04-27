@@ -1,0 +1,58 @@
+#if (GL_ARB_ROBUSTNESS || GL_ES_VERSION_2_0 || GL_ES_VERSION_3_2 || GL_EXT_ROBUSTNESS || GL_KHR_ROBUSTNESS || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_4_5 || GL_VERSION_ES_CM_1_0 || GL_ARB_FRAMEBUFFER_OBJECT || GL_VERSION_3_0 || GL_KHR_DEBUG || GL_VERSION_4_3 || GL_ARB_IMAGING || GL_EXT_FRAMEBUFFER_OBJECT || GL_EXT_HISTOGRAM || GL_EXT_TEXTURE || GL_OES_FRAMEBUFFER_OBJECT)
+
+public enum ErrorCode : GLenum { 
+#if (GL_ARB_ROBUSTNESS || GL_ES_VERSION_2_0 || GL_ES_VERSION_3_2 || GL_EXT_ROBUSTNESS || GL_KHR_ROBUSTNESS || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_4_5 || GL_VERSION_ES_CM_1_0)
+    NoError = gl.Constants.GL_NO_ERROR, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    InvalidEnum = gl.Constants.GL_INVALID_ENUM, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    InvalidValue = gl.Constants.GL_INVALID_VALUE, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    InvalidOperation = gl.Constants.GL_INVALID_OPERATION, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    OutOfMemory = gl.Constants.GL_OUT_OF_MEMORY, 
+#endif
+
+#if (GL_ARB_FRAMEBUFFER_OBJECT || GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_3_0)
+    InvalidFramebufferOperation = gl.Constants.GL_INVALID_FRAMEBUFFER_OPERATION, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_DEBUG || GL_VERSION_1_0 || GL_VERSION_4_3 || GL_VERSION_ES_CM_1_0)
+    StackOverflow = gl.Constants.GL_STACK_OVERFLOW, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_DEBUG || GL_VERSION_1_0 || GL_VERSION_4_3 || GL_VERSION_ES_CM_1_0)
+    StackUnderflow = gl.Constants.GL_STACK_UNDERFLOW, 
+#endif
+
+#if GL_ARB_IMAGING
+    TableTooLarge = gl.Constants.GL_TABLE_TOO_LARGE, 
+#endif
+
+#if GL_EXT_FRAMEBUFFER_OBJECT
+    InvalidFramebufferOperationExt = gl.Constants.GL_INVALID_FRAMEBUFFER_OPERATION_EXT, 
+#endif
+
+#if GL_EXT_HISTOGRAM
+    TableTooLargeExt = gl.Constants.GL_TABLE_TOO_LARGE_EXT, 
+#endif
+
+#if GL_EXT_TEXTURE
+    TextureTooLargeExt = gl.Constants.GL_TEXTURE_TOO_LARGE_EXT, 
+#endif
+
+#if GL_OES_FRAMEBUFFER_OBJECT
+    InvalidFramebufferOperationOes = gl.Constants.GL_INVALID_FRAMEBUFFER_OPERATION_OES, 
+#endif
+
+}
+
+#endif

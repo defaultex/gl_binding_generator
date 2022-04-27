@@ -1,0 +1,18 @@
+#if (GL_ARB_texture_cube_map && GL_API)
+public partial class glext_arb { 
+    public partial class Constants { 
+        public const GLenum GL_NORMAL_MAP_ARB = 0x8511;
+        public const GLenum GL_REFLECTION_MAP_ARB = 0x8512;
+        public const GLenum GL_TEXTURE_CUBE_MAP_ARB = 0x8513;
+        public const GLenum GL_TEXTURE_BINDING_CUBE_MAP_ARB = 0x8514;
+        public const GLenum GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB = 0x8515;
+        public const GLenum GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB = 0x8516;
+        public const GLenum GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB = 0x8517;
+        public const GLenum GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB = 0x8518;
+        public const GLenum GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB = 0x8519;
+        public const GLenum GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB = 0x851A;
+        public const GLenum GL_PROXY_TEXTURE_CUBE_MAP_ARB = 0x851B;
+        public const GLenum GL_MAX_CUBE_MAP_TEXTURE_SIZE_ARB = 0x851C;
+    }
+}
+#endif

@@ -1,0 +1,22 @@
+#if (GL_ARB_ROBUSTNESS || GL_ES_VERSION_2_0 || GL_ES_VERSION_3_2 || GL_EXT_ROBUSTNESS || GL_KHR_ROBUSTNESS || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_4_5 || GL_VERSION_ES_CM_1_0)
+
+public enum GraphicsResetStatus : GLenum { 
+#if (GL_ARB_ROBUSTNESS || GL_ES_VERSION_2_0 || GL_ES_VERSION_3_2 || GL_EXT_ROBUSTNESS || GL_KHR_ROBUSTNESS || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_4_5 || GL_VERSION_ES_CM_1_0)
+    NoError = gl.Constants.GL_NO_ERROR, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_ROBUSTNESS || GL_SC_VERSION_2_0 || GL_VERSION_4_5)
+    GuiltyContextReset = gl.Constants.GL_GUILTY_CONTEXT_RESET, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_ROBUSTNESS || GL_SC_VERSION_2_0 || GL_VERSION_4_5)
+    InnocentContextReset = gl.Constants.GL_INNOCENT_CONTEXT_RESET, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_ROBUSTNESS || GL_SC_VERSION_2_0 || GL_VERSION_4_5)
+    UnknownContextReset = gl.Constants.GL_UNKNOWN_CONTEXT_RESET, 
+#endif
+
+}
+
+#endif

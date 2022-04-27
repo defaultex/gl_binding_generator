@@ -1,0 +1,38 @@
+#if (GL_ES_VERSION_2_0 || GL_EXT_DRAW_BUFFERS_INDEXED || GL_NV_BLEND_EQUATION_ADVANCED || GL_NV_REGISTER_COMBINERS || GL_OES_DRAW_BUFFERS_INDEXED || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0 || GL_VERSION_1_4)
+
+public enum StencilOp : GLenum { 
+#if (GL_ES_VERSION_2_0 || GL_EXT_DRAW_BUFFERS_INDEXED || GL_NV_BLEND_EQUATION_ADVANCED || GL_NV_REGISTER_COMBINERS || GL_OES_DRAW_BUFFERS_INDEXED || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    Zero = gl.Constants.GL_ZERO, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_NV_BLEND_EQUATION_ADVANCED || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    Invert = gl.Constants.GL_INVERT, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    Keep = gl.Constants.GL_KEEP, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    Replace = gl.Constants.GL_REPLACE, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    Incr = gl.Constants.GL_INCR, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    Decr = gl.Constants.GL_DECR, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_4)
+    IncrWrap = gl.Constants.GL_INCR_WRAP, 
+#endif
+
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_4)
+    DecrWrap = gl.Constants.GL_DECR_WRAP, 
+#endif
+
+}
+
+#endif

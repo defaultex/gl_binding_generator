@@ -1,0 +1,5 @@
+#if (GL_EXT_texture_mirror_clamp_to_edge && GLES2_API)
+public partial class gles2 { 
+    public partial class Functions {     }
+}
+#endif

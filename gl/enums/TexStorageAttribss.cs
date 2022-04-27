@@ -1,0 +1,10 @@
+#if (GL_EXT_EGL_IMAGE_STORAGE_COMPRESSION || GL_EXT_TEXTURE_STORAGE_COMPRESSION)
+
+public enum TexStorageAttribss : GLenum { 
+#if (GL_EXT_EGL_IMAGE_STORAGE_COMPRESSION || GL_EXT_TEXTURE_STORAGE_COMPRESSION)
+    SurfaceCompressionFixedRateNoneExt = gl.Constants.GL_SURFACE_COMPRESSION_FIXED_RATE_NONE_EXT, 
+#endif
+
+}
+
+#endif

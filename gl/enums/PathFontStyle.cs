@@ -1,0 +1,18 @@
+#if (GL_ES_VERSION_2_0 || GL_KHR_CONTEXT_FLUSH_CONTROL || GL_NV_REGISTER_COMBINERS || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_4_5 || GL_VERSION_4_6 || GL_NV_PATH_RENDERING)
+
+public enum PathFontStyle : GLenum { 
+#if (GL_ES_VERSION_2_0 || GL_KHR_CONTEXT_FLUSH_CONTROL || GL_NV_REGISTER_COMBINERS || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_4_5 || GL_VERSION_4_6)
+    None = gl.Constants.GL_NONE, 
+#endif
+
+#if GL_NV_PATH_RENDERING
+    BoldBitNv = gl.Constants.GL_BOLD_BIT_NV, 
+#endif
+
+#if GL_NV_PATH_RENDERING
+    ItalicBitNv = gl.Constants.GL_ITALIC_BIT_NV, 
+#endif
+
+}
+
+#endif

@@ -1,0 +1,50 @@
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0 || GL_ARB_FRAMEBUFFER_OBJECT || GL_VERSION_3_0 || GL_ARB_INTERNALFORMAT_QUERY2 || GL_NV_INTERNALFORMAT_SAMPLE_QUERY || GL_ARB_TRANSFORM_FEEDBACK2 || GL_ES_VERSION_3_0 || GL_EXT_DEBUG_LABEL || GL_VERSION_4_0 || GL_ES_VERSION_3_2 || GL_KHR_DEBUG || GL_VERSION_1_1 || GL_VERSION_4_3)
+
+public enum ObjectIdentifier : GLenum { 
+#if (GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_1_0 || GL_VERSION_ES_CM_1_0)
+    Texture = gl.Constants.GL_TEXTURE, 
+#endif
+
+#if (GL_ARB_FRAMEBUFFER_OBJECT || GL_ES_VERSION_2_0 || GL_SC_VERSION_2_0 || GL_VERSION_3_0)
+    Framebuffer = gl.Constants.GL_FRAMEBUFFER, 
+#endif
+
+#if (GL_ARB_FRAMEBUFFER_OBJECT || GL_ARB_INTERNALFORMAT_QUERY2 || GL_ES_VERSION_2_0 || GL_NV_INTERNALFORMAT_SAMPLE_QUERY || GL_SC_VERSION_2_0 || GL_VERSION_3_0)
+    Renderbuffer = gl.Constants.GL_RENDERBUFFER, 
+#endif
+
+#if (GL_ARB_TRANSFORM_FEEDBACK2 || GL_ES_VERSION_3_0 || GL_EXT_DEBUG_LABEL || GL_VERSION_4_0)
+    TransformFeedback = gl.Constants.GL_TRANSFORM_FEEDBACK, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_DEBUG || GL_VERSION_1_1 || GL_VERSION_4_3 || GL_VERSION_ES_CM_1_0)
+    VertexArray = gl.Constants.GL_VERTEX_ARRAY, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_DEBUG || GL_VERSION_4_3)
+    Buffer = gl.Constants.GL_BUFFER, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_DEBUG || GL_VERSION_4_3)
+    Shader = gl.Constants.GL_SHADER, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_DEBUG || GL_VERSION_4_3)
+    Program = gl.Constants.GL_PROGRAM, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_DEBUG || GL_VERSION_4_3)
+    Query = gl.Constants.GL_QUERY, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_KHR_DEBUG || GL_VERSION_4_3)
+    ProgramPipeline = gl.Constants.GL_PROGRAM_PIPELINE, 
+#endif
+
+#if (GL_ES_VERSION_3_2 || GL_EXT_DEBUG_LABEL || GL_KHR_DEBUG || GL_VERSION_4_3)
+    Sampler = gl.Constants.GL_SAMPLER, 
+#endif
+
+}
+
+#endif
