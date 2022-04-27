@@ -4,6 +4,7 @@ Generates C# bindings intended for use with C# 10.0 and .Net 6.
 * Features and Extensions are enabled by listing them in the defined constants.
 * APIs are specified with NAME_API: GL_API, GLCORE_API, GLES1_API, GLES2_API, and GLSC2_API.
 * Features are specified with their names: GL_VERSION_N_M, GL_ES_VERSION_N_M, and GL_VERSION_ES_CM_N_M. Where N is the major version and M the minor version.
+* Extensions are specified with their names, for example: GL_3DFX_multisample. 
 * Header guards are used extensive to ensure duplicate constants are not loaded.
 * OpenGL's type definitions are approximated using global usings for data types and unmanaged structures to preserve object identity. These objects can be found in the 'objects' folder of the binding.
 * Feature and extension constants are written into a file named 'gl.Constants.cs' in the appropriate feature or extension folder as constant values of the appropriate type.
