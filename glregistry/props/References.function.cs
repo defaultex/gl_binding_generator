@@ -1,4 +1,9 @@
+namespace glregistry;
+
 public static partial class References {
+
+    public const string CommandSyntaxCSharp = "public static unsafe delegate* unmanaged[Cdecl]<{3}{0}> {1};";
+    public const string CommandSyntaxC = "{0} {1}({2})";
 
     public const string FunctionsFilename = OutputFeatureFolder + "/gl.Functions.cs";
     public const string ExtFunctionsFilename = OutputExtensionFolder + "/gl.Functions.cs";

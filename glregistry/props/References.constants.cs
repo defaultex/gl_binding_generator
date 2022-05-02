@@ -1,3 +1,5 @@
+namespace glregistry;
+
 public static partial class References {
 
     public const string ConstantsFilename = OutputFeatureFolder + "/gl.Constants.cs";

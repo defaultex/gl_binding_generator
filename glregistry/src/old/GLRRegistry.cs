@@ -1,15 +1,25 @@
+namespace glregistry;
 
 public class GLRegistry {
     public string Comment;
     public List<string> Types;
-    public List<GLREnumGroup> EnumGroups;
+    public List<GLRGroup> EnumGroups;
     public List<GLRCommand> Commands;
     public List<GLRFeature> Features;
     public List<GLRExtension> Extensions;
 
+    /// <summary>
+    /// A list of object classes that exist in the registry.
+    /// </summary>
     public List<string> Classes;
-    public List<GLREnumValue> MasterValues;
-    public List<GLREnumGroup> MasterGroups;
+    /// <summary>
+    /// A list of all enumerants that exist in the registry.
+    /// </summary>
+    public List<GLREnumerant> Enumerants;
+    /// <summary>
+    /// A list of all enumerant groups that exist in the registry.
+    /// </summary>
+    public List<GLRGroup> Groups;
 
     public GLRegistry(string comment) {
         Comment = comment;
@@ -20,8 +30,8 @@ public class GLRegistry {
         Commands = new();
         Features = new();
         Extensions = new();
-        MasterGroups = new();
-        MasterValues = new();
+        Groups = new();
+        Enumerants = new();
     }
 
     public void Update() {
@@ -41,16 +51,16 @@ public class GLRegistry {
         Commands.Sort((x, y) => x.Name.CompareTo(y.Name));
         Features.Sort((x, y) => x.Name.CompareTo(y.Name));
         Extensions.Sort((x, y) => x.Name.CompareTo(y.Name));
-        MasterGroups.Sort((x, y) => x.Name.CompareTo(y.Name));
-        MasterValues.Sort((x, y) => x.Name.CompareTo(y.Name));
+        Groups.Sort((x, y) => x.Name.CompareTo(y.Name));
+        Enumerants.Sort((x, y) => x.Name.CompareTo(y.Name));
     }
 
     void UpdateMaster() {
-        MasterValues = new();
-        MasterGroups = new();
+        Enumerants = new();
+        Groups = new();
 
-        foreach (GLREnumGroup srcGroup in EnumGroups) {
-            GLREnumGroup outGroup = MasterGroups.Find((x) => x.Name == srcGroup.Name);
+        foreach (GLRGroup srcGroup in EnumGroups) {
+            GLRGroup outGroup = Groups.Find((x) => x.Name == srcGroup.Name);
             if (outGroup == null) {
                 outGroup = new() {
                     Name = srcGroup.Name,
@@ -59,55 +69,60 @@ public class GLRegistry {
                     // Start = srcGroup.Start,
                     // End = srcGroup.End
                 };
-                MasterGroups.Add(outGroup);
+                Groups.Add(outGroup);
             }
 
-            foreach (GLREnumValue srcValue in srcGroup.Values) {
+            foreach (GLREnumerant srcValue in srcGroup.Enums) {
                 // try to fetch the value from the master values list
-                GLREnumValue outValue = MasterValues.Find((v) => v.Name == srcValue.Name);
+                GLREnumerant outValue = Enumerants.Find((v) => v.Name == srcValue.Name);
                 if (outValue == null) {
                     // create a new value since it was not found
                     outValue = new() {
                         Name = srcValue.Name,
                         Value = srcValue.Value
                     };
-                    MasterValues.Add(outValue);
+                    Enumerants.Add(outValue);
                 }
 
                 // merge group definitions
-                outValue.Groups.AddRange(srcValue.Groups.FindAll((v) => !outValue.Groups.Exists(v.Equals)));
-                outValue.Groups.Remove("Boolean");
-                outValue.Groups.TrimExcess();
+                outValue.AddGroups((from groupName in srcValue.Groups
+                                   where !outValue.Groups.Contains(groupName)
+                                   select groupName).ToArray());
+                outValue.RemoveGroups("Boolean");
 
                 // add the enum value to the group if it isn't already present
-                if (!outGroup.Values.Exists(outValue.Equals)) {
-                    outGroup.Values.Add(outValue);
+                if (!outGroup.ContainsEnum(outValue)) {
+                    outGroup.AddEnums(outValue);
                 }
             }
         }
 
-        foreach (GLREnumValue srcValue in MasterValues) {
+        foreach (GLREnumerant srcValue in Enumerants) {
             foreach (string groupName in srcValue.Groups) {
                 if (string.IsNullOrEmpty(groupName)) {
                     continue;
                 }
 
                 // try to fetch the group from the master group list
-                GLREnumGroup outGroup = MasterGroups.Find((g) => g.Name == groupName);
+                GLRGroup outGroup = Groups.Find((g) => g.Name == groupName);
                 if (outGroup == null) {
                     // create a new group since it was not found
                     outGroup = new() {
                         Name = groupName,
                         Type = "GLenum"
                     };
-                    MasterGroups.Add(outGroup);
+                    Groups.Add(outGroup);
                 }
 
                 // try to fetch the value from stored references
-                GLREnumValue outValue = outGroup.Values.Find((v) => v.Name == srcValue.Name);
+                GLREnumerant outValue = (from enumerant in outGroup.Enums
+                                         where enumerant.Name == srcValue.Name
+                                         select enumerant).FirstOrDefault();
                 if (outValue == null) {
                     // try to fetch the value from the master value list
-                    outValue = MasterValues.Find((v) => v.Name == srcValue.Name);
+                    outValue = (from enumerant in Enumerants
+                                where enumerant.Name == srcValue.Name
+                                select enumerant).FirstOrDefault();
                     if (outValue == null) {
                         // create a new value since it was not found
                         outValue = new() {
@@ -116,20 +131,21 @@ public class GLRegistry {
                         };
 
                         // merge the groups list into the out value if possible
-                        outValue.Groups.AddRange(srcValue.Groups.FindAll((v) => !outValue.Groups.Exists(v.Equals)));
-                        outValue.Groups.TrimExcess();
+                        outValue.AddGroups((from srcGroupName in srcValue.Groups
+                                            where !outValue.ContainsGroup(srcGroupName)
+                                            select srcGroupName).ToArray());
                     }
 
                     // add the enum value to the group if it isn't already present
-                    if (!outGroup.Values.Exists(outValue.Equals)) {
-                        outGroup.Values.Add(outValue);
+                    if (!outGroup.ContainsEnum(outValue)) {
+                        outGroup.AddEnums(outValue);
                     }
                 }
             }
         }
 
-        MasterValues.TrimExcess();
-        MasterGroups.TrimExcess();
+        Enumerants.TrimExcess();
+        Groups.TrimExcess();
     }
 
     void UpdateClasses() {
@@ -163,7 +179,7 @@ public class GLRegistry {
         string comment = ParseString(nav.Select("./comment"));
         registry = new(comment);
         ParseTypes(registry, nav.Select("./types/type"));
-        GLREnumGroup.ParseEnumGroups(registry, nav.Select("./enums"));
+        GLRGroup.ParseEnumGroups(registry, nav.Select("./enums"));
         GLRCommand.ParseCommands(registry, nav.Select("./commands/command"));
         GLRFeature.ParseFeatures(registry, nav.Select("./feature"));
         GLRExtension.ParseExtensions(registry, nav.Select("./extensions/extension"));

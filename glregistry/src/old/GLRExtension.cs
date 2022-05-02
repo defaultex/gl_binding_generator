@@ -1,3 +1,5 @@
+namespace glregistry;
+
 public class GLRExtension : ICloneable {
     public string Name;
     public List<string> SupportedAPIs;
@@ -5,7 +7,7 @@ public class GLRExtension : ICloneable {
     public List<string> RequireEnums;
     public List<string> RequireCommands;
 
-    public List<GLREnumValue> Enums;
+    public List<GLREnumerant> Enums;
     public List<GLRCommand> Commands;
 
     public string Ext { get => Name.Substring(3, Name.IndexOf('_', 3) - 3); }
@@ -20,8 +22,8 @@ public class GLRExtension : ICloneable {
     internal void Update(GLRegistry registry) {
         Enums = new();
         Commands = new();
-        foreach (GLREnumGroup enumGroup in registry.EnumGroups) {
-            foreach (GLREnumValue enumValue in enumGroup.Values) {
+        foreach (GLRGroup enumGroup in registry.EnumGroups) {
+            foreach (GLREnumerant enumValue in enumGroup.Enums) {
                 if (RequireEnums.Exists(enumValue.Name.Equals) && !Enums.Exists((enumValue.Equals))) {
                     Enums.Add(enumValue);
                 }
