@@ -1,0 +1,58 @@
+#if (GL_EXT_vertex_attrib_64bit && GL_API)
+public partial class ext { 
+    public partial class Constants { 
+
+#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
+        public const GLenum GL_DOUBLE = 0x140A;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_MAT2_EXT = 0x8F46;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_MAT3_EXT = 0x8F47;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_MAT4_EXT = 0x8F48;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_MAT2x3_EXT = 0x8F49;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_MAT2x4_EXT = 0x8F4A;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_MAT3x2_EXT = 0x8F4B;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_MAT3x4_EXT = 0x8F4C;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_MAT4x2_EXT = 0x8F4D;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_MAT4x3_EXT = 0x8F4E;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_VEC2_EXT = 0x8FFC;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_VEC3_EXT = 0x8FFD;
+#endif
+
+#if (!GL_EXT_texture_shadow_lod)
+        public const GLenum GL_DOUBLE_VEC4_EXT = 0x8FFE;
+#endif
+    }
+}
+#endif
