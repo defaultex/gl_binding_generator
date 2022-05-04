@@ -1,5 +1,0 @@
-#if (GL_ANGLE_texture_compression_dxt3 && GLES2_API)
-public partial class gles2 { 
-    public partial class Functions {     }
-}
-#endif

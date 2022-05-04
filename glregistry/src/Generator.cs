@@ -3,15 +3,17 @@ namespace glregistry;
 public static class Generator {
     public static void WriteRegistry(GLregistry registry) {
         // regenerate the output directory then write all the files based on the above filters
-        if (Directory.Exists(References.OutputFolder)) {
-            Directory.Delete(References.OutputFolder, true);
+        if (Directory.Exists(Resources.OutputFolder)) {
+            Directory.Delete(Resources.OutputFolder, true);
         }
-        Directory.CreateDirectory(References.OutputFolder);
-        Directory.CreateDirectory(References.OutputEnumFolder);
+        Directory.CreateDirectory(Resources.OutputFolder);
+        Directory.CreateDirectory(Resources.OutputEnumFolder);
         WriteGitignore();
         WriteCSProj();
         WriteUsings(registry);
         // WriteClasses(registry);
+
+        
 
         SortedDictionary<string, List<GLenumerant>> usedEnumValuesMap = new();
         SortedDictionary<string, List<GLcommand>> usedCommandsMap = new();
@@ -47,8 +49,8 @@ public static class Generator {
 
         foreach (GLfeature feature in registry.Features) {
             string headerGuard = string.Format("({0} && {1}_API)", feature.Name, feature.API.ToUpper());
-            string featureFolder = string.Format(References.OutputFeatureFolder, feature.Name);
-            string featureEnumFolder = string.Format(References.OutputFeatureEnumFolder, feature.Name);
+            string featureFolder = string.Format(Resources.OutputFeatureFolder, feature.Name);
+            string featureEnumFolder = string.Format(Resources.OutputFeatureEnumFolder, feature.Name);
 
             if (!Directory.Exists(featureFolder)) {
                 Directory.CreateDirectory(featureFolder);
@@ -66,17 +68,17 @@ public static class Generator {
                 headerGuard += string.Format("{0}_API || ", api.ToUpper());
             }
             headerGuard = headerGuard.Substring(0, headerGuard.LastIndexOf(" || "));
-            if (extension.SupportedAPIs.Count > 1) {
+            if (extension.SupportedAPIs.Count() > 1) {
                 headerGuard = string.Format("({0} && ({1}))", extension.Name, headerGuard);
-            } else if (extension.SupportedAPIs.Count == 1) {
+            } else if (extension.SupportedAPIs.Count() == 1) {
                 headerGuard = string.Format("({0} && {1})", extension.Name, headerGuard);
             } else {
                 headerGuard = extension.Name;
             }
 
             string extAbbr = extension.Ext;
-            string extensionFolder = string.Format(References.OutputExtensionFolder, extAbbr + "/" + extension.Name);
-            string extensionEnumFolder = string.Format(References.OutputExtensionEnumFolder, extAbbr);
+            string extensionFolder = string.Format(Resources.OutputExtensionFolder, extAbbr + "/" + extension.Name);
+            string extensionEnumFolder = string.Format(Resources.OutputExtensionEnumFolder, extAbbr);
             if (!Directory.Exists(extensionFolder)) {
                 Directory.CreateDirectory(extensionFolder);
             }
@@ -99,7 +101,7 @@ public static class Generator {
                     };
                     allUsedGroups.Add(outGroup);
                 }
-                if (!outGroup.ContainsEnum(value)) {
+                if (!outGroup.Enumerants.Contains(value)) {
                     outGroup.AddEnums(value);
                 }
             }
@@ -107,9 +109,9 @@ public static class Generator {
 
         // clean up the used group list
         List<string> usedGroupsToRemove = new();
-        allUsedGroups.RemoveAll((x) => Array.Exists(References.RemoveGroups, x.Name.Equals));
-        foreach (string groupName in References.MergeGroups.Keys) {
-            string newGroupName = References.MergeGroups[groupName];
+        allUsedGroups.RemoveAll((x) => Array.Exists(Resources.RemoveGroups, x.Name.Equals));
+        foreach (string groupName in Resources.MergeGroups.Keys) {
+            string newGroupName = Resources.MergeGroups[groupName];
 
             // try to fetch an existing group for the merge source
             GLgroup group = allUsedGroups.Find((x) => x.Name == groupName);
@@ -124,7 +126,7 @@ public static class Generator {
             GLgroup newGroup = allUsedGroups.Find((x) => x.Name == newGroupName);
             if (newGroup == null) {
                 newGroup = new() {
-                    Name = References.MergeGroups[groupName],
+                    Name = Resources.MergeGroups[groupName],
                     Type = group.Type
                 };
                 allUsedGroups.Add(newGroup);
@@ -174,21 +176,21 @@ public static class Generator {
             }
 
             string outGroupName = group.Name;
-            string enumFilename = string.Format(References.EnumFilename, outGroupName);
+            string enumFilename = string.Format(Resources.EnumFilename, outGroupName);
 
             string outExt = Regex.Match(outGroupName, "[A-Z][A-Z]+").Value;
             if (outExt == "PN") {
                 outExt = Regex.Match(outGroupName, "[A-Z][A-Z][A-Z]+").Value;
             }
 
-            if (registry.Extensions.Exists((x) => x.Ext == outExt)) {
-                enumFilename = string.Format(References.ExtensionEnumFilename, outExt, outGroupName);
+            if (registry.Extensions.Any((x) => x.Ext == outExt)) {
+                enumFilename = string.Format(Resources.ExtensionEnumFilename, outExt, outGroupName);
             } else if (allAPIs.Count == 1) {
-                GLextension ext = registry.Extensions.Find((x) => x.Name == allAPIs[0]);
+                GLextension ext = registry.Extensions.Find(allAPIs[0]);//.Extensions.Find((x) => x.Name == allAPIs[0]);
                 if (ext != null) {
-                    enumFilename = string.Format(References.ExtensionEnumFilename, ext.Ext, outGroupName);
+                    enumFilename = string.Format(Resources.ExtensionEnumFilename, ext.Ext, outGroupName);
                 } else {
-                    enumFilename = string.Format(References.FeatureEnumFilename, allAPIs[0], outGroupName);
+                    enumFilename = string.Format(Resources.FeatureEnumFilename, allAPIs[0], outGroupName);
                 }
             }
 
@@ -203,7 +205,7 @@ public static class Generator {
                     writer.Write("[Flags]");
                 }
 
-                writer.Write(References.EnumHeader, outGroupName, type);
+                writer.Write(Resources.EnumHeader, outGroupName, type);
                 if (type.Equals("GLbitfield")) {
                     // need a none value for flags enum usability
                     writer.Write("\n    None = 0,");
@@ -269,9 +271,9 @@ public static class Generator {
                         }
                     }
 
-                    writer.Write(References.EnumCode, name, value.Name, ifdef);
+                    writer.Write(Resources.EnumCode, name, value.Name, ifdef);
                 }
-                writer.Write(References.EnumFooter);
+                writer.Write(Resources.EnumFooter);
                 if (!string.IsNullOrEmpty(headerGaurd)) {
                     writer.WriteLine("\n#endif");
                 }
@@ -312,10 +314,10 @@ public static class Generator {
         }
 
         // write constants for each of the enerantlues required by the feature
-        string constFilename = string.Format(References.ConstantsFilename, feature.Name);
+        string constFilename = string.Format(Resources.ConstantsFilename, feature.Name);
         using (FileStream stream = File.OpenWrite(constFilename))
         using (StreamWriter writer = new StreamWriter(stream)) {
-            writer.Write(References.ConstantsHeader, ifdef, feature.API);
+            writer.Write(Resources.ConstantsHeader, ifdef, feature.API);
             foreach (GLenumerant value in enumerants) {
                 List<string> apis = new();
                 foreach (string key in usedEnumValuesMap.Keys) {
@@ -349,13 +351,13 @@ public static class Generator {
                     writer.WriteLine("\n#if {0}", hguard);
                 }
 
-                writer.Write(References.ConstantsDefinition, value.Name, value.Value, type);
+                writer.Write(Resources.ConstantsDefinition, value.Name, value.Value, type);
 
                 if (!string.IsNullOrEmpty(hguard)) {
                     writer.WriteLine("\n#endif");
                 }
             }
-            writer.Write(References.ConstantsFooter);
+            writer.Write(Resources.ConstantsFooter);
         }
     }
 
@@ -376,11 +378,11 @@ public static class Generator {
         }
 
         // write functions for each of the commands required by the feature
-        string functionsFilename = string.Format(References.FunctionsFilename, feature.Name);
+        string functionsFilename = string.Format(Resources.FunctionsFilename, feature.Name);
         using (FileStream stream = File.OpenWrite(functionsFilename))
         using (StreamWriter writer = new StreamWriter(stream)) {
             // write the file text heading which contains the class definition
-            writer.Write(References.FeatureHeader, ifdef, feature.API);
+            writer.Write(Resources.FeatureHeader, ifdef, feature.API);
             foreach (GLcommand command in commands) {
                 List<string> listedInFeatures = new();
                 foreach (string key in usedCommandsMap.Keys) {
@@ -414,11 +416,11 @@ public static class Generator {
 
                     if (!string.IsNullOrEmpty(param.Class)) {
                         // found an object name, a few have spaces so trim those out
-                        string objName = string.Format(References.ObjectName, param.Class.Replace(" ", null));
+                        string objName = string.Format(Resources.ObjectName, param.Class.Replace(" ", null));
                         argType = argType.Replace(param.TypeRef.ToString(), objName);
                     } else if (!string.IsNullOrEmpty(param.Group)) {
                         // attempt to find the enum group the value belongs to
-                        GLgroup srcGroup = registry.Groups.Find((x) => x.Name == param.Group);
+                        GLgroup srcGroup = null;//registry.Groups.Find((x) => x.Name == param.Group);
                         if (srcGroup != null) {
                             // TODO : preserve pointer count
                             int pIndex = argType.IndexOf('*');
@@ -441,13 +443,13 @@ public static class Generator {
                     writer.WriteLine("\n#if {0}", hguard);
                 }
 
-                writer.Write(References.FeatureFunction, returnType, command.Name, argsRaw, args);
+                writer.Write(Resources.FeatureFunction, returnType, command.Name, argsRaw, args);
 
                 if (!string.IsNullOrEmpty(hguard)) {
                     writer.WriteLine("\n#endif");
                 }
             }
-            writer.Write(References.FeatureFooter);
+            writer.Write(Resources.FeatureFooter);
         }
     }
 
@@ -468,10 +470,10 @@ public static class Generator {
         }
 
         // write constants for each of the enerantlues required by the extension
-        string constFilename = string.Format(References.ExtConstantsFilename, extAbbr + "/" + extension.Name);
+        string constFilename = string.Format(Resources.ExtConstantsFilename, extAbbr + "/" + extension.Name);
         using (FileStream stream = File.OpenWrite(constFilename))
         using (StreamWriter writer = new StreamWriter(stream)) {
-            writer.Write(References.ExtConstantsHeader, ifdef, "glext_" + extAbbr.ToLower());//extension.SupportedAPIs[0]);
+            writer.Write(Resources.ExtConstantsHeader, ifdef, "glext_" + extAbbr.ToLower());//extension.SupportedAPIs[0]);
             foreach (GLenumerant value in enumerants) {
                 string type = "GLenum";
                 if (value.Name.EndsWith("_BIT") || value.Name.EndsWith("_BITS")) {
@@ -480,9 +482,9 @@ public static class Generator {
                     type = "GLuint64";
                 }
 
-                writer.Write(References.ExtConstantsDefinition, value.Name, value.Value, type);
+                writer.Write(Resources.ExtConstantsDefinition, value.Name, value.Value, type);
             }
-            writer.Write(References.ExtConstantsFooter);
+            writer.Write(Resources.ExtConstantsFooter);
         }
     }
 
@@ -547,29 +549,29 @@ public static class Generator {
     // }
 
     static void WriteGitignore() {
-        using (FileStream stream = File.OpenWrite(References.GitignoreFilename))
+        using (FileStream stream = File.OpenWrite(Resources.GitignoreFilename))
         using (StreamWriter writer = new StreamWriter(stream)) {
-            writer.Write(References.GitignoreCode);
+            writer.Write(Resources.GitignoreCode);
         }
     }
 
     static void WriteCSProj() {
-        using (FileStream stream = File.OpenWrite(References.CSProjFilename))
+        using (FileStream stream = File.OpenWrite(Resources.CSProjFilename))
         using (StreamWriter writer = new StreamWriter(stream)) {
-            writer.Write(References.CSProjCode);
+            writer.Write(Resources.CSProjCode);
         }
     }
 
     static void WriteUsings(GLregistry registry) {
-        using (FileStream stream = File.OpenWrite(References.IncludeFilename))
+        using (FileStream stream = File.OpenWrite(Resources.IncludeFilename))
         using (StreamWriter writer = new StreamWriter(stream)) {
-            int typeCount = References.TypeTable.GetLength(0);
+            int typeCount = Resources.TypeTable.GetLength(0);
             for (int i = 0; i < typeCount; i++) {
-                if (registry.Types.Exists(References.TypeTable[i, 0].Equals)) {
-                    if (References.TypeTable[i, 0] == "GLDEBUGPROC") {
-                        writer.Write(References.IncludeCode);
+                if (registry.Types.Contains(Resources.TypeTable[i, 0])) {
+                    if (Resources.TypeTable[i, 0] == "GLDEBUGPROC") {
+                        writer.Write(Resources.IncludeCode);
                     }
-                    writer.WriteLine(References.TypeTable[i, 1]);
+                    writer.WriteLine(Resources.TypeTable[i, 1]);
                 }
             }
         }

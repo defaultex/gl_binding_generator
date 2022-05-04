@@ -1,76 +1,72 @@
 namespace glregistry;
 
-public class GLreference<T> : ICloneable {
-    [XmlAttribute("name")]
-    public string Name;
-    [XmlIgnore]
-    public T Reference;
-
-    public object Clone() => new GLreference<T>() { Name = Name };
-}
-
+/// <summary>
+/// Represents dependency for types, enumerants and commands within a feature or extension.
+/// </summary>
 public class GLdepends : ICloneable {
     GLregistry m_registry;
 
+    /// <summary>
+    /// Comma-delimited list of APIs the dependency is supported by.
+    /// </summary>
     [XmlAttribute("profile")]
     public string Profile;
 
+    /// <summary>
+    /// Name of the API the dependency belongs to.
+    /// </summary>
     [XmlAttribute("api")]
     public string API;
 
+    /// <summary>
+    /// Types that are referenced as a dependency.
+    /// </summary>
     [XmlElement("type")]
     public List<GLreference<GLtype>> Types = new();
 
+    /// <summary>
+    /// Enumerants that are referenced as dependency.
+    /// </summary>
     [XmlElement("enum")]
     public List<GLreference<GLenumerant>> Enumerants = new();
 
+    /// <summary>
+    /// Commands that are referenced as a dependency.
+    /// </summary>
     [XmlElement("command")]
     public List<GLreference<GLcommand>> Commands = new();
 
+    /// <summary>
+    /// Registry the dependency fetches it's references from.
+    /// </summary>
     [XmlIgnore]
     public GLregistry Registry { get => m_registry; }
 
+    /// <summary>
+    /// Update the dependencies' references to the specified registry or clear references.
+    /// </summary>
+    /// <param name="registry">A registry to fetch references from or null to clear references.</param>
     public void UpdateReferences(GLregistry registry) {
         m_registry = registry;
-        if (registry != null) {
-            foreach (GLreference<GLtype> typeRef in Types) {
-                typeRef.Reference = registry.Types.Find((x) => x.Name == typeRef.Name);
-            }
-            foreach (GLreference<GLenumerant> enumRef in Enumerants) {
-                enumRef.Reference = registry.Enumerants.Find((x) => x.Name == enumRef.Name);
-            }
-            foreach (GLreference<GLcommand> commandRef in Commands) {
-                commandRef.Reference = registry.Commands.Find((x) => x.Name == commandRef.Name);
-            }
-        } else {
-            foreach (GLreference<GLtype> typeRef in Types) {
-                typeRef.Reference = null;
-            }
-            foreach (GLreference<GLenumerant> enumRef in Enumerants) {
-                enumRef.Reference = null;
-            }
-            foreach (GLreference<GLcommand> commandRef in Commands) {
-                commandRef.Reference = null;
-            }
-        }
+        Types.UpdateReferences(registry);
+        Enumerants.UpdateReferences(registry);
+        Commands.UpdateReferences(registry);
     }
 
-    public object Clone() => Clone(null);
+    object ICloneable.Clone() => Clone(null);
 
-    public GLdepends Clone(GLregistry registry) {
+    /// <summary>
+    /// Clone the dependency with existing references or references into the specified registry.
+    /// </summary>
+    /// <param name="registry">A registry to fetch references from or null to keep existing references.</param>
+    public GLdepends Clone(GLregistry registry = null) {
         GLdepends result = new() {
             Profile = Profile,
-            API = API
+            API = API,
+            Types = Types.Clone(),
+            Enumerants = Enumerants.Clone(),
+            Commands = Commands.Clone()
         };
-        foreach (GLreference<GLtype> typeRef in Types) {
-            result.Types.Add(typeRef.Clone() as GLreference<GLtype>);
-        }
-        foreach (GLreference<GLenumerant> enumRef in Enumerants) {
-            result.Enumerants.Add(enumRef.Clone() as GLreference<GLenumerant>);
-        }
-        foreach (GLreference<GLcommand> commandRef in Commands) {
-            result.Commands.Add(commandRef.Clone() as GLreference<GLcommand>);
-        }
         result.UpdateReferences(registry ?? m_registry);
         return result;
     }
