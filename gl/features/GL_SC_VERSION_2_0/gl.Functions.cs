@@ -5,16 +5,16 @@ public partial class glsc2 {
         public static unsafe delegate* unmanaged[Cdecl]<TextureUnit, void> glActiveTexture;
 
         /// <summary>void glBindBuffer(GLenum target, GLuint buffer);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<BufferTargetARB, buffer, void> glBindBuffer;
+        public static unsafe delegate* unmanaged[Cdecl]<BufferTargetARB, GLbuffer, void> glBindBuffer;
 
         /// <summary>void glBindFramebuffer(GLenum target, GLuint framebuffer);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, framebuffer, void> glBindFramebuffer;
+        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, GLframebuffer, void> glBindFramebuffer;
 
         /// <summary>void glBindRenderbuffer(GLenum target, GLuint renderbuffer);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<RenderbufferTarget, renderbuffer, void> glBindRenderbuffer;
+        public static unsafe delegate* unmanaged[Cdecl]<RenderbufferTarget, GLrenderbuffer, void> glBindRenderbuffer;
 
         /// <summary>void glBindTexture(GLenum target, GLuint texture);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<TextureTarget, texture, void> glBindTexture;
+        public static unsafe delegate* unmanaged[Cdecl]<TextureTarget, GLtexture, void> glBindTexture;
 
         /// <summary>void glBlendColor(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<GLfloat, GLfloat, GLfloat, GLfloat, void> glBlendColor;
@@ -59,7 +59,7 @@ public partial class glsc2 {
         public static unsafe delegate* unmanaged[Cdecl]<TextureTarget, GLint, GLint, GLint, GLsizei, GLsizei, InternalFormat, GLsizei, void*, void> glCompressedTexSubImage2D;
 
         /// <summary>GLuint glCreateProgram();</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program> glCreateProgram;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram> glCreateProgram;
 
         /// <summary>void glCullFace(GLenum mode);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<CullFaceMode, void> glCullFace;
@@ -98,31 +98,31 @@ public partial class glsc2 {
         public static unsafe delegate* unmanaged[Cdecl]<void> glFlush;
 
         /// <summary>void glFramebufferRenderbuffer(GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, RenderbufferTarget, renderbuffer, void> glFramebufferRenderbuffer;
+        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, RenderbufferTarget, GLrenderbuffer, void> glFramebufferRenderbuffer;
 
         /// <summary>void glFramebufferTexture2D(GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, TextureTarget, texture, GLint, void> glFramebufferTexture2D;
+        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, TextureTarget, GLtexture, GLint, void> glFramebufferTexture2D;
 
         /// <summary>void glFrontFace(GLenum mode);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<FrontFaceDirection, void> glFrontFace;
 
         /// <summary>void glGenBuffers(GLsizei n, GLuint* buffers);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, buffer*, void> glGenBuffers;
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLbuffer*, void> glGenBuffers;
 
         /// <summary>void glGenerateMipmap(GLenum target);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<TextureTarget, void> glGenerateMipmap;
 
         /// <summary>void glGenFramebuffers(GLsizei n, GLuint* framebuffers);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, framebuffer*, void> glGenFramebuffers;
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLframebuffer*, void> glGenFramebuffers;
 
         /// <summary>void glGenRenderbuffers(GLsizei n, GLuint* renderbuffers);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, renderbuffer*, void> glGenRenderbuffers;
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLrenderbuffer*, void> glGenRenderbuffers;
 
         /// <summary>void glGenTextures(GLsizei n, GLuint* textures);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, texture*, void> glGenTextures;
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLtexture*, void> glGenTextures;
 
         /// <summary>GLint glGetAttribLocation(GLuint program, GLchar* name);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, GLchar*, GLint> glGetAttribLocation;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLchar*, GLint> glGetAttribLocation;
 
         /// <summary>void glGetBooleanv(GLenum pname, GLboolean* data);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<GetPName, GLboolean*, void> glGetBooleanv;
@@ -146,13 +146,13 @@ public partial class glsc2 {
         public static unsafe delegate* unmanaged[Cdecl]<GetPName, GLint*, void> glGetIntegerv;
 
         /// <summary>void glGetnUniformfv(GLuint program, GLint location, GLsizei bufSize, GLfloat* params);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, GLint, GLsizei, GLfloat*, void> glGetnUniformfv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLint, GLsizei, GLfloat*, void> glGetnUniformfv;
 
         /// <summary>void glGetnUniformiv(GLuint program, GLint location, GLsizei bufSize, GLint* params);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, GLint, GLsizei, GLint*, void> glGetnUniformiv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLint, GLsizei, GLint*, void> glGetnUniformiv;
 
         /// <summary>void glGetProgramiv(GLuint program, GLenum pname, GLint* params);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, ProgramPropertyARB, GLint*, void> glGetProgramiv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, ProgramPropertyARB, GLint*, void> glGetProgramiv;
 
         /// <summary>void glGetRenderbufferParameteriv(GLenum target, GLenum pname, GLint* params);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<RenderbufferTarget, RenderbufferParameterName, GLint*, void> glGetRenderbufferParameteriv;
@@ -167,7 +167,7 @@ public partial class glsc2 {
         public static unsafe delegate* unmanaged[Cdecl]<TextureTarget, GetTextureParameter, GLint*, void> glGetTexParameteriv;
 
         /// <summary>GLint glGetUniformLocation(GLuint program, GLchar* name);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, GLchar*, GLint> glGetUniformLocation;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLchar*, GLint> glGetUniformLocation;
 
         /// <summary>void glGetVertexAttribfv(GLuint index, GLenum pname, GLfloat* params);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, VertexAttribPropertyARB, GLfloat*, void> glGetVertexAttribfv;
@@ -194,7 +194,7 @@ public partial class glsc2 {
         public static unsafe delegate* unmanaged[Cdecl]<GLfloat, GLfloat, void> glPolygonOffset;
 
         /// <summary>void glProgramBinary(GLuint program, GLenum binaryFormat, void* binary, GLsizei length);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, GLenum, void*, GLsizei, void> glProgramBinary;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLenum, void*, GLsizei, void> glProgramBinary;
 
         /// <summary>void glReadnPixels(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void* data);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<GLint, GLint, GLsizei, GLsizei, PixelFormat, PixelType, GLsizei, void*, void> glReadnPixels;
@@ -302,7 +302,7 @@ public partial class glsc2 {
         public static unsafe delegate* unmanaged[Cdecl]<GLint, GLsizei, GLboolean, GLfloat*, void> glUniformMatrix4fv;
 
         /// <summary>void glUseProgram(GLuint program);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, void> glUseProgram;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, void> glUseProgram;
 
         /// <summary>void glVertexAttrib1f(GLuint index, GLfloat x);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLfloat, void> glVertexAttrib1f;

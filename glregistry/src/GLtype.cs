@@ -3,26 +3,27 @@ namespace glregistry;
 /// <summary>
 /// Represents an OpenGL data type.
 /// </summary>
-public class GLtype : ICloneable {
+public class GLtype : INamedObject, IReferenceHolder, ICloneable {
     GLregistry m_registry;
+    string m_name;
 
     /// <summary>
     /// Name of the type. (Here to support reading from an xml attribute).
     /// </summary>
     [XmlAttribute("name")]
-    public string NameAsAttribute { get => Name; set { Name = value; } }
+    public string NameAsAttribute { get => m_name; set { m_name = value; } }
 
     /// <summary>
     /// Name of the type. (Here to support reading from an xml element).
     /// </summary>
     [XmlElement("name")]
-    public string NameAsElement { get => Name; set { Name = value; } }
+    public string NameAsElement { get => m_name; set { m_name = value; } }
 
     /// <summary>
     /// Name of the type.
     /// </summary>
     [XmlIgnore]
-    public string Name;
+    public string Name { get => m_name; set { m_name = value; } }
 
     /// <summary>
     /// Data type required for this type to be supported.

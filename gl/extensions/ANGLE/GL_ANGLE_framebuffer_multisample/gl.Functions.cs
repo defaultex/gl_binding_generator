@@ -1,10 +1,8 @@
-#if (GL_ANGLE_framebuffer_multisample && GLES2_API)
+#if (GL_ANGLE_framebuffer_multisample && !gles2)
 public partial class gles2 { 
     public partial class Functions { 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glRenderbufferStorageMultisampleANGLE(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<RenderbufferTarget, GLsizei, InternalFormat, GLsizei, GLsizei, void> glRenderbufferStorageMultisampleANGLE;
-#endif
     }
 }
 #endif

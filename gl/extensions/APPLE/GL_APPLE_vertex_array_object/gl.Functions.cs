@@ -1,25 +1,17 @@
-#if (GL_APPLE_vertex_array_object && GL_API)
+#if (GL_APPLE_vertex_array_object && !gl)
 public partial class gl { 
     public partial class Functions { 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glBindVertexArrayAPPLE(GLuint array);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<vertexarray, void> glBindVertexArrayAPPLE;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLvertexarray, void> glBindVertexArrayAPPLE;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glDeleteVertexArraysAPPLE(GLsizei n, GLuint* arrays);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, vertexarray*, void> glDeleteVertexArraysAPPLE;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLvertexarray*, void> glDeleteVertexArraysAPPLE;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glGenVertexArraysAPPLE(GLsizei n, GLuint* arrays);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, vertexarray*, void> glGenVertexArraysAPPLE;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLvertexarray*, void> glGenVertexArraysAPPLE;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>GLboolean glIsVertexArrayAPPLE(GLuint array);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<vertexarray, GLboolean> glIsVertexArrayAPPLE;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLvertexarray, GLboolean> glIsVertexArrayAPPLE;
     }
 }
 #endif

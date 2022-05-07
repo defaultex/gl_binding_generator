@@ -4,9 +4,6 @@ public static partial class Resources {
 
     public const string ObjectName = "GL{0}";
 
-    public const string ObjectFolder = OutputFolder + "/objects";
-    public const string ObjectFilename = ObjectFolder + "/GL{0}.cs";
-
     public const string ObjectFormat = @"[StructLayout(LayoutKind.Sequential)]
 public struct " + ObjectName + @" : IEquatable<" + ObjectName + @">, IEquatable<GLuint> {{
     public static readonly " + ObjectName + @" Null = default;

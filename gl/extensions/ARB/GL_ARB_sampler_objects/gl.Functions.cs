@@ -1,75 +1,47 @@
-#if (GL_ARB_sampler_objects && (GL_API || GLCORE_API))
+#if (GL_ARB_sampler_objects && (!gl || !glcore))
 public partial class gl { 
     public partial class Functions { 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glBindSampler(GLuint unit, GLuint sampler);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLuint, sampler, void> glBindSampler;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLsampler, void> glBindSampler;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glDeleteSamplers(GLsizei count, GLuint* samplers);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, sampler*, void> glDeleteSamplers;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLsampler*, void> glDeleteSamplers;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glGenSamplers(GLsizei count, GLuint* samplers);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, sampler*, void> glGenSamplers;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLsampler*, void> glGenSamplers;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glGetSamplerParameterfv(GLuint sampler, GLenum pname, GLfloat* params);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, SamplerParameterF, GLfloat*, void> glGetSamplerParameterfv;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, SamplerParameterF, GLfloat*, void> glGetSamplerParameterfv;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glGetSamplerParameterIiv(GLuint sampler, GLenum pname, GLint* params);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, SamplerParameterI, GLint*, void> glGetSamplerParameterIiv;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, SamplerParameterI, GLint*, void> glGetSamplerParameterIiv;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glGetSamplerParameterIuiv(GLuint sampler, GLenum pname, GLuint* params);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, SamplerParameterI, GLuint*, void> glGetSamplerParameterIuiv;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, SamplerParameterI, GLuint*, void> glGetSamplerParameterIuiv;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glGetSamplerParameteriv(GLuint sampler, GLenum pname, GLint* params);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, SamplerParameterI, GLint*, void> glGetSamplerParameteriv;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, SamplerParameterI, GLint*, void> glGetSamplerParameteriv;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>GLboolean glIsSampler(GLuint sampler);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, GLboolean> glIsSampler;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, GLboolean> glIsSampler;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glSamplerParameterf(GLuint sampler, GLenum pname, GLfloat param);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, SamplerParameterF, GLfloat, void> glSamplerParameterf;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, SamplerParameterF, GLfloat, void> glSamplerParameterf;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glSamplerParameterfv(GLuint sampler, GLenum pname, GLfloat* param);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, SamplerParameterF, GLfloat*, void> glSamplerParameterfv;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, SamplerParameterF, GLfloat*, void> glSamplerParameterfv;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glSamplerParameteri(GLuint sampler, GLenum pname, GLint param);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, SamplerParameterI, GLint, void> glSamplerParameteri;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, SamplerParameterI, GLint, void> glSamplerParameteri;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glSamplerParameterIiv(GLuint sampler, GLenum pname, GLint* param);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, SamplerParameterI, GLint*, void> glSamplerParameterIiv;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, SamplerParameterI, GLint*, void> glSamplerParameterIiv;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glSamplerParameterIuiv(GLuint sampler, GLenum pname, GLuint* param);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, SamplerParameterI, GLuint*, void> glSamplerParameterIuiv;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, SamplerParameterI, GLuint*, void> glSamplerParameterIuiv;
 
-#if (!GL_EXT_texture_shadow_lod && !GL_SC_VERSION_2_0)
         /// <summary>void glSamplerParameteriv(GLuint sampler, GLenum pname, GLint* param);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<sampler, SamplerParameterI, GLint*, void> glSamplerParameteriv;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsampler, SamplerParameterI, GLint*, void> glSamplerParameteriv;
     }
 }
 #endif

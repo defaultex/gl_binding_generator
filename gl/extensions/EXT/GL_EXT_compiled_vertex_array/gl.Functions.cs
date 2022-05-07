@@ -1,15 +1,11 @@
-#if (GL_EXT_compiled_vertex_array && GL_API)
+#if (GL_EXT_compiled_vertex_array && !gl)
 public partial class gl { 
     public partial class Functions { 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glLockArraysEXT(GLint first, GLsizei count);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<GLint, GLsizei, void> glLockArraysEXT;
-#endif
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glUnlockArraysEXT();</summary>
         public static unsafe delegate* unmanaged[Cdecl]<void> glUnlockArraysEXT;
-#endif
     }
 }
 #endif

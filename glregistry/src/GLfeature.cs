@@ -3,7 +3,7 @@ namespace glregistry;
 /// <summary>
 /// Represents an feature and all of it's dependencies.
 /// </summary>
-public class GLfeature : ICloneable {
+public class GLfeature : INamedObject, IReferenceHolder, ICloneable {
     GLregistry m_registry;
 
     /// <summary>
@@ -16,7 +16,7 @@ public class GLfeature : ICloneable {
     /// Name of the feature.
     /// </summary>
     [XmlAttribute("name")]
-    public string Name;
+    public string Name { get; init; }
 
     /// <summary>
     /// Version number of the feature.

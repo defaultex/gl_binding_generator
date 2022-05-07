@@ -1,10 +1,7 @@
-#if (GL_EXT_primitive_bounding_box && GLES2_API)
-public partial class ext { 
+#if (GL_EXT_primitive_bounding_box && !gles2)
+public partial class gles2 { 
     public partial class Constants { 
-
-#if (!GL_EXT_texture_shadow_lod)
         public const GLenum GL_PRIMITIVE_BOUNDING_BOX_EXT = 0x92BE;
-#endif
     }
 }
 #endif

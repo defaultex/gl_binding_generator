@@ -1,15 +1,11 @@
-#if (GL_OES_texture_buffer && GLES2_API)
+#if (GL_OES_texture_buffer && !gles2)
 public partial class gles2 { 
     public partial class Functions { 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glTexBufferOES(GLenum target, GLenum internalformat, GLuint buffer);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<TextureTarget, SizedInternalFormat, buffer, void> glTexBufferOES;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<TextureTarget, SizedInternalFormat, GLbuffer, void> glTexBufferOES;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glTexBufferRangeOES(GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<TextureTarget, SizedInternalFormat, buffer, GLintptr, GLsizeiptr, void> glTexBufferRangeOES;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<TextureTarget, SizedInternalFormat, GLbuffer, GLintptr, GLsizeiptr, void> glTexBufferRangeOES;
     }
 }
 #endif

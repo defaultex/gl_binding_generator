@@ -20,8 +20,24 @@ global using GLintptr = System.IntPtr;
 global using GLsizeiptr = System.UIntPtr;
 global using GLint64 = System.Int64;
 global using GLuint64 = System.UInt64;
+global using GLintptr = System.IntPtr;
+global using GLintptr = System.IntPtr;
+global using GLchar = System.Byte;
+global using GLfixed = System.UInt32;
+global using GLhalf = System.UInt16;
+global using GLintptr = System.IntPtr;
+global using GLint64 = System.Int64;
+global using GLint64 = System.UInt64;
 
 global using System;
 global using System.Runtime.InteropServices;
 
-unsafe public delegate void GLDEBUGPROC(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);
+public unsafe delegate void GLDEBUGPROC(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);
+
+public unsafe delegate void GLDEBUGPROCARB(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);
+
+public unsafe delegate void GLDEBUGPROCKHR(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);
+
+public unsafe delegate void GLDEBUGPROCAMD(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);
+
+public delegate void GLVULKANPROCNV();

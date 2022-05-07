@@ -3,10 +3,16 @@ namespace glregistry;
 /// <summary>
 /// Represents an extension and all of it's dependencies.
 /// </summary>
-public class GLextension : ICloneable {
+public class GLextension : INamedObject, IReferenceHolder, ICloneable {
     GLregistry m_registry;
     string m_ext;
     List<string> m_supported = new();
+
+    /// <summary>
+    /// API required to support the extension.
+    /// </summary>
+    [XmlAttribute("api")]
+    public string API;
 
     /// <summary>
     /// A pipe separated list of APIs by the extension.
@@ -30,7 +36,7 @@ public class GLextension : ICloneable {
     /// Name of the extension.
     /// </summary>
     [XmlAttribute("name")]
-    public string Name;
+    public string Name{ get; init; }
 
     /// <summary>
     /// A list of dependencies that are required by the extension.
@@ -54,7 +60,7 @@ public class GLextension : ICloneable {
     /// A list of APIs supported by the extension.
     /// </summary>
     [XmlIgnore]
-    public IReadOnlyList<string> SupportedAPIs { get => m_supported; }
+    public List<string> SupportedAPIs { get => m_supported; }
 
     /// <summary>
     /// Abbreviation for the extension.
@@ -85,6 +91,7 @@ public class GLextension : ICloneable {
     /// <param name="registry">A registry to clone the enumerant into or null for keep references.</param>
     public GLextension Clone(GLregistry registry = null) {
         GLextension result = new() {
+            API = API,
             Supported = Supported,
             Name = Name,
             Require = Require.Clone(),

@@ -9,6 +9,7 @@ global using System.Runtime.InteropServices;
 ";
 
     public static readonly string[,] TypeTable = new string[,] {
+        // gl data types
         { "GLenum", "global using GLenum = System.UInt32;" },
         { "GLboolean", "global using GLboolean = System.Byte;" },
         { "GLbitfield", "global using GLbitfield = System.UInt32;" },
@@ -32,11 +33,30 @@ global using System.Runtime.InteropServices;
         { "GLint64", "global using GLint64 = System.Int64;" },
         { "GLuint64", "global using GLuint64 = System.UInt64;" },
 
-        // TODO : write definitions for each of the other callback delegates
+        // extension data types
+        { "GLeglClientBufferEXT", "global using GLintptr = System.IntPtr;"},
+        { "GLeglImageOES", "global using GLintptr = System.IntPtr;"},
+        { "GLcharARB", "global using GLchar = System.Byte;" },
+        { "GLhandleARB", "global using GLfixed = System.UInt32;" },
+        { "GLhalfARB", "global using GLhalf = System.UInt16;" },
+        { "GLintptrARB", "global using GLintptr = System.IntPtr;" },
+        { "GLsizeiptrEXT", "global using GLsizeiptr = System.UIntPtr;" },
+        { "GLint64EXT", "global using GLint64 = System.Int64;" },
+        { "GLuint64EXT", "global using GLint64 = System.UInt64;" },
+
+        // TODO : figure out definitions for the two OpenCL types
         
         // delegates must appear after everything else and need extra line spacing
         { "GLDEBUGPROC", @"
-unsafe public delegate void GLDEBUGPROC(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);" }
+public unsafe delegate void GLDEBUGPROC(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);" },
+        { "GLDEBUGPROCARB", @"
+public unsafe delegate void GLDEBUGPROCARB(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);" },
+        { "GLDEBUGPROCKHR", @"
+public unsafe delegate void GLDEBUGPROCKHR(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);" },
+        { "GLDEBUGPROCAMD", @"
+public unsafe delegate void GLDEBUGPROCAMD(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);" },
+        { "GLVULKANPROCNV", @"
+public delegate void GLVULKANPROCNV();" }
     };
 
 }

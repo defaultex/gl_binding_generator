@@ -3,11 +3,11 @@ namespace glregistry;
 /// <summary>
 /// Represents a constant within the OpenGL specification.
 /// </summary>
-public class GLenumerant : ICloneable {
+public class GLenumerant : INamedObject, IReferenceHolder, ICodeProvider, ICloneable {
     GLregistry m_registry;
-    GLenumerant m_aliased;
     IEnumerable<GLgroup> m_groupsList;
     List<string> m_groupNames = new();
+    string m_cDecl, m_csName, m_csDecl, m_headerGuard, m_firstOccurence;
 
     /// <summary>
     /// Value of the enumerant, a C-style constant.
@@ -19,7 +19,7 @@ public class GLenumerant : ICloneable {
     /// Name of the enumerant.
     /// </summary>
     [XmlAttribute("name")]
-    public string Name;
+    public string Name{ get; init; }
 
     /// <summary>
     /// An API name that specializes the enumerant so that different APIs may have
@@ -53,22 +53,10 @@ public class GLenumerant : ICloneable {
     }
 
     /// <summary>
-    /// Name of another enumerant this enumerant is an alias for.
-    /// </summary>
-    [XmlAttribute("alias")]
-    public string Alias;
-
-    /// <summary>
     /// Registry the enumerant fetches it's references from.
     /// </summary>
     [XmlIgnore]
     public GLregistry Registry { get => m_registry; }
-
-    /// <summary>
-    /// Enumerant that this enumerant is an alias for.
-    /// </summary>
-    [XmlIgnore]
-    public GLenumerant Aliased { get => m_aliased; }
 
     /// <summary>
     /// Groups referenced by the enumerant.
@@ -81,6 +69,36 @@ public class GLenumerant : ICloneable {
     /// </summary>
     [XmlIgnore]
     public IEnumerable<string> Groups { get => m_groupNames; }
+
+    /// <summary>
+    /// Name converted into camel hump notation.
+    /// </summary>
+    [XmlIgnore]
+    public string CSName { get => m_csName; }
+
+    /// <summary>
+    /// Enumerant represented as a C constant.
+    /// </summary>
+    [XmlIgnore]
+    public string CDecl { get => m_cDecl; }
+
+    /// <summary>
+    /// Enumerant represented as a C# constant.
+    /// </summary>
+    [XmlIgnore]
+    public string CSDecl { get => m_csDecl; }
+
+    /// <summary>
+    /// Parameters configured to produce a header guard.
+    /// </summary>
+    [XmlIgnore]
+    public string HeaderGuard { get => m_headerGuard; }
+
+    /// <summary>
+    /// First feature or extension the enumerant appears in.
+    /// </summary>
+    [XmlIgnore]
+    public string FirstOccurence { get => m_firstOccurence; }
 
     /// <summary>
     /// Check if a group exists within the enumerant's groups.
@@ -96,12 +114,10 @@ public class GLenumerant : ICloneable {
     /// <returns>Amount of groups that were added.</returns>
     public int AddGroups(params string[] groups) {
         int addCount = 0;
-        if (groups != null) {
-            for (int i = 0; i < groups.Length; i++) {
-                if (!ContainsGroup(groups[i])) {
-                    m_groupNames.Remove(groups[i]);
-                    addCount++;
-                }
+        for (int i = 0; i < groups.Length; i++) {
+            if (!ContainsGroup(groups[i])) {
+                m_groupNames.Remove(groups[i]);
+                addCount++;
             }
         }
         return addCount;
@@ -114,11 +130,9 @@ public class GLenumerant : ICloneable {
     /// <returns>Amount of groups that were removed.</returns>
     public int RemoveGroups(params string[] groups) {
         int remCount = 0;
-        if (groups != null) {
-            for (int i = 0; i < groups.Length; i++) {
-                if (m_groupNames.Remove(groups[i])) {
-                    remCount++;
-                }
+        for (int i = 0; i < groups.Length; i++) {
+            if (m_groupNames.Remove(groups[i])) {
+                remCount++;
             }
         }
         return remCount;
@@ -130,20 +144,99 @@ public class GLenumerant : ICloneable {
     /// <param name="registry">A registry to fetch references from or null to clear references.</param>
     public void UpdateReferences(GLregistry registry) {
         m_registry = registry;
+        m_groupsList = null;
         if (registry != null) {
-            // find the first match for the alias name
-            m_aliased = registry.Enumerants.Find(Alias);
+            // find the groups that match the group names
+            m_groupsList = registry.Groups.FindAllEx(x => ContainsGroup(x.Name));
+        }
+    }
 
-            // unroll any further aliasing
-            while (m_aliased != null && m_aliased.Aliased != null) {
-                m_aliased = m_aliased.Aliased;
+    public void UpdateCode() {
+        m_cDecl = string.Format("#define {0} {1}", Name, Value);
+        m_csName = string.Empty;
+
+        // process the spec's naming to produce a reasonable C# equivalent
+        string[] nameWords = Name.Split('_');
+        for (int i = 1; i < nameWords.Length; i++) {
+            if (i == nameWords.Length - 1 && Resources.SkipWords.Contains(nameWords[i])) {
+                // skip over words like BIT and BITS
+                continue;
             }
 
-            // find the groups that match the group names
-            m_groupsList = registry.Groups.FindAllEx((x) => ContainsGroup(x.Name));
+            if (Resources.DimensionSpec.Contains(nameWords[i])) {
+                // don't adjust dimension spec, just reads badly
+                m_csName += nameWords[i];
+            } else {
+                // caps to camel hump conversion
+                m_csName += string.Format("{0}{1}", nameWords[i][0], nameWords[i].Substring(1).ToLower());
+            }
+        }
+
+        if (!string.IsNullOrEmpty(m_csName)) {
+            // the value name starts with a number, just prefix it with an underscore
+            if (Resources.Base10Digits.Contains(m_csName[0])) {
+                m_csName = "_" + m_csName;
+            }
         } else {
-            m_groupsList = null;
-            m_aliased = null;
+            // couldn't process the name so just use it as is
+            m_csName = Name;
+        }
+
+        string type = "GLenum";
+        if (Name.EndsWith("_BIT") || Name.EndsWith("_BITS")) {
+            type = "GLbitfield";
+        } else if (Name == "GL_TIMEOUT_IGNORED") {
+            type = "GLuint64";
+        }
+        m_csDecl = string.Format(Resources.ConstantsDefinition, Name, Value, type);
+
+        m_firstOccurence = null;
+        m_headerGuard = string.Empty;
+        if (m_registry == null) {
+            return;
+        }
+
+        List<string> apis = new();
+
+        // find all of the features the enumerant appears in
+        int fcount = m_registry.Features.Count;
+        for (int i = 0; i < fcount; i++) {
+            GLfeature feature = m_registry.Features[i];
+
+            int rcount = feature.Require.Count;
+            for (int j = 0; j < rcount; j++) {
+                GLdepends req = feature.Require[j];
+
+                if (req.Enumerants.Contains(Name) && !apis.Contains(feature.Name)) {
+                    // if (string.IsNullOrEmpty(m_firstOccurence)) {
+                    m_firstOccurence = m_firstOccurence ?? feature.Name;
+                    // } else {
+                    apis.Add(feature.Name);
+                    // }
+                }
+            }
+        }
+
+        // find all of the extensions the enumerant appears in
+        int ecount = m_registry.Extensions.Count;
+        for (int i = 0; i < ecount; i++) {
+            GLextension extension = m_registry.Extensions[i];
+            int rcount = extension.Require.Count;
+            for (int j = 0; j < rcount; j++) {
+                GLdepends req = extension.Require[j];
+                if (req.Enumerants.Contains(Name) && !apis.Contains(extension.Name)) {
+                    // if (string.IsNullOrEmpty(m_firstOccurence)) {
+                    m_firstOccurence = m_firstOccurence ?? extension.Name;
+                    // } else {
+                    apis.Add(extension.Name);
+                    // }
+                }
+            }
+        }
+
+        // use the api list to construct a header guard
+        if (apis.Count > 0) {
+            m_headerGuard = Generator.CreateHeaderGuard(apis, "||", false);
         }
     }
 

@@ -1,10 +1,7 @@
-#if (GL_EXT_shader_framebuffer_fetch && (GL_API || GLCORE_API || GLES2_API))
-public partial class ext { 
+#if (GL_EXT_shader_framebuffer_fetch && (!gl || !glcore || !gles2))
+public partial class gl { 
     public partial class Constants { 
-
-#if (!GL_EXT_texture_shadow_lod)
         public const GLenum GL_FRAGMENT_SHADER_DISCARDS_SAMPLES_EXT = 0x8A52;
-#endif
     }
 }
 #endif

@@ -1,25 +1,17 @@
-#if (GL_ARB_geometry_shader4 && (GL_API || GLCORE_API))
+#if (GL_ARB_geometry_shader4 && (!gl || !glcore))
 public partial class gl { 
     public partial class Functions { 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glFramebufferTextureARB(GLenum target, GLenum attachment, GLuint texture, GLint level);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, texture, GLint, void> glFramebufferTextureARB;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, GLtexture, GLint, void> glFramebufferTextureARB;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glFramebufferTextureFaceARB(GLenum target, GLenum attachment, GLuint texture, GLint level, GLenum face);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, texture, GLint, TextureTarget, void> glFramebufferTextureFaceARB;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, GLtexture, GLint, TextureTarget, void> glFramebufferTextureFaceARB;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glFramebufferTextureLayerARB(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, texture, GLint, GLint, void> glFramebufferTextureLayerARB;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, GLtexture, GLint, GLint, void> glFramebufferTextureLayerARB;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glProgramParameteriARB(GLuint program, GLenum pname, GLint value);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, ProgramParameterPName, GLint, void> glProgramParameteriARB;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, ProgramParameterPName, GLint, void> glProgramParameteriARB;
     }
 }
 #endif

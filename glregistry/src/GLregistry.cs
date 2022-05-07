@@ -94,4 +94,10 @@ public class GLregistry {
         Features.UpdateReferences(this);
         Extensions.UpdateReferences(this);
     }
+
+    public void UpdateCode() {
+        Enumerants.UpdateCode();
+        Groups.UpdateCode();
+        Commands.UpdateCode();
+    }
 }

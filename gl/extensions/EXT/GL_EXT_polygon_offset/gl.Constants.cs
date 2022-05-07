@@ -1,18 +1,9 @@
-#if (GL_EXT_polygon_offset && GL_API)
-public partial class ext { 
+#if (GL_EXT_polygon_offset && !gl)
+public partial class gl { 
     public partial class Constants { 
-
-#if (!GL_EXT_texture_shadow_lod)
         public const GLenum GL_POLYGON_OFFSET_EXT = 0x8037;
-#endif
-
-#if (!GL_EXT_texture_shadow_lod)
         public const GLenum GL_POLYGON_OFFSET_FACTOR_EXT = 0x8038;
-#endif
-
-#if (!GL_EXT_texture_shadow_lod)
         public const GLenum GL_POLYGON_OFFSET_BIAS_EXT = 0x8039;
-#endif
     }
 }
 #endif

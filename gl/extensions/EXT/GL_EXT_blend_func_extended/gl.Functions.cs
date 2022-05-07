@@ -1,25 +1,17 @@
-#if (GL_EXT_blend_func_extended && GLES2_API)
+#if (GL_EXT_blend_func_extended && !gles2)
 public partial class gles2 { 
     public partial class Functions { 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glBindFragDataLocationEXT(GLuint program, GLuint color, GLchar* name);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, GLuint, GLchar*, void> glBindFragDataLocationEXT;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLuint, GLchar*, void> glBindFragDataLocationEXT;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glBindFragDataLocationIndexedEXT(GLuint program, GLuint colorNumber, GLuint index, GLchar* name);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, GLuint, GLuint, GLchar*, void> glBindFragDataLocationIndexedEXT;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLuint, GLuint, GLchar*, void> glBindFragDataLocationIndexedEXT;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>GLint glGetFragDataIndexEXT(GLuint program, GLchar* name);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, GLchar*, GLint> glGetFragDataIndexEXT;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLchar*, GLint> glGetFragDataIndexEXT;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>GLint glGetProgramResourceLocationIndexEXT(GLuint program, GLenum programInterface, GLchar* name);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<program, ProgramInterface, GLchar*, GLint> glGetProgramResourceLocationIndexEXT;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, ProgramInterface, GLchar*, GLint> glGetProgramResourceLocationIndexEXT;
     }
 }
 #endif

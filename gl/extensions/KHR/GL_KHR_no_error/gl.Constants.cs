@@ -1,10 +1,7 @@
-#if (GL_KHR_no_error && (GL_API || GLCORE_API || GLES2_API))
-public partial class khr { 
+#if (GL_KHR_no_error && (!gl || !glcore || !gles2))
+public partial class gl { 
     public partial class Constants { 
-
-#if (!GL_EXT_texture_shadow_lod)
         public const GLenum GL_CONTEXT_FLAG_NO_ERROR_BIT_KHR = 0x00000008;
-#endif
     }
 }
 #endif

@@ -1,40 +1,26 @@
-#if (GL_NV_transform_feedback2 && GL_API)
+#if (GL_NV_transform_feedback2 && !gl)
 public partial class gl { 
     public partial class Functions { 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glBindTransformFeedbackNV(GLenum target, GLuint id);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<BufferTargetARB, transformfeedback, void> glBindTransformFeedbackNV;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<BufferTargetARB, GLtransformfeedback, void> glBindTransformFeedbackNV;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glDeleteTransformFeedbacksNV(GLsizei n, GLuint* ids);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, transformfeedback*, void> glDeleteTransformFeedbacksNV;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLtransformfeedback*, void> glDeleteTransformFeedbacksNV;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glDrawTransformFeedbackNV(GLenum mode, GLuint id);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<PrimitiveType, transformfeedback, void> glDrawTransformFeedbackNV;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<PrimitiveType, GLtransformfeedback, void> glDrawTransformFeedbackNV;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glGenTransformFeedbacksNV(GLsizei n, GLuint* ids);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, transformfeedback*, void> glGenTransformFeedbacksNV;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLtransformfeedback*, void> glGenTransformFeedbacksNV;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>GLboolean glIsTransformFeedbackNV(GLuint id);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<transformfeedback, GLboolean> glIsTransformFeedbackNV;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLtransformfeedback, GLboolean> glIsTransformFeedbackNV;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glPauseTransformFeedbackNV();</summary>
         public static unsafe delegate* unmanaged[Cdecl]<void> glPauseTransformFeedbackNV;
-#endif
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glResumeTransformFeedbackNV();</summary>
         public static unsafe delegate* unmanaged[Cdecl]<void> glResumeTransformFeedbackNV;
-#endif
     }
 }
 #endif

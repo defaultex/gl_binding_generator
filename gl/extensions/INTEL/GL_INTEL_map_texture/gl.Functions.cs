@@ -1,20 +1,14 @@
-#if (GL_INTEL_map_texture && GL_API)
+#if (GL_INTEL_map_texture && !gl)
 public partial class gl { 
     public partial class Functions { 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void* glMapTexture2DINTEL(GLuint texture, GLint level, GLbitfield access, GLint* stride, GLenum* layout);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<texture, GLint, GLbitfield, GLint*, GLenum*, void*> glMapTexture2DINTEL;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLtexture, GLint, GLbitfield, GLint*, GLenum*, void*> glMapTexture2DINTEL;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glSyncTextureINTEL(GLuint texture);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<texture, void> glSyncTextureINTEL;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLtexture, void> glSyncTextureINTEL;
 
-#if (!GL_EXT_texture_shadow_lod)
         /// <summary>void glUnmapTexture2DINTEL(GLuint texture, GLint level);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<texture, GLint, void> glUnmapTexture2DINTEL;
-#endif
+        public static unsafe delegate* unmanaged[Cdecl]<GLtexture, GLint, void> glUnmapTexture2DINTEL;
     }
 }
 #endif

@@ -6,6 +6,34 @@ public static partial class Resources {
     public const string FormatCommandParam = "{0}, ";
     public const string FormatType = "{0}{1}";
 
+    public const string Base10Digits = "0,1,2,3,4,5,6,7,8,9";
+    public const string DimensionSpec = "1D,2D,3D,4D";
+    public const string SkipWords = "BITS";
+
+    public const string CommandSyntaxCSharp = "public static unsafe delegate* unmanaged[Cdecl]<{3}{0}> {1};";
+    public const string CommandSyntaxC = "{0} {1}({2})";
+
+    public static readonly Dictionary<string, string> MergeGroups = new() {
+        // { "From" , "To" },
+        { "BufferUsageARB", "BufferUsage" },
+        { "VertexBufferObjectUsage" , "BufferUsage" },
+
+        { "BufferStorageTarget", "BufferTarget" },
+
+        { "DepthFunction", "CompareFunction" },
+        { "AlphaFunction", "CompareFunction" },
+
+        { "SamplerParameterI", "SamplerParameter" },
+        { "SamplerParameterF", "SamplerParameter" },
+
+        { "TextureMinFilter", "MinFilter" },
+        { "TextureMagFilter", "MagFilter" },
+
+        { "VertexAttribPointerType", "VertexAttribType" },
+        { "VertexAttribIType", "VertexAttribType" },
+        { "VertexAttribLType", "VertexAttribType" },
+    };
+
     public static readonly string[] PrototypeGroupBlacklist = new[] {
         "Boolean",
         "handleARB",
@@ -59,32 +87,7 @@ public static partial class Resources {
         "ReplacementCodeSUN", 
         "SampleMaskNV"
     };
-
-    public static readonly string[] RemoveGroups = new[] {
-        "Boolean",
-    };
-
-    public static readonly Dictionary<string, string> MergeGroups = new() {
-        // { "From" , "To" },
-        { "BufferUsageARB", "BufferUsage" },
-        { "VertexBufferObjectUsage" , "BufferUsage" },
-
-        { "BufferStorageTarget", "BufferTarget" },
-
-        { "DepthFunction", "CompareFunction" },
-        { "AlphaFunction", "CompareFunction" },
-
-        { "SamplerParameterI", "SamplerParameter" },
-        { "SamplerParameterF", "SamplerParameter" },
-
-        { "TextureMinFilter", "MinFilter" },
-        { "TextureMagFilter", "MagFilter" },
-
-        { "VertexAttribPointerType", "VertexAttribType" },
-        { "VertexAttribIType", "VertexAttribType" },
-        { "VertexAttribLType", "VertexAttribType" },
-    };
-
+ 
     public static bool IsPrototypeGroupBlacklisted(string name) {
         for (int i = 0; i < PrototypeGroupBlacklist.Length; i++) {
             if (PrototypeGroupBlacklist[i] == name) {
@@ -93,4 +96,5 @@ public static partial class Resources {
         }
         return false;
     }
+
 }

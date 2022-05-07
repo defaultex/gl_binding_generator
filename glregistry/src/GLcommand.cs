@@ -3,7 +3,7 @@ namespace glregistry;
 /// <summary>
 /// Represents a command that can be invoked in the OpenGL API.
 /// </summary>
-public class GLcommand : ICloneable {
+public class GLcommand : INamedObject, IReferenceHolder, ICodeProvider, ICloneable {
     GLregistry m_registry;
     string m_cdecl, m_csdecl;
 
@@ -29,7 +29,7 @@ public class GLcommand : ICloneable {
     /// Name of the command.
     /// </summary>
     [XmlIgnore]
-    public string Name { get => Prototype.Name; set => Prototype.Name = value; }
+    public string Name { get => Prototype.Name; }
 
     /// <summary>
     /// The command that is aliased by the command.
@@ -55,10 +55,14 @@ public class GLcommand : ICloneable {
     /// <param name="registry">A registry to fetch references from or null to clear references.</param>
     public void UpdateReferences(GLregistry registry) {
         m_registry = registry;
-
         Prototype.UpdateReferences(registry);
-        Alias.UpdateReferences(registry);
         Parameters.UpdateReferences(registry);
+        Alias.UpdateReferences(registry);
+    }
+
+    public void UpdateCode() {
+        Prototype.UpdateCode();
+        Parameters.UpdateCode();
 
         int paramCount = Parameters.Count;
 

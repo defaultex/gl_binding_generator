@@ -3,7 +3,7 @@ namespace glregistry;
 /// <summary>
 /// Represents a prototype definition for commands and parameters.
 /// </summary>
-public class GLprototype : ICloneable {
+public class GLprototype : INamedObject, IReferenceHolder, ICodeProvider, ICloneable {
     GLregistry m_registry;
     GLgroup m_group;
     GLtype m_type;
@@ -31,7 +31,7 @@ public class GLprototype : ICloneable {
     /// Name of the command/parameter.
     /// </summary>
     [XmlElement("name")]
-    public string Name;
+    public string Name { get; init; }
 
     /// <summary>
     /// A vague description of how to derive the length of a pointer's data.
@@ -100,27 +100,6 @@ public class GLprototype : ICloneable {
     public void UpdateReferences(GLregistry registry) {
         m_registry = registry;
 
-        // find the pointers by stripping out the likely 'const' and whitespace
-        m_pointers = (Declaration != null) ? string.Join("", Declaration)
-                                                   .Replace(" ", null)
-                                                   .Replace("const", null)
-                                           : string.Empty;
-
-        // C-type is simple, type name followed by pointers
-        m_ctype = string.Format(Resources.FormatType, Type, Pointers);
-        m_cdecl = string.Format("{0} {1}", m_ctype, Name);
-
-        // C#-type is a bit more complex
-        string type = Type;
-        if (!string.IsNullOrEmpty(Group) && !Resources.IsPrototypeGroupBlacklisted(Group)) {
-            type = Group;
-        }
-        if (!string.IsNullOrEmpty(Class)) {
-            type = Class;
-        }
-        m_cstype = string.Format(Resources.FormatType, type, m_pointers);
-        m_csdecl = string.Format("{0} {1}", m_cstype, Name);
-
         if (registry != null) {
             m_type = registry.Types.Find(Type);
             m_group = registry.Groups.Find(Group);
@@ -128,6 +107,30 @@ public class GLprototype : ICloneable {
             m_type = null;
             m_group = null;
         }
+    }
+
+    public void UpdateCode() {
+        // find the pointers by stripping out the likely 'const' and whitespace
+        m_pointers = (Declaration != null) ? string.Join("", Declaration)
+                                                   .Replace(" ", null)
+                                                   .Replace("const", null)
+                                           : string.Empty;
+
+        string type = Type;
+
+        // C-type is simple, type name followed by pointers
+        m_ctype = string.Format(Resources.FormatType, type, Pointers);
+        m_cdecl = string.Format("{0} {1}", m_ctype, Name);
+
+        // C#-type is a bit more complex
+        if (!string.IsNullOrEmpty(Group) && !Resources.IsPrototypeGroupBlacklisted(Group)) {
+            type = Group;
+        }
+        if (!string.IsNullOrEmpty(Class)) {
+            type = "GL" + Class;
+        }
+        m_cstype = string.Format(Resources.FormatType, type, m_pointers);
+        m_csdecl = string.Format("{0} {1}", m_cstype, Name);
     }
 
     object ICloneable.Clone() => Clone(null);

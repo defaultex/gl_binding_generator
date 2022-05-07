@@ -3,7 +3,7 @@ namespace glregistry;
 /// <summary>
 /// Represents dependency for types, enumerants and commands within a feature or extension.
 /// </summary>
-public class GLdepends : ICloneable {
+public class GLdepends : IReferenceHolder, ICloneable {
     GLregistry m_registry;
 
     /// <summary>
