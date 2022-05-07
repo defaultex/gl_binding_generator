@@ -1,5 +1,7 @@
-# gl_binding_generator
+# WARNING
+This library is a work in progress and should not be used in it's current form. Expect large sweeping changes until I am satisfied with the results, at which point breaking changes will be kept to a minimum. If you would like to play with it in it's current form, feel free to do at your own risk. As it stands the output, mostly the hundreds of enums will need some post-processing to render them usable. If for some reason any of ya are crazy enough to do that, I am definately interested to hear about any of the function pointers that have bad type mappings. While I am confident the vast majority should just work with appropriate usage, I am not confident all of them will work without some alterations. I may be able to assist with understanding how to feed to pointer to pointer functions, which can be very confusing if your not familiar with mapping jagged pointer arrays and arrays of null terminated strings.
 
+# gl_binding_generator
 Generates C# bindings intended for use with C# 10.0 and .Net 6. 
 * Features and Extensions are enabled by listing them in the defined constants.
 * APIs are specified with NAME_API: GL_API, GLCORE_API, GLES1_API, GLES2_API, and GLSC2_API.
