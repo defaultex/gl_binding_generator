@@ -1,6 +1,5 @@
-#if (GL_VERSION_3_2 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLuint64 GL_TIMEOUT_IGNORED = 0xFFFFFFFFFFFFFFFF;
         public const GLbitfield GL_CONTEXT_CORE_PROFILE_BIT = 0x00000001;
         public const GLbitfield GL_SYNC_FLUSH_COMMANDS_BIT = 0x00000001;
@@ -67,4 +66,3 @@ public partial class gl {
         public const GLenum GL_CONTEXT_PROFILE_MASK = 0x9126;
     }
 }
-#endif

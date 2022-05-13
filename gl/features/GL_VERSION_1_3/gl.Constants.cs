@@ -1,6 +1,5 @@
-#if (GL_VERSION_1_3 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLenum GL_MULTISAMPLE = 0x809D;
         public const GLenum GL_SAMPLE_ALPHA_TO_COVERAGE = 0x809E;
         public const GLenum GL_SAMPLE_ALPHA_TO_ONE = 0x809F;
@@ -43,22 +42,9 @@ public partial class gl {
         public const GLenum GL_TEXTURE30 = 0x84DE;
         public const GLenum GL_TEXTURE31 = 0x84DF;
         public const GLenum GL_ACTIVE_TEXTURE = 0x84E0;
-        public const GLenum GL_CLIENT_ACTIVE_TEXTURE = 0x84E1;
-        public const GLenum GL_MAX_TEXTURE_UNITS = 0x84E2;
-        public const GLenum GL_TRANSPOSE_MODELVIEW_MATRIX = 0x84E3;
-        public const GLenum GL_TRANSPOSE_PROJECTION_MATRIX = 0x84E4;
-        public const GLenum GL_TRANSPOSE_TEXTURE_MATRIX = 0x84E5;
-        public const GLenum GL_TRANSPOSE_COLOR_MATRIX = 0x84E6;
-        public const GLenum GL_SUBTRACT = 0x84E7;
-        public const GLenum GL_COMPRESSED_ALPHA = 0x84E9;
-        public const GLenum GL_COMPRESSED_LUMINANCE = 0x84EA;
-        public const GLenum GL_COMPRESSED_LUMINANCE_ALPHA = 0x84EB;
-        public const GLenum GL_COMPRESSED_INTENSITY = 0x84EC;
         public const GLenum GL_COMPRESSED_RGB = 0x84ED;
         public const GLenum GL_COMPRESSED_RGBA = 0x84EE;
         public const GLenum GL_TEXTURE_COMPRESSION_HINT = 0x84EF;
-        public const GLenum GL_NORMAL_MAP = 0x8511;
-        public const GLenum GL_REFLECTION_MAP = 0x8512;
         public const GLenum GL_TEXTURE_CUBE_MAP = 0x8513;
         public const GLenum GL_TEXTURE_BINDING_CUBE_MAP = 0x8514;
         public const GLenum GL_TEXTURE_CUBE_MAP_POSITIVE_X = 0x8515;
@@ -69,34 +55,9 @@ public partial class gl {
         public const GLenum GL_TEXTURE_CUBE_MAP_NEGATIVE_Z = 0x851A;
         public const GLenum GL_PROXY_TEXTURE_CUBE_MAP = 0x851B;
         public const GLenum GL_MAX_CUBE_MAP_TEXTURE_SIZE = 0x851C;
-        public const GLenum GL_COMBINE = 0x8570;
-        public const GLenum GL_COMBINE_RGB = 0x8571;
-        public const GLenum GL_COMBINE_ALPHA = 0x8572;
-        public const GLenum GL_RGB_SCALE = 0x8573;
-        public const GLenum GL_ADD_SIGNED = 0x8574;
-        public const GLenum GL_INTERPOLATE = 0x8575;
-        public const GLenum GL_CONSTANT = 0x8576;
-        public const GLenum GL_PRIMARY_COLOR = 0x8577;
-        public const GLenum GL_PREVIOUS = 0x8578;
-        public const GLenum GL_SOURCE0_RGB = 0x8580;
-        public const GLenum GL_SOURCE1_RGB = 0x8581;
-        public const GLenum GL_SOURCE2_RGB = 0x8582;
-        public const GLenum GL_SOURCE0_ALPHA = 0x8588;
-        public const GLenum GL_SOURCE1_ALPHA = 0x8589;
-        public const GLenum GL_SOURCE2_ALPHA = 0x858A;
-        public const GLenum GL_OPERAND0_RGB = 0x8590;
-        public const GLenum GL_OPERAND1_RGB = 0x8591;
-        public const GLenum GL_OPERAND2_RGB = 0x8592;
-        public const GLenum GL_OPERAND0_ALPHA = 0x8598;
-        public const GLenum GL_OPERAND1_ALPHA = 0x8599;
-        public const GLenum GL_OPERAND2_ALPHA = 0x859A;
         public const GLenum GL_TEXTURE_COMPRESSED_IMAGE_SIZE = 0x86A0;
         public const GLenum GL_TEXTURE_COMPRESSED = 0x86A1;
         public const GLenum GL_NUM_COMPRESSED_TEXTURE_FORMATS = 0x86A2;
         public const GLenum GL_COMPRESSED_TEXTURE_FORMATS = 0x86A3;
-        public const GLenum GL_DOT3_RGB = 0x86AE;
-        public const GLenum GL_DOT3_RGBA = 0x86AF;
-        public const GLbitfield GL_MULTISAMPLE_BIT = 0x20000000;
     }
 }
-#endif

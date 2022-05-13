@@ -1,6 +1,5 @@
-#if (GL_VERSION_3_1 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLenum GL_TEXTURE_RECTANGLE = 0x84F5;
         public const GLenum GL_TEXTURE_BINDING_RECTANGLE = 0x84F6;
         public const GLenum GL_PROXY_TEXTURE_RECTANGLE = 0x84F7;
@@ -64,4 +63,3 @@ public partial class gl {
         public const GLenum GL_INVALID_INDEX = 0xFFFFFFFF;
     }
 }
-#endif

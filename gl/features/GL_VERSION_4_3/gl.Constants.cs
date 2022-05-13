@@ -1,6 +1,5 @@
-#if (GL_VERSION_4_3 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLbitfield GL_CONTEXT_FLAG_DEBUG_BIT = 0x00000002;
         public const GLbitfield GL_COMPUTE_SHADER_BIT = 0x00000020;
         public const GLbitfield GL_SHADER_STORAGE_BARRIER_BIT = 0x00002000;
@@ -149,7 +148,6 @@ public partial class gl {
         public const GLenum GL_QUERY = 0x82E3;
         public const GLenum GL_PROGRAM_PIPELINE = 0x82E4;
         public const GLenum GL_SAMPLER = 0x82E6;
-        public const GLenum GL_DISPLAY_LIST = 0x82E7;
         public const GLenum GL_MAX_LABEL_LENGTH = 0x82E8;
         public const GLenum GL_NUM_SHADING_LANGUAGE_VERSIONS = 0x82E9;
         public const GLenum GL_VERTEX_ATTRIB_ARRAY_LONG = 0x874E;
@@ -262,4 +260,3 @@ public partial class gl {
         public const GLenum GL_MAX_FRAMEBUFFER_SAMPLES = 0x9318;
     }
 }
-#endif

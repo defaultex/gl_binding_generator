@@ -34,15 +34,15 @@ global using System.Runtime.InteropServices;
         { "GLuint64", "global using GLuint64 = System.UInt64;" },
 
         // extension data types
-        { "GLeglClientBufferEXT", "global using GLintptr = System.IntPtr;"},
-        { "GLeglImageOES", "global using GLintptr = System.IntPtr;"},
-        { "GLcharARB", "global using GLchar = System.Byte;" },
-        { "GLhandleARB", "global using GLfixed = System.UInt32;" },
-        { "GLhalfARB", "global using GLhalf = System.UInt16;" },
-        { "GLintptrARB", "global using GLintptr = System.IntPtr;" },
-        { "GLsizeiptrEXT", "global using GLsizeiptr = System.UIntPtr;" },
-        { "GLint64EXT", "global using GLint64 = System.Int64;" },
-        { "GLuint64EXT", "global using GLint64 = System.UInt64;" },
+        { "GLeglClientBufferEXT", "global using GLeglClientBufferEXT = System.IntPtr;"},
+        { "GLeglImageOES", "global using GLeglImageOES = System.IntPtr;"},
+        { "GLcharARB", "global using GLcharARB = System.Byte;" },
+        { "GLhandleARB", "global using GLhandleARB = System.UInt32;" },
+        { "GLhalfARB", "global using GLhalfARB = System.UInt16;" },
+        { "GLintptrARB", "global using GLintptrARB = System.IntPtr;" },
+        { "GLsizeiptrEXT", "global using GLsizeiptrEXT = System.UIntPtr;" },
+        { "GLint64EXT", "global using GLint64EXT = System.Int64;" },
+        { "GLuint64EXT", "global using GLuint64EXT = System.UInt64;" },
 
         // TODO : figure out definitions for the two OpenCL types
         

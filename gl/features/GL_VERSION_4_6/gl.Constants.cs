@@ -1,6 +1,5 @@
-#if (GL_VERSION_4_6 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLbitfield GL_CONTEXT_FLAG_NO_ERROR_BIT = 0x00000008;
         public const GLenum GL_PARAMETER_BUFFER = 0x80EE;
         public const GLenum GL_PARAMETER_BUFFER_BINDING = 0x80EF;
@@ -25,4 +24,3 @@ public partial class gl {
         public const GLenum GL_NUM_SPIR_V_EXTENSIONS = 0x9554;
     }
 }
-#endif

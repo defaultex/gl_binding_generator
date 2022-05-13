@@ -1,6 +1,5 @@
-#if (GL_VERSION_1_2 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLenum GL_SMOOTH_POINT_SIZE_RANGE = 0x0B12;
         public const GLenum GL_SMOOTH_POINT_SIZE_GRANULARITY = 0x0B13;
         public const GLenum GL_SMOOTH_LINE_WIDTH_RANGE = 0x0B22;
@@ -10,7 +9,6 @@ public partial class gl {
         public const GLenum GL_UNSIGNED_SHORT_5_5_5_1 = 0x8034;
         public const GLenum GL_UNSIGNED_INT_8_8_8_8 = 0x8035;
         public const GLenum GL_UNSIGNED_INT_10_10_10_2 = 0x8036;
-        public const GLenum GL_RESCALE_NORMAL = 0x803A;
         public const GLenum GL_TEXTURE_BINDING_3D = 0x806A;
         public const GLenum GL_PACK_SKIP_IMAGES = 0x806B;
         public const GLenum GL_PACK_IMAGE_HEIGHT = 0x806C;
@@ -30,9 +28,6 @@ public partial class gl {
         public const GLenum GL_TEXTURE_MAX_LOD = 0x813B;
         public const GLenum GL_TEXTURE_BASE_LEVEL = 0x813C;
         public const GLenum GL_TEXTURE_MAX_LEVEL = 0x813D;
-        public const GLenum GL_LIGHT_MODEL_COLOR_CONTROL = 0x81F8;
-        public const GLenum GL_SINGLE_COLOR = 0x81F9;
-        public const GLenum GL_SEPARATE_SPECULAR_COLOR = 0x81FA;
         public const GLenum GL_UNSIGNED_BYTE_2_3_3_REV = 0x8362;
         public const GLenum GL_UNSIGNED_SHORT_5_6_5 = 0x8363;
         public const GLenum GL_UNSIGNED_SHORT_5_6_5_REV = 0x8364;
@@ -40,8 +35,6 @@ public partial class gl {
         public const GLenum GL_UNSIGNED_SHORT_1_5_5_5_REV = 0x8366;
         public const GLenum GL_UNSIGNED_INT_8_8_8_8_REV = 0x8367;
         public const GLenum GL_UNSIGNED_INT_2_10_10_10_REV = 0x8368;
-        public const GLenum GL_ALIASED_POINT_SIZE_RANGE = 0x846D;
         public const GLenum GL_ALIASED_LINE_WIDTH_RANGE = 0x846E;
     }
 }
-#endif

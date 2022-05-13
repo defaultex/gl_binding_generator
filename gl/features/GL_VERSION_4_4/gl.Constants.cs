@@ -1,6 +1,5 @@
-#if (GL_VERSION_4_4 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLbitfield GL_MAP_PERSISTENT_BIT = 0x0040;
         public const GLbitfield GL_MAP_COHERENT_BIT = 0x0080;
         public const GLbitfield GL_DYNAMIC_STORAGE_BIT = 0x0100;
@@ -22,4 +21,3 @@ public partial class gl {
         public const GLenum GL_CLEAR_TEXTURE = 0x9365;
     }
 }
-#endif

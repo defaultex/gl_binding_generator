@@ -1,6 +1,5 @@
-#if (GL_VERSION_3_3 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLenum GL_TIME_ELAPSED = 0x88BF;
         public const GLenum GL_SRC1_COLOR = 0x88F9;
         public const GLenum GL_ONE_MINUS_SRC1_COLOR = 0x88FA;
@@ -19,4 +18,3 @@ public partial class gl {
         public const GLenum GL_RGB10_A2UI = 0x906F;
     }
 }
-#endif

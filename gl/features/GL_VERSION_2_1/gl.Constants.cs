@@ -1,7 +1,5 @@
-#if (GL_VERSION_2_1 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
-        public const GLenum GL_CURRENT_RASTER_SECONDARY_COLOR = 0x845F;
+    public partial class Constants {
         public const GLenum GL_PIXEL_PACK_BUFFER = 0x88EB;
         public const GLenum GL_PIXEL_UNPACK_BUFFER = 0x88EC;
         public const GLenum GL_PIXEL_PACK_BUFFER_BINDING = 0x88ED;
@@ -16,14 +14,7 @@ public partial class gl {
         public const GLenum GL_SRGB8 = 0x8C41;
         public const GLenum GL_SRGB_ALPHA = 0x8C42;
         public const GLenum GL_SRGB8_ALPHA8 = 0x8C43;
-        public const GLenum GL_SLUMINANCE_ALPHA = 0x8C44;
-        public const GLenum GL_SLUMINANCE8_ALPHA8 = 0x8C45;
-        public const GLenum GL_SLUMINANCE = 0x8C46;
-        public const GLenum GL_SLUMINANCE8 = 0x8C47;
         public const GLenum GL_COMPRESSED_SRGB = 0x8C48;
         public const GLenum GL_COMPRESSED_SRGB_ALPHA = 0x8C49;
-        public const GLenum GL_COMPRESSED_SLUMINANCE = 0x8C4A;
-        public const GLenum GL_COMPRESSED_SLUMINANCE_ALPHA = 0x8C4B;
     }
 }
-#endif

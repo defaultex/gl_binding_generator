@@ -11,7 +11,11 @@
             "preLaunchTask": "build-glregistry",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/glregistry/bin/Debug/net6.0/glregistry",
-            "args": [],
+            "args": [
+                "gl",
+                "core",
+                "glcore"
+            ],
             "cwd": "${workspaceFolder}/glregistry",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",

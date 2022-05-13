@@ -1,6 +1,5 @@
-#if (GL_VERSION_4_1 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLbitfield GL_VERTEX_SHADER_BIT = 0x00000001;
         public const GLbitfield GL_FRAGMENT_SHADER_BIT = 0x00000002;
         public const GLbitfield GL_GEOMETRY_SHADER_BIT = 0x00000004;
@@ -38,4 +37,3 @@ public partial class gl {
         public const GLbitfield GL_ALL_SHADER_BITS = 0xFFFFFFFF;
     }
 }
-#endif

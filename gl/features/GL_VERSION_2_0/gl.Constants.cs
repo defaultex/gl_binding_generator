@@ -1,6 +1,5 @@
-#if (GL_VERSION_2_0 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLenum GL_BLEND_EQUATION_RGB = 0x8009;
         public const GLenum GL_VERTEX_ATTRIB_ARRAY_ENABLED = 0x8622;
         public const GLenum GL_VERTEX_ATTRIB_ARRAY_SIZE = 0x8623;
@@ -8,7 +7,6 @@ public partial class gl {
         public const GLenum GL_VERTEX_ATTRIB_ARRAY_TYPE = 0x8625;
         public const GLenum GL_CURRENT_VERTEX_ATTRIB = 0x8626;
         public const GLenum GL_VERTEX_PROGRAM_POINT_SIZE = 0x8642;
-        public const GLenum GL_VERTEX_PROGRAM_TWO_SIDE = 0x8643;
         public const GLenum GL_VERTEX_ATTRIB_ARRAY_POINTER = 0x8645;
         public const GLenum GL_STENCIL_BACK_FUNC = 0x8800;
         public const GLenum GL_STENCIL_BACK_FAIL = 0x8801;
@@ -32,11 +30,8 @@ public partial class gl {
         public const GLenum GL_DRAW_BUFFER14 = 0x8833;
         public const GLenum GL_DRAW_BUFFER15 = 0x8834;
         public const GLenum GL_BLEND_EQUATION_ALPHA = 0x883D;
-        public const GLenum GL_POINT_SPRITE = 0x8861;
-        public const GLenum GL_COORD_REPLACE = 0x8862;
         public const GLenum GL_MAX_VERTEX_ATTRIBS = 0x8869;
         public const GLenum GL_VERTEX_ATTRIB_ARRAY_NORMALIZED = 0x886A;
-        public const GLenum GL_MAX_TEXTURE_COORDS = 0x8871;
         public const GLenum GL_MAX_TEXTURE_IMAGE_UNITS = 0x8872;
         public const GLenum GL_FRAGMENT_SHADER = 0x8B30;
         public const GLenum GL_VERTEX_SHADER = 0x8B31;
@@ -87,4 +82,3 @@ public partial class gl {
         public const GLenum GL_STENCIL_BACK_WRITEMASK = 0x8CA5;
     }
 }
-#endif

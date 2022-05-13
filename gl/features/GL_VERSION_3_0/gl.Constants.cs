@@ -1,6 +1,5 @@
-#if (GL_VERSION_3_0 && GL_API)
 public partial class gl { 
-    public partial class Constants { 
+    public partial class Constants {
         public const GLbitfield GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT = 0x00000001;
         public const GLbitfield GL_MAP_READ_BIT = 0x0001;
         public const GLbitfield GL_MAP_WRITE_BIT = 0x0002;
@@ -34,7 +33,6 @@ public partial class gl {
         public const GLenum GL_MINOR_VERSION = 0x821C;
         public const GLenum GL_NUM_EXTENSIONS = 0x821D;
         public const GLenum GL_CONTEXT_FLAGS = 0x821E;
-        public const GLenum GL_INDEX = 0x8222;
         public const GLenum GL_COMPRESSED_RED = 0x8225;
         public const GLenum GL_COMPRESSED_RG = 0x8226;
         public const GLenum GL_RG = 0x8227;
@@ -74,8 +72,6 @@ public partial class gl {
         public const GLenum GL_MAX_ARRAY_TEXTURE_LAYERS = 0x88FF;
         public const GLenum GL_MIN_PROGRAM_TEXEL_OFFSET = 0x8904;
         public const GLenum GL_MAX_PROGRAM_TEXEL_OFFSET = 0x8905;
-        public const GLenum GL_CLAMP_VERTEX_COLOR = 0x891A;
-        public const GLenum GL_CLAMP_FRAGMENT_COLOR = 0x891B;
         public const GLenum GL_CLAMP_READ_COLOR = 0x891C;
         public const GLenum GL_FIXED_ONLY = 0x891D;
         public const GLenum GL_MAX_VARYING_COMPONENTS = 0x8B4B;
@@ -83,8 +79,6 @@ public partial class gl {
         public const GLenum GL_TEXTURE_GREEN_TYPE = 0x8C11;
         public const GLenum GL_TEXTURE_BLUE_TYPE = 0x8C12;
         public const GLenum GL_TEXTURE_ALPHA_TYPE = 0x8C13;
-        public const GLenum GL_TEXTURE_LUMINANCE_TYPE = 0x8C14;
-        public const GLenum GL_TEXTURE_INTENSITY_TYPE = 0x8C15;
         public const GLenum GL_TEXTURE_DEPTH_TYPE = 0x8C16;
         public const GLenum GL_UNSIGNED_NORMALIZED = 0x8C17;
         public const GLenum GL_TEXTURE_1D_ARRAY = 0x8C18;
@@ -200,7 +194,6 @@ public partial class gl {
         public const GLenum GL_RED_INTEGER = 0x8D94;
         public const GLenum GL_GREEN_INTEGER = 0x8D95;
         public const GLenum GL_BLUE_INTEGER = 0x8D96;
-        public const GLenum GL_ALPHA_INTEGER = 0x8D97;
         public const GLenum GL_RGB_INTEGER = 0x8D98;
         public const GLenum GL_RGBA_INTEGER = 0x8D99;
         public const GLenum GL_BGR_INTEGER = 0x8D9A;
@@ -240,4 +233,3 @@ public partial class gl {
         public const GLenum GL_BUFFER_MAP_OFFSET = 0x9121;
     }
 }
-#endif

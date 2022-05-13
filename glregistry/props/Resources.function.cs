@@ -2,8 +2,7 @@ namespace glregistry;
 
 public static partial class Resources {
 
-    public const string FeatureHeader = @"#if {0}
-public partial class {1} {{ 
+    public const string FeatureHeader = @"public partial class {0} {{ 
     public partial class Functions {{ ";
 
     public const string FeatureFunction = @"
@@ -12,20 +11,6 @@ public partial class {1} {{
 ";
 
     public const string FeatureFooter = @"    }
-}
-#endif";
-
-    public const string ExtFeatureHeader = @"#if {0}
-public partial class {1} {{ 
-    public partial class Functions {{ ";
-
-    public const string ExtFeatureFunction = @"
-        /// <summary>{0} {1}({2})</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<{3}{0}> {1};
-";
-
-    public const string ExtFeatureFooter = @"    }
-}
-#endif";
+}";
 
 }
