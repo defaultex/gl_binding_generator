@@ -12,7 +12,7 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<GLint, ColorPointerType, GLsizei, void> glSecondaryColorFormatNV;
         public static unsafe delegate* unmanaged[Cdecl]<GLint, GLenum, GLsizei, void> glTexCoordFormatNV;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint, VertexAttribType, GLboolean, GLsizei, void> glVertexAttribFormatNV;
-        public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint, VertexAttribIType, GLsizei, void> glVertexAttribIFormatNV;
+        public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint, VertexAttribType, GLsizei, void> glVertexAttribIFormatNV;
         public static unsafe delegate* unmanaged[Cdecl]<GLint, VertexPointerType, GLsizei, void> glVertexFormatNV;
     }
 }

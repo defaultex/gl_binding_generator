@@ -71,7 +71,7 @@ public class GLEnum : GLBase, INamedObject, ICodeProvider {
                 m_csName += nameWords[i];
             } else {
                 // caps to camel hump conversion
-                m_csName += string.Format(Resources.FormatType, nameWords[i][0], nameWords[i].Substring(1).ToLower());
+                m_csName += string.Format(Resources.FormatPtrType, nameWords[i][0], nameWords[i].Substring(1).ToLower());
             }
         }
 

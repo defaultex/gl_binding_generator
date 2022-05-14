@@ -88,11 +88,12 @@ class Program {
                         continue;
                     }
 
-                    GLGroup group = groupList.Find(groupName);
+                    string newGroupName = Resources.GetGroupName(groupName);
+                    GLGroup group = groupList.Find(newGroupName);
                     if (group == null) {
                         group = new() {
-                            Name = groupName,
-                            Type = groupName.EndsWith("Mask") ? "GLbitfield" : "GLenum",
+                            Name = newGroupName,
+                            Type = newGroupName.EndsWith("Mask") ? "GLbitfield" : "GLenum",
                             API = targetAPI
                         };
                         groupList.Add(group);
@@ -116,6 +117,7 @@ class Program {
 
                 string cmdType = command.Prototype.Type;
                 string cmdClass = command.Prototype.Class;
+                string cmdGroup = command.Prototype.Group;
 
                 if (!string.IsNullOrEmpty(cmdType) && !typeList.Contains(cmdType)) {
                     typeList.Add(cmdType);
@@ -123,6 +125,14 @@ class Program {
 
                 if (!string.IsNullOrEmpty(cmdClass) && !classList.Contains(cmdClass)) {
                     classList.Add(cmdClass);
+                }
+
+                if (!string.IsNullOrEmpty(cmdGroup) && !Resources.IsGroupBlacklisted(cmdGroup)) {
+                    string newGroupName = Resources.GetGroupName(cmdGroup);
+                    GLGroup group = groupList.Find(newGroupName);
+                    if (group != null) {
+                        group.Required |= command.Required;
+                    }
                 }
 
                 foreach (GLPrototype param in command.Parameters) {
@@ -138,9 +148,12 @@ class Program {
                         classList.Add(paramClass);
                     }
 
-                    GLGroup group = groupList.Find(paramGroup);
-                    if (group != null) {
-                        group.Required |= command.Required;
+                    if (!string.IsNullOrEmpty(paramGroup) && !Resources.IsGroupBlacklisted(paramGroup)) {
+                        string newGroupName = Resources.GetGroupName(paramGroup);
+                        GLGroup group = groupList.Find(newGroupName);
+                        if (group != null) {
+                            group.Required |= command.Required;
+                        }
                     }
                 }
             }
@@ -193,7 +206,7 @@ class Program {
 
             WriteConstants(file, folderPath, strTargetAPI);
             WriteCommands(file, folderPath, strTargetAPI);
-            WriteEnums(file, folderPath);
+            WriteEnums(file, folderPath, groupList);
         }
 
         swWriting.Stop();
@@ -371,7 +384,7 @@ class Program {
         Console.WriteLine("Created file: {0}", functFilename);
     }
 
-    static void WriteEnums(OutputFile file, string folderPath) {
+    static void WriteEnums(OutputFile file, string folderPath, List<GLGroup> usedGroups) {
         string name = file.Name;
         bool isExtension = (file.Extension != null);
 
@@ -384,7 +397,7 @@ class Program {
 
         for (int i = 0; i < file.Groups.Count; i++) {
             GLGroup group = file.Groups[i];
-            if (group.Declared) {
+            if (group.Declared || !group.Required || !usedGroups.Contains(group)) {
                 continue;
             }
             group.Declared = true;

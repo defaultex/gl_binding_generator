@@ -12,4 +12,19 @@ public enum VertexAttribType : GLenum {
     HalfFloat = gl.Constants.GL_HALF_FLOAT,
     Int2101010Rev = gl.Constants.GL_INT_2_10_10_10_REV,
     Fixed = gl.Constants.GL_FIXED,
+#if GL_ARB_bindless_texture
+    UnsignedInt64Arb = gl.Constants.GL_UNSIGNED_INT64_ARB,
+#endif
+
+#if GL_ARB_gpu_shader_int64
+    Int64Arb = gl.Constants.GL_INT64_ARB,
+#endif
+
+#if GL_NV_gpu_shader5
+    Int64Nv = gl.Constants.GL_INT64_NV,
+#endif
+
+#if GL_NV_gpu_shader5
+    UnsignedInt64Nv = gl.Constants.GL_UNSIGNED_INT64_NV,
+#endif
 }

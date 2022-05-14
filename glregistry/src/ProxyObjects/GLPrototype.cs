@@ -10,7 +10,7 @@ public class GLPrototype : INamedObject, ICodeProvider {
     /// Group name that the possible values are defined in.
     /// </summary>
     [XmlAttribute("group")]
-    public string Group { get; init; }
+    public string Group { get; init; } 
 
     /// <summary>
     /// OpenGL object type of the value.
@@ -79,18 +79,19 @@ public class GLPrototype : INamedObject, ICodeProvider {
         string type = Type;
 
         // C-type is simple, type name followed by pointers
-        m_ctype = string.Format(Resources.FormatType, type, m_pointers);
-        m_cdecl = string.Format("{0} {1}", m_ctype, Name);
+        m_ctype = string.Format(Resources.FormatPtrType, type, m_pointers);
+        m_cdecl = string.Format(Resources.FormatDecl, m_ctype, Name);
 
         // C#-type is a bit more complex
         if (!string.IsNullOrEmpty(Group) && !Resources.IsPrototypeGroupBlacklisted(Group)) {
-            type = Group;
+            type = Resources.GetGroupName(Group);
         }
         if (!string.IsNullOrEmpty(Class)) {
-            type = "GL" + Class;
+            type = string.Format(Resources.FormatObjType, Class);
         }
-        m_cstype = string.Format(Resources.FormatType, type, m_pointers);
-        m_csdecl = string.Format("{0} {1}", m_cstype, Name);
+        
+        m_cstype = string.Format(Resources.FormatPtrType, type, m_pointers);
+        m_csdecl = string.Format(Resources.FormatDecl, m_cstype, Name);
     }
 
     public override string ToString() => Name;

@@ -31,7 +31,7 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<GLenum, GLfloat*, void> glMatrixMultTranspose3x3fNV;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLsizei, GLubyte*, GLsizei, PathCoordType, void*, void> glPathCommandsNV;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLsizei, PathCoordType, void*, void> glPathCoordsNV;
-        public static unsafe delegate* unmanaged[Cdecl]<DepthFunction, void> glPathCoverDepthFuncNV;
+        public static unsafe delegate* unmanaged[Cdecl]<CompareFunction, void> glPathCoverDepthFuncNV;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLsizei, GLfloat*, void> glPathDashArrayNV;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLenum, void*, PathFontStyle, GLuint, GLsizei, GLuint, GLfloat, GLenum> glPathGlyphIndexArrayNV;
         public static unsafe delegate* unmanaged[Cdecl]<GLenum, void*, PathFontStyle, GLuint, GLfloat, GLuint*, GLenum> glPathGlyphIndexRangeNV;

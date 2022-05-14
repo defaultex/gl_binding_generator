@@ -9,16 +9,16 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<GLfloat, GLfloat, void> glDepthRangef;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLdouble, GLdouble, void> glDepthRangeIndexed;
         public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLprogrampipeline*, void> glGenProgramPipelines;
-        public static unsafe delegate* unmanaged[Cdecl]<GetPName, GLuint, GLdouble*, void> glGetDoublei_v;
-        public static unsafe delegate* unmanaged[Cdecl]<GetPName, GLuint, GLfloat*, void> glGetFloati_v;
+        public static unsafe delegate* unmanaged[Cdecl]<GLParameter, GLuint, GLdouble*, void> glGetDoublei_v;
+        public static unsafe delegate* unmanaged[Cdecl]<GLParameter, GLuint, GLfloat*, void> glGetFloati_v;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLsizei, GLsizei*, GLenum*, void*, void> glGetProgramBinary;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogrampipeline, GLsizei, GLsizei*, GLchar*, void> glGetProgramPipelineInfoLog;
-        public static unsafe delegate* unmanaged[Cdecl]<GLprogrampipeline, PipelineParameterName, GLint*, void> glGetProgramPipelineiv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogrampipeline, PipelineParameter, GLint*, void> glGetProgramPipelineiv;
         public static unsafe delegate* unmanaged[Cdecl]<ShaderType, PrecisionType, GLint*, GLint*, void> glGetShaderPrecisionFormat;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, VertexAttribEnum, GLdouble*, void> glGetVertexAttribLdv;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogrampipeline, GLboolean> glIsProgramPipeline;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLenum, void*, GLsizei, void> glProgramBinary;
-        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, ProgramParameterPName, GLint, void> glProgramParameteri;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, ProgramParameterParameter, GLint, void> glProgramParameteri;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLint, GLdouble, void> glProgramUniform1d;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLint, GLsizei, GLdouble*, void> glProgramUniform1dv;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLint, GLfloat, void> glProgramUniform1f;
@@ -74,7 +74,7 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint, GLint, GLsizei, GLsizei, void> glScissorIndexed;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint*, void> glScissorIndexedv;
         public static unsafe delegate* unmanaged[Cdecl]<GLsizei, GLshader*, ShaderBinaryFormat, void*, GLsizei, void> glShaderBinary;
-        public static unsafe delegate* unmanaged[Cdecl]<GLprogrampipeline, UseProgramStageMask, GLprogram, void> glUseProgramStages;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogrampipeline, ProgramStageMask, GLprogram, void> glUseProgramStages;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogrampipeline, void> glValidateProgramPipeline;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLdouble, void> glVertexAttribL1d;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLdouble*, void> glVertexAttribL1dv;
@@ -84,7 +84,7 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLdouble*, void> glVertexAttribL3dv;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLdouble, GLdouble, GLdouble, GLdouble, void> glVertexAttribL4d;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLdouble*, void> glVertexAttribL4dv;
-        public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint, VertexAttribLType, GLsizei, void*, void> glVertexAttribLPointer;
+        public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint, VertexAttribType, GLsizei, void*, void> glVertexAttribLPointer;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLsizei, GLfloat*, void> glViewportArrayv;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLfloat, GLfloat, GLfloat, GLfloat, void> glViewportIndexedf;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLfloat*, void> glViewportIndexedfv;

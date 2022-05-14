@@ -20,7 +20,7 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint64EXT*, void> glVertexAttribL4i64vNV;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLuint64EXT, GLuint64EXT, GLuint64EXT, GLuint64EXT, void> glVertexAttribL4ui64NV;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLuint64EXT*, void> glVertexAttribL4ui64vNV;
-        public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint, VertexAttribLType, GLsizei, void> glVertexAttribLFormatNV;
+        public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint, VertexAttribType, GLsizei, void> glVertexAttribLFormatNV;
     }
 }
 

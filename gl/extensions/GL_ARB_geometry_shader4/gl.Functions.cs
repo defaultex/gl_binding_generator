@@ -5,7 +5,7 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, GLtexture, GLint, void> glFramebufferTextureARB;
         public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, GLtexture, GLint, TextureTarget, void> glFramebufferTextureFaceARB;
         public static unsafe delegate* unmanaged[Cdecl]<FramebufferTarget, FramebufferAttachment, GLtexture, GLint, GLint, void> glFramebufferTextureLayerARB;
-        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, ProgramParameterPName, GLint, void> glProgramParameteriARB;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, ProgramParameterParameter, GLint, void> glProgramParameteriARB;
     }
 }
 

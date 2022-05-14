@@ -2,7 +2,7 @@ public partial class gl {
     public partial class Functions { 
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLshader, void> glAttachShader;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLuint, GLchar*, void> glBindAttribLocation;
-        public static unsafe delegate* unmanaged[Cdecl]<BlendEquationModeEXT, BlendEquationModeEXT, void> glBlendEquationSeparate;
+        public static unsafe delegate* unmanaged[Cdecl]<BlendEquationMode, BlendEquationMode, void> glBlendEquationSeparate;
         public static unsafe delegate* unmanaged[Cdecl]<GLshader, void> glCompileShader;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram> glCreateProgram;
         public static unsafe delegate* unmanaged[Cdecl]<ShaderType, GLshader> glCreateShader;
@@ -10,31 +10,31 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<GLshader, void> glDeleteShader;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLshader, void> glDetachShader;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, void> glDisableVertexAttribArray;
-        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, DrawBufferMode*, void> glDrawBuffers;
+        public static unsafe delegate* unmanaged[Cdecl]<GLsizei, ColorBuffer*, void> glDrawBuffers;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, void> glEnableVertexAttribArray;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLuint, GLsizei, GLsizei*, GLint*, AttributeType*, GLchar*, void> glGetActiveAttrib;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLuint, GLsizei, GLsizei*, GLint*, UniformType*, GLchar*, void> glGetActiveUniform;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLsizei, GLsizei*, GLshader*, void> glGetAttachedShaders;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLchar*, GLint> glGetAttribLocation;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLsizei, GLsizei*, GLchar*, void> glGetProgramInfoLog;
-        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, ProgramPropertyARB, GLint*, void> glGetProgramiv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLprogram, ProgramProperty, GLint*, void> glGetProgramiv;
         public static unsafe delegate* unmanaged[Cdecl]<GLshader, GLsizei, GLsizei*, GLchar*, void> glGetShaderInfoLog;
-        public static unsafe delegate* unmanaged[Cdecl]<GLshader, ShaderParameterName, GLint*, void> glGetShaderiv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLshader, ShaderParameter, GLint*, void> glGetShaderiv;
         public static unsafe delegate* unmanaged[Cdecl]<GLshader, GLsizei, GLsizei*, GLchar*, void> glGetShaderSource;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLint, GLfloat*, void> glGetUniformfv;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLint, GLint*, void> glGetUniformiv;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLchar*, GLint> glGetUniformLocation;
-        public static unsafe delegate* unmanaged[Cdecl]<GLuint, VertexAttribPropertyARB, GLdouble*, void> glGetVertexAttribdv;
-        public static unsafe delegate* unmanaged[Cdecl]<GLuint, VertexAttribPropertyARB, GLfloat*, void> glGetVertexAttribfv;
-        public static unsafe delegate* unmanaged[Cdecl]<GLuint, VertexAttribPropertyARB, GLint*, void> glGetVertexAttribiv;
-        public static unsafe delegate* unmanaged[Cdecl]<GLuint, VertexAttribPointerPropertyARB, void**, void> glGetVertexAttribPointerv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLuint, VertexAttribProperty, GLdouble*, void> glGetVertexAttribdv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLuint, VertexAttribProperty, GLfloat*, void> glGetVertexAttribfv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLuint, VertexAttribProperty, GLint*, void> glGetVertexAttribiv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLuint, VertexAttribPointerProperty, void**, void> glGetVertexAttribPointerv;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, GLboolean> glIsProgram;
         public static unsafe delegate* unmanaged[Cdecl]<GLshader, GLboolean> glIsShader;
         public static unsafe delegate* unmanaged[Cdecl]<GLprogram, void> glLinkProgram;
         public static unsafe delegate* unmanaged[Cdecl]<GLshader, GLsizei, GLchar**, GLint*, void> glShaderSource;
-        public static unsafe delegate* unmanaged[Cdecl]<StencilFaceDirection, StencilFunction, GLint, GLuint, void> glStencilFuncSeparate;
-        public static unsafe delegate* unmanaged[Cdecl]<StencilFaceDirection, GLuint, void> glStencilMaskSeparate;
-        public static unsafe delegate* unmanaged[Cdecl]<StencilFaceDirection, StencilOp, StencilOp, StencilOp, void> glStencilOpSeparate;
+        public static unsafe delegate* unmanaged[Cdecl]<FaceDirection, StencilFunction, GLint, GLuint, void> glStencilFuncSeparate;
+        public static unsafe delegate* unmanaged[Cdecl]<FaceDirection, GLuint, void> glStencilMaskSeparate;
+        public static unsafe delegate* unmanaged[Cdecl]<FaceDirection, StencilOp, StencilOp, StencilOp, void> glStencilOpSeparate;
         public static unsafe delegate* unmanaged[Cdecl]<GLint, GLfloat, void> glUniform1f;
         public static unsafe delegate* unmanaged[Cdecl]<GLint, GLsizei, GLfloat*, void> glUniform1fv;
         public static unsafe delegate* unmanaged[Cdecl]<GLint, GLint, void> glUniform1i;
@@ -92,6 +92,6 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLubyte*, void> glVertexAttrib4ubv;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLuint*, void> glVertexAttrib4uiv;
         public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLushort*, void> glVertexAttrib4usv;
-        public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint, VertexAttribPointerType, GLboolean, GLsizei, void*, void> glVertexAttribPointer;
+        public static unsafe delegate* unmanaged[Cdecl]<GLuint, GLint, VertexAttribType, GLboolean, GLsizei, void*, void> glVertexAttribPointer;
     }
 }
