@@ -1,5 +1,8 @@
 namespace glregistry;
 
+/// <summary>
+/// Represents an feature and all of it's dependencies.
+/// </summary>
 public class GLFeature : INamedObject {
     /// <summary>
     /// API required to support the feature.

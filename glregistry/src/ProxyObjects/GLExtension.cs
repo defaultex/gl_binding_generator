@@ -1,5 +1,8 @@
 namespace glregistry;
 
+/// <summary>
+/// Represents an extension and all of it's dependencies.
+/// </summary>
 public class GLExtension : INamedObject {
     GLAPI m_api = GLAPI.None;
 
@@ -10,7 +13,7 @@ public class GLExtension : INamedObject {
     public string Name { get; init; }
 
     /// <summary>
-    /// APIs required to support the feature. In the format of a Regex query.
+    /// APIs required to support the feature. Separated by the v-beam '|' character.
     /// </summary>
     [XmlAttribute("supported")]
     public string SupportedAPIPattern {

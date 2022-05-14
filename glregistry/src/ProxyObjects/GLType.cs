@@ -1,5 +1,8 @@
 namespace glregistry;
 
+/// <summary>
+/// Represents an OpenGL data type.
+/// </summary>
 public class GLType : GLBase, INamedObject {
     /// <summary>
     /// Name of the type. (Here to support reading from an xml attribute).

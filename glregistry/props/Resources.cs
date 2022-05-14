@@ -6,8 +6,8 @@ public static partial class Resources {
     public const string FormatCommandParam = "{0}, ";
     public const string FormatType = "{0}{1}";
 
-    public const string Base10Digits = "0,1,2,3,4,5,6,7,8,9";
-    public const string DimensionSpec = "1D,2D,3D,4D";
+    public static readonly string[] Base10Digits = new[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+    public static readonly string[] DimensionSpec = new[] { "1D", "2D", "3D", "4D" };
     public static readonly string[] SkipWords = new[] { "BIT", "BITS" };
 
     public static readonly Dictionary<string, string> MergeGroups = new() {

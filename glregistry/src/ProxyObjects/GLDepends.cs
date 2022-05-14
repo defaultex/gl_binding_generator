@@ -1,14 +1,17 @@
 namespace glregistry;
 
+/// <summary>
+/// Represents dependency for types, enumerants and commands within a feature or extension.
+/// </summary>
 public class GLDepends {
     /// <summary>
-    /// Comma-delimited list of APIs the dependency is supported by.
+    /// Profiles that the dependency is enabled for.
     /// </summary>
     [XmlAttribute("profile")]
     public GLProfile Profile { get; init; }
 
     /// <summary>
-    /// Name of the API the dependency belongs to.
+    /// API the dependency belongs to.
     /// </summary>
     [XmlAttribute("api")]
     public GLAPI API { get; init; }

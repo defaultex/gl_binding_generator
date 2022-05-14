@@ -1,5 +1,8 @@
 namespace glregistry;
 
+/// <summary>
+/// Represents a group of enumerants with a definitive name.
+/// </summary>
 public class GLGroup : GLBase, INamedObject, ICodeProvider {
     string m_cDecl, m_csDecl;
 
@@ -45,13 +48,22 @@ public class GLGroup : GLBase, INamedObject, ICodeProvider {
     [XmlElement("enum", Type = typeof(GLEnum))]
     public List<GLEnum> Enums { get; init; } = new();
 
+    /// <summary>
+    /// A string containing the full declaration in C.
+    /// </summary>
     [XmlIgnore]
     public string CDecl { get => m_cDecl; }
 
+    /// <summary>
+    /// A string containing the full declaration in C#.
+    /// </summary>
     [XmlIgnore]
     public string CSDecl { get => m_csDecl; }
 
-    [XmlIgnore] // kludge to get the correct API name in place
+    /// <summary>
+    /// A kludge to inject the correct API name for use as a header guard.
+    /// </summary>
+    [XmlIgnore]
     public GLAPI API { get; init; }
 
     public void UpdateCode() {
@@ -74,8 +86,8 @@ public class GLGroup : GLBase, INamedObject, ICodeProvider {
             GLEnum enumerants = Enums[i];
             m_cDecl += string.Format("{0} \n", enumerants.CDecl);
 
-            if (!string.IsNullOrEmpty(enumerants.SourceFeature)) {
-                m_csDecl += string.Format("\n#if {3}\n    {0} = {1}.Constants.{2},\n#endif\n\n", enumerants.CSName, apiName, enumerants.Name, enumerants.SourceFeature);
+            if (!string.IsNullOrEmpty(enumerants.SourceName)) {
+                m_csDecl += string.Format("\n#if {3}\n    {0} = {1}.Constants.{2},\n#endif\n\n", enumerants.CSName, apiName, enumerants.Name, enumerants.SourceName);
             } else {
                 m_csDecl += string.Format("    {0} = {1}.Constants.{2},\n", enumerants.CSName, apiName, enumerants.Name);
             }

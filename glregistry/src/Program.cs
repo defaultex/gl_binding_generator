@@ -59,6 +59,7 @@ class Program {
         swDeserialize.Stop();
         Console.WriteLine("Deserialized XML in {0}ms", swDeserialize.ElapsedMilliseconds);
 
+        Stopwatch swPrepping = Stopwatch.StartNew();
         registry.Initialize();
 
         List<OutputFile> outputFiles = new();
@@ -102,7 +103,7 @@ class Program {
                     }
 
                     if (!group.Enums.Contains(enumerant)) {
-                        enumerant.SourceFeature = (file.Extension != null) ? file.Extension.Name : null;
+                        enumerant.SourceName = (file.Extension != null) ? file.Extension.Name : null;
                         group.Enums.Add(enumerant);
                     }
                 }
@@ -136,6 +137,11 @@ class Program {
                     if (!string.IsNullOrEmpty(paramClass) && !classList.Contains(paramClass)) {
                         classList.Add(paramClass);
                     }
+
+                    GLGroup group = groupList.Find(paramGroup);
+                    if (group != null) {
+                        group.Required |= command.Required;
+                    }
                 }
             }
 
@@ -146,6 +152,11 @@ class Program {
 
         groupList.Sort(Resources.CompareGroups);
         outputFiles.UpdateCode();
+
+        swPrepping.Stop();
+        Console.WriteLine("Prepared registry for writing in {0}ms.", swPrepping.ElapsedMilliseconds);
+
+        Stopwatch swWriting = Stopwatch.StartNew();
 
         // regenerate the output directory then write all the files based on the above filters
         if (Directory.Exists(Resources.OutputFolder)) {
@@ -162,8 +173,32 @@ class Program {
         WriteClasses(classList);
 
         for (int i = 0; i < outputFiles.Count; i++) {
-            WriteOutputFile(outputFiles[i], strTargetAPI);
+            OutputFile file = outputFiles[i];
+            string name = file.Name;
+            if (string.IsNullOrEmpty(name)) {
+                return;
+            }
+
+            string folderPath = null;
+            if (file.Feature != null) {
+                folderPath = string.Format(Resources.FeatureFolder, name);
+            } else if (file.Extension != null) {
+                folderPath = string.Format(Resources.ExtensionFolder, name);
+            }
+
+            if (!Directory.Exists(folderPath)) {
+                Directory.CreateDirectory(folderPath);
+                Console.WriteLine("Created directory: {0}", folderPath);
+            }
+
+            WriteConstants(file, folderPath, strTargetAPI);
+            WriteCommands(file, folderPath, strTargetAPI);
+            WriteEnums(file, folderPath);
         }
+
+        swWriting.Stop();
+        Console.WriteLine("All files written in {0}ms.", swWriting.ElapsedMilliseconds);
+        Console.WriteLine("Completed in {0}s.", swDeserialize.Elapsed.TotalSeconds + swPrepping.Elapsed.TotalSeconds + swWriting.Elapsed.TotalSeconds);
     }
 
     static void ExtractFeatures(GLRegistry registry, List<OutputFile> outputFiles, GLAPI api, GLProfile profile) {
@@ -240,6 +275,7 @@ class Program {
                     GLEnum enumerant = registry.Enums.Find(enumAlias.Name);
                     if (enumerant != null) {
                         enumerant.Required = true;
+                        //enumerant.SourceName = enumerant.SourceName ?? file.Name;
                         file.Enums.Add(enumerant);
                     }
                 }
@@ -248,6 +284,7 @@ class Program {
                     GLCommand command = registry.Commands.Find(cmdAlias.Name);
                     if (command != null) {
                         command.Required = true;
+                        //command.SourceName = command.SourceName ?? file.Name;
                         file.Commands.Add(command);
                     }
                 }
@@ -276,24 +313,9 @@ class Program {
         }
     }
 
-    static void WriteOutputFile(OutputFile file, string api) {
+    static void WriteConstants(OutputFile file, string folderPath, string api) {
         string name = file.Name;
-        if (string.IsNullOrEmpty(name)) {
-            return;
-        }
         bool isExtension = (file.Extension != null);
-
-        string folderPath = null;
-        if (file.Feature != null) {
-            folderPath = string.Format(Resources.FeatureFolder, name);
-        } else if (file.Extension != null) {
-            folderPath = string.Format(Resources.ExtensionFolder, name);
-        }
-
-        if (!Directory.Exists(folderPath)) {
-            Directory.CreateDirectory(folderPath);
-            Console.WriteLine("Created directory: {0}", folderPath);
-        }
 
         // write constants for each of the enumerants required by the feature or extension
         string constFilename = folderPath + string.Format(Resources.ConstantsFilename, api);
@@ -318,6 +340,11 @@ class Program {
             }
         }
         Console.WriteLine("Created file: {0}", constFilename);
+    }
+
+    static void WriteCommands(OutputFile file, string folderPath, string api) {
+        string name = file.Name;
+        bool isExtension = (file.Extension != null);
 
         // write functions for each of the commands required by the feature or extension
         string functFilename = folderPath + string.Format(Resources.FunctionsFilename, api);
@@ -342,6 +369,11 @@ class Program {
             }
         }
         Console.WriteLine("Created file: {0}", functFilename);
+    }
+
+    static void WriteEnums(OutputFile file, string folderPath) {
+        string name = file.Name;
+        bool isExtension = (file.Extension != null);
 
         // kluge to seperate enums into their own folder
         folderPath = string.Format("{0}/enums/", folderPath);

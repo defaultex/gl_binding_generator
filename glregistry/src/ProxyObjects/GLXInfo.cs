@@ -1,5 +1,8 @@
 namespace glregistry;
 
+/// <summary>
+/// Represents information about the GLX protocol for a command.
+/// </summary>
 public class GLXInfo {
     /// <summary>
     /// Type of GLX protocol.

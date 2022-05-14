@@ -1,16 +1,19 @@
 namespace glregistry;
 
+/// <summary>
+/// Represents a constant within the OpenGL specification.
+/// </summary>
 public class GLEnum : GLBase, INamedObject, ICodeProvider {
     string m_cDecl, m_csName, m_csDecl;
 
     /// <summary>
-    /// Name of the enumerant.
+    /// Value of the enumerant, a C-style constant name.
     /// </summary>
     [XmlAttribute("name")]
     public string Name { get; init; }
 
     /// <summary>
-    /// Value of the enumerant, a C-style constant.
+    /// Value of the enumerant, a C-style constant value.
     /// </summary>
     [XmlAttribute("value")]
     public string Value { get; init; }
@@ -33,17 +36,23 @@ public class GLEnum : GLBase, INamedObject, ICodeProvider {
     [XmlAttribute("group")]
     public string Groups { get; init; }
 
+    /// <summary>
+    /// Name converted into camel hump notation for use in C#.
+    /// </summary>
     [XmlIgnore]
     public string CSName { get => m_csName; }
 
+    /// <summary>
+    /// Enumerant represented as a C constant.
+    /// </summary>
     [XmlIgnore]
     public string CDecl { get => m_cDecl; }
 
+    /// <summary>
+    /// Enumerant represented as a C# constant.
+    /// </summary>
     [XmlIgnore]
     public string CSDecl { get => m_csDecl; }
-
-    [XmlIgnore]
-    public string SourceFeature { get; set; }
 
     public void UpdateCode() { 
         m_cDecl = string.Format("#define {0} {1}", Name, Value);
@@ -61,15 +70,14 @@ public class GLEnum : GLBase, INamedObject, ICodeProvider {
                 // don't adjust dimension spec, just reads badly
                 m_csName += nameWords[i];
             } else {
-                
                 // caps to camel hump conversion
-                m_csName += string.Format("{0}{1}", nameWords[i][0], nameWords[i].Substring(1).ToLower());
+                m_csName += string.Format(Resources.FormatType, nameWords[i][0], nameWords[i].Substring(1).ToLower());
             }
         }
 
         if (!string.IsNullOrEmpty(m_csName)) {
             // the value name starts with a number, just prefix it with an underscore
-            if (Resources.Base10Digits.Contains(m_csName[0])) {
+            if (Resources.Base10Digits.Contains(m_csName[0].ToString())) {
                 m_csName = "_" + m_csName;
             }
         } else {

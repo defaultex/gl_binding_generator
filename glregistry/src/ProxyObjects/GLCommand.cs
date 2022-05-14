@@ -1,5 +1,8 @@
 namespace glregistry;
 
+/// <summary>
+/// Represents a command that can be invoked in the OpenGL API.
+/// </summary>
 public class GLCommand : GLBase, INamedObject, ICodeProvider {
     string m_cdecl, m_csdecl;
     
@@ -45,9 +48,15 @@ public class GLCommand : GLBase, INamedObject, ICodeProvider {
     [XmlIgnore]
     public string Name { get => Prototype.Name; }
 
+    /// <summary>
+    /// A string containing the full declaration in C.
+    /// </summary>
     [XmlIgnore]
     public string CDecl { get => m_cdecl; }
 
+    /// <summary>
+    /// A string containing the full declaration in C#.
+    /// </summary>
     [XmlIgnore]
     public string CSDecl { get => m_csdecl; }
 

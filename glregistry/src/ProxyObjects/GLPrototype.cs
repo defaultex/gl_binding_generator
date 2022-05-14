@@ -1,5 +1,8 @@
 namespace glregistry;
 
+/// <summary>
+/// Represents a prototype definition for commands and parameters.
+/// </summary>
 public class GLPrototype : INamedObject, ICodeProvider {
     string m_class, m_pointers, m_ctype, m_cdecl, m_cstype, m_csdecl;
 
@@ -39,18 +42,33 @@ public class GLPrototype : INamedObject, ICodeProvider {
     [XmlText]
     public string[] Text { get; init; }
 
+    /// <summary>
+    /// A string containing only the pointer symbols of the declaration.
+    /// </summary>
     [XmlIgnore]
     public string Pointers { get => m_pointers; }
 
+    /// <summary>
+    /// A string containing the C-language definition of the type.
+    /// </summary>
     [XmlIgnore]
     public string CType { get => m_ctype; }
 
+    /// <summary>
+    /// A string containing the C#-language definition of the type.
+    /// </summary>
     [XmlIgnore]
     public string CSType { get => m_cstype; }
 
+    /// <summary>
+    /// A string containing the full declaration in C.
+    /// </summary>
     [XmlIgnore]
     public string CDecl { get => m_cdecl; }
 
+    /// <summary>
+    /// A string containing the full declaration in C#.
+    /// </summary>
     [XmlIgnore]
     public string CSDecl { get => m_csdecl; }
 
