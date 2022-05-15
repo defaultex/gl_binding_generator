@@ -36,6 +36,42 @@
                 "${workspaceFolder}/glregistry/glregistry.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-hgl",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/hgl/hgl.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish-hgl",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/hgl/hgl.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch-hgl",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/hgl/hgl.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }

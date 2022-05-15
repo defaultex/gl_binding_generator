@@ -2,7 +2,7 @@ namespace glregistry;
 
 public static partial class Resources {
     public const string FormatCommandCdecl = "{1} {0}({2});";
-    public const string FormatCommandCSdecl = "        public static unsafe delegate* unmanaged[Cdecl]<{2}{1}> {0};";
+    public const string FormatCommandCSdecl = "delegate* unmanaged[Cdecl]<{2}{1}> {0};";
     public const string FormatCommandParam = "{0}, ";
     public const string FormatPtrType = "{0}{1}";
     public const string FormatDecl = "{0} {1}";
@@ -25,7 +25,7 @@ public static partial class Resources {
 
         { "BufferPointerNameARB", "BufferPointerParameter" },
 
-        { "CopyBufferSubDataTarget", "BufferSubDataTarget" },
+        { "CopyBufferSubDataTarget", "BufferTarget" },
 
         { "BufferTargetARB", "BufferTarget" },
         { "BufferStorageTarget", "BufferTarget" },
@@ -121,6 +121,7 @@ public static partial class Resources {
 
         { "VertexArrayPName", "VertexArrayParameter" },
 
+        { "VertexAttribEnum", "VertexAttribProperty" },
         { "VertexAttribPropertyARB", "VertexAttribProperty" },
 
         { "VertexAttribPointerPropertyARB", "VertexAttribPointerProperty" },

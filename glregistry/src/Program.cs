@@ -371,7 +371,7 @@ class Program {
             for (int i = 0; i < file.Commands.Count; i++) {
                 if (!file.Commands[i].Declared && file.Commands[i].Required) {
                     file.Commands[i].Declared = true;
-                    writer.WriteLine(file.Commands[i].CSDecl);
+                    writer.Write(Resources.FeatureFunction, file.Commands[i].CDecl, file.Commands[i].CSDecl);
                 }
             }
 

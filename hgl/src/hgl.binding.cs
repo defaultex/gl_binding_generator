@@ -1,0 +1,36 @@
+partial class hgl {
+    const string GL_DLL = @"/usr/lib/x86_64-linux-gnu/libGL.so";
+    const CallingConvention GL_CALL_CONV = CallingConvention.StdCall;
+    const CharSet GL_CHAR_SET = CharSet.Ansi;
+
+    /// <summary>
+    /// Bind the wrapper to the current context.
+    /// </summary>
+    /// <param name="getProcAddr">Delegate pointing at a GetProcAddress() function.</param>
+    /// <param name="isExtensionSupported">Delegate pointing at a function to determine if an extension is supported.</param>
+    /// <param name="extensions">An optional list of extension names paired with a static type to bind static function pointers.</param>
+    public static void BindToContext(Func<string, IntPtr> getProcAddr, Func<string, bool> isExtensionSupported, (string, Type)[] extensions = null) {
+        foreach (FieldInfo field in typeof(gl.Functions).GetFields(BindingFlags.Public | BindingFlags.Static)) {
+            IntPtr procAddress = getProcAddr(field.Name);
+            Debug.Assert(procAddress != default, string.Format("'{0}' could not be bound to the current context", field.Name));
+            field.SetValue(null, procAddress);
+        }
+        if (extensions != null) {
+            foreach ((string, Type) extension in extensions) {
+                LoadExtension(getProcAddr, isExtensionSupported, extension.Item1, extension.Item2);
+            }
+        }
+    }
+
+    static void LoadExtension(Func<string, IntPtr> getProcAddr, Func<string, bool> isExtensionSupported, string extensionName, Type ptrFuncDefs) {
+        _ = extensionName ?? throw new ArgumentNullException(nameof(extensionName));
+        _ = ptrFuncDefs ?? throw new ArgumentNullException(nameof(ptrFuncDefs));
+        if (isExtensionSupported(extensionName)) {
+            foreach (FieldInfo field in ptrFuncDefs.GetFields(BindingFlags.Public | BindingFlags.Static)) {
+                IntPtr procAddress = getProcAddr(field.Name);
+                Debug.Assert(procAddress != default, string.Format("'{0}' could not be bound to the current context", field.Name));
+                field.SetValue(null, procAddress);
+            }
+        }
+    }
+}
