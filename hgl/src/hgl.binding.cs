@@ -1,7 +1,5 @@
 partial class hgl {
     const string GL_DLL = @"/usr/lib/x86_64-linux-gnu/libGL.so";
-    const CallingConvention GL_CALL_CONV = CallingConvention.StdCall;
-    const CharSet GL_CHAR_SET = CharSet.Ansi;
 
     /// <summary>
     /// Bind the wrapper to the current context.
