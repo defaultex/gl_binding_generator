@@ -45,6 +45,8 @@ public static partial class Resources {
         { "DepthFunction", "CompareFunction" },
         { "AlphaFunction", "CompareFunction" },
 
+        { "TextureCompareMode", "CompareMode" },
+
         { "BinormalPointerTypeEXT", "DataType" },
 
         { "DrawElementsType", "ElementType" },
@@ -131,6 +133,8 @@ public static partial class Resources {
         { "VertexAttribLType", "VertexAttribType" },
 
         { "FrontFaceDirection", "WindingOrder" },
+
+        { "TextureWrapMode", "WrapMode" },
     };
 
     public static readonly string[] PrototypeGroupBlacklist = new[] {
@@ -190,6 +194,13 @@ public static partial class Resources {
     public static readonly string[] GroupBlacklist = new[] { 
         "Boolean",
         "SpecialNumbers",
+    };
+
+    // types that are not explicitly required, but are actually needed
+    public static readonly string[] AlwaysRequire = new[] { 
+        "TextureMinFilter",
+        "TextureWrapMode",
+        "TextureCompareMode"
     };
 
     public static bool IsGroupBlacklisted(string name) => GroupBlacklist.Contains(name);

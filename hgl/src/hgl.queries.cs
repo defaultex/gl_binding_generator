@@ -1,5 +1,5 @@
 partial class hgl {
-    public static void BeginConditionalRender(GLquery id, ConditionalRenderMode mode) {
+    public static void BeginConditionalRender(this GLquery id, ConditionalRenderMode mode) {
         unsafe { gl.Functions.glBeginConditionalRender(id, mode); }
     }
 
@@ -43,23 +43,23 @@ partial class hgl {
         unsafe { fixed (GLquery* ptr = &id) gl.Functions.glGenQueries(1, ptr); }
     }
 
-    public static void GetQueryObjectResultAvailable(GLquery id, out bool result) {
+    public static void GetQueryObjectResultAvailable(this GLquery id, out bool result) {
         unsafe { fixed (bool* ptr = &result) gl.Functions.glGetQueryObjectuiv(id, QueryObjectParameter.QueryResultAvailable, (GLuint*)ptr); }
     }
 
-    public static void GetQueryObjectResult(GLquery id, out int result) {
+    public static void GetQueryObjectResult(this GLquery id, out int result) {
         unsafe { fixed (GLint* ptr = &result) gl.Functions.glGetQueryObjectiv(id, QueryObjectParameter.QueryResult, ptr); }
     }
 
-    public static void GetQueryObjectResult(GLquery id, out uint result) {
+    public static void GetQueryObjectResult(this GLquery id, out uint result) {
         unsafe { fixed (GLuint* ptr = &result) gl.Functions.glGetQueryObjectuiv(id, QueryObjectParameter.QueryResult, ptr); }
     }
 
-    public static void GetQueryObjectResult(GLquery id, out long result) {
+    public static void GetQueryObjectResult(this GLquery id, out long result) {
         unsafe { fixed (GLint64* ptr = &result) gl.Functions.glGetQueryObjecti64v(id, QueryObjectParameter.QueryResult, ptr); }
     }
 
-    public static void GetQueryObjectResult(GLquery id, out ulong result) {
+    public static void GetQueryObjectResult(this GLquery id, out ulong result) {
         unsafe { fixed (GLuint64* ptr = &result) gl.Functions.glGetQueryObjectui64v(id, QueryObjectParameter.QueryResult, ptr); }
     }
 
@@ -71,11 +71,11 @@ partial class hgl {
         unsafe { fixed (GLint* ptr = &result) gl.Functions.glGetQueryIndexediv(target, (GLuint)index, pname, ptr); }
     }
 
-    public static GLboolean IsQuery(GLquery id) {
+    public static GLboolean IsQuery(this GLquery id) {
         unsafe { return gl.Functions.glIsQuery(id); }
     }
 
-    public static void QueryCounter(GLquery id) {
+    public static void QueryCounter(this GLquery id) {
         unsafe { gl.Functions.glQueryCounter(id, QueryCounterTarget.Timestamp); }
     }
 }

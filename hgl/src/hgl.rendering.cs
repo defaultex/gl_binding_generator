@@ -21,20 +21,20 @@ partial class hgl {
         unsafe { gl.Functions.glClearBufferfi(Buffer.Depth | Buffer.Stencil, 0, depth, (GLint)stencil); }
     }
 
-    public static void ClearBuffer(GLframebuffer framebuffer, Buffer buffer, int drawBuffer, params int[] value) {
+    public static void ClearBuffer(this GLframebuffer framebuffer, Buffer buffer, int drawBuffer, params int[] value) {
         unsafe { fixed (GLint* ptr = value) gl.Functions.glClearNamedFramebufferiv(framebuffer, buffer, drawBuffer, ptr); }
     }
 
-    public static void ClearBuffer(GLframebuffer framebuffer, Buffer buffer, int drawBuffer, params uint[] value) {
+    public static void ClearBuffer(this GLframebuffer framebuffer, Buffer buffer, int drawBuffer, params uint[] value) {
         unsafe { fixed (GLuint* ptr = value) gl.Functions.glClearNamedFramebufferuiv(framebuffer, buffer, drawBuffer, ptr); }
     }
 
-    public static void ClearBuffer(GLframebuffer framebuffer, Buffer buffer, int drawBuffer, params float[] value) {
+    public static void ClearBuffer(this GLframebuffer framebuffer, Buffer buffer, int drawBuffer, params float[] value) {
         unsafe { fixed (GLfloat* ptr = value) gl.Functions.glClearNamedFramebufferfv(framebuffer, buffer, drawBuffer, ptr); }
     }
 
     // TODO : create a fix to the generator to allow bit mask for this particular usage
-    public static void ClearBuffer(GLframebuffer framebuffer, float depth, int stencil) {
+    public static void ClearBuffer(this GLframebuffer framebuffer, float depth, int stencil) {
         unsafe { gl.Functions.glClearNamedFramebufferfi(framebuffer, Buffer.Depth | Buffer.Stencil, 0, depth, (GLint)stencil); }
     }
 
@@ -70,18 +70,15 @@ partial class hgl {
         unsafe { gl.Functions.glReadBuffer(mode); }
     }
 
-    public static void ReadBuffer(GLframebuffer buffer, ColorBuffer mode) {
+    public static void ReadBuffer(this GLframebuffer buffer, ColorBuffer mode) {
         unsafe { gl.Functions.glNamedFramebufferReadBuffer(buffer, mode); }
     }
 
-    public static void ReadPixels<T>(int x, int y, int width, int height, PixelFormat format, PixelType type, T[] pixels)
-        where T : unmanaged {
+    public static void ReadPixels<T>(int x, int y, int width, int height, PixelFormat format, PixelType type, T[] pixels) where T : unmanaged {
         unsafe { fixed (void* ptr = pixels) gl.Functions.glReadPixels(x, y, width, height, format, type, ptr); }
     }
 
-    // TODO : determine a good implementation of glReadnPixels
-    // public static void ReadPixels<T>(int x, int y, int width, int height, PixelFormat format, PixelType type, T[] pixels)
-    //     where T : unmanaged {
-    //     unsafe { fixed (void* ptr = pixels) gl.Functions.glReadnPixels(x, y, width, height, format, type, pixels.Length, ptr); }
-    // }
+    public static void ReadNPixels<T>(int x, int y, int width, int height, PixelFormat format, PixelType type, int bufSize, T[] pixels) where T : unmanaged {
+        unsafe { fixed (void* ptr = pixels) gl.Functions.glReadnPixels(x, y, width, height, format, type, bufSize, ptr); }
+    }
 }

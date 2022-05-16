@@ -55,6 +55,7 @@ public struct DrawElementsIndirectCommand {
 }
 
 partial class hgl {
+    
     public static void BindBuffer(BufferTarget target, GLbuffer buffer) {
         unsafe { gl.Functions.glBindBuffer(target, buffer); }
     }
@@ -88,8 +89,7 @@ partial class hgl {
     public static void BindVertexBuffers(int bindingIndex, GLbuffer[] buffers, int[] offsets, int[] sizes) {
         unsafe {
             fixed (GLbuffer* pBuffers = buffers)
-            fixed (int* pOffsets = offsets)
-            fixed (int* pSizes = sizes) {
+            fixed (int* pOffsets = offsets, pSizes = sizes) {
                 gl.Functions.glBindVertexBuffers((GLuint)bindingIndex, buffers.Length, pBuffers, (GLintptr*)pOffsets, pSizes);
             }
         }
@@ -99,24 +99,48 @@ partial class hgl {
         unsafe { fixed (T* pData = data) gl.Functions.glBufferData(target, (GLsizeiptr)size, pData, usage); }
     }
 
+    public static void BufferData<T>(this GLbuffer buffer, int size, T[] data, BufferUsage usage) where T : unmanaged {
+        unsafe { fixed (T* pData = data) gl.Functions.glNamedBufferData(buffer, (GLsizeiptr)size, pData, usage); }
+    }
+
     public static void BufferStorage<T>(BufferTarget target, int size, T[] data, BufferStorageMask flags) where T : unmanaged {
         unsafe { fixed (T* pData = data) gl.Functions.glBufferStorage(target, (GLsizeiptr)size, pData, flags); }
+    }
+
+    public static void BufferStorage<T>(this GLbuffer buffer, int size, T[] data, BufferStorageMask flags) where T : unmanaged {
+        unsafe { fixed (T* pData = data) gl.Functions.glNamedBufferStorage(buffer, (GLsizeiptr)size, pData, flags); }
     }
 
     public static void BufferSubData<T>(BufferTarget target, int offset, int size, T[] data) where T : unmanaged {
         unsafe { fixed (T* pData = data) gl.Functions.glBufferSubData(target, (GLintptr)offset, (GLsizeiptr)size, pData); }
     }
 
+    public static void BufferSubData<T>(this GLbuffer buffer, int offset, int size, T[] data) where T : unmanaged {
+        unsafe { fixed (T* pData = data) gl.Functions.glNamedBufferSubData(buffer, (GLintptr)offset, (GLsizeiptr)size, pData); }
+    }
+
     public static void ClearBufferData<T>(BufferTarget target, SizedInternalFormat internalFormat, PixelFormat format, PixelType type, T[] data) where T : unmanaged {
         unsafe { fixed (T* pData = data) gl.Functions.glClearBufferData(target, internalFormat, format, type, pData); }
+    }
+
+    public static void ClearBufferData<T>(this GLbuffer buffer, SizedInternalFormat internalFormat, PixelFormat format, PixelType type, T[] data) where T : unmanaged {
+        unsafe { fixed (T* pData = data) gl.Functions.glClearNamedBufferData(buffer, internalFormat, format, type, pData); }
     }
 
     public static void ClearBufferSubData<T>(BufferTarget target, SizedInternalFormat internalFormat, int offset, int size, PixelFormat format, PixelType type, T[] data) where T : unmanaged {
         unsafe { fixed (T* pData = data) gl.Functions.glClearBufferSubData(target, internalFormat, (GLintptr)offset, (GLsizeiptr)size, format, type, pData); }
     }
 
+    public static void ClearBufferSubData<T>(this GLbuffer buffer, SizedInternalFormat internalFormat, int offset, int size, PixelFormat format, PixelType type, T[] data) where T : unmanaged {
+        unsafe { fixed (T* pData = data) gl.Functions.glClearNamedBufferSubData(buffer, internalFormat, (GLintptr)offset, (GLsizeiptr)size, format, type, pData); }
+    }
+
     public static void CopyBufferSubData(BufferTarget readTarget, BufferTarget writeTarget, int readOffset, int writeOffset, int size) {
         unsafe { gl.Functions.glCopyBufferSubData(readTarget, writeTarget, (GLintptr)readOffset, (GLintptr)writeOffset, (GLsizeiptr)size); }
+    }
+
+    public static void CopyBufferSubData(GLbuffer readBuffer, GLbuffer writeBuffer, int readOffset, int writeOffset, int size) {
+        unsafe { gl.Functions.glCopyNamedBufferSubData(readBuffer, writeBuffer, (GLintptr)readOffset, (GLintptr)writeOffset, (GLsizeiptr)size); }
     }
 
     public static void CreateBuffers(GLbuffer[] buffers) {
@@ -125,14 +149,6 @@ partial class hgl {
 
     public static void CreateBuffer(out GLbuffer buffer) {
         unsafe { fixed (GLbuffer* pBuffers = &buffer) gl.Functions.glCreateBuffers(1, pBuffers); }
-    }
-
-    public static void CreateVertexArrays(GLvertexarray[] arrays) {
-        unsafe { fixed (GLvertexarray* pArrays = arrays) gl.Functions.glCreateVertexArrays(arrays.Length, pArrays); }
-    }
-
-    public static void CreateVertexArray(out GLvertexarray arrays) {
-        unsafe { fixed (GLvertexarray* pArrays = &arrays) gl.Functions.glCreateVertexArrays(1, pArrays); }
     }
 
     public static void DeleteBuffers(params GLbuffer[] buffers) {
@@ -203,6 +219,10 @@ partial class hgl {
         unsafe { gl.Functions.glFlushMappedBufferRange(target, (GLintptr)offset, (GLsizeiptr)length); }
     }
 
+    public static void FlushMappedBufferRange(this GLbuffer buffer, int offset, int length) {
+        unsafe { gl.Functions.glFlushMappedNamedBufferRange(buffer, (GLintptr)offset, (GLsizeiptr)length); }
+    }
+
     public static void GenBuffers(GLbuffer[] buffers) {
         unsafe { fixed (GLbuffer* ptr = buffers) gl.Functions.glGenBuffers(buffers.Length, ptr); }
     }
@@ -219,11 +239,11 @@ partial class hgl {
         unsafe { fixed (GLint64* ptr = &parameters) gl.Functions.glGetBufferParameteri64v(target, pname, ptr); }
     }
 
-    public static void GetBufferParameter(GLbuffer buffer, BufferParameter pname, out int parameters) {
+    public static void GetBufferParameter(this GLbuffer buffer, BufferParameter pname, out int parameters) {
         unsafe { fixed (GLint* ptr = &parameters) gl.Functions.glGetNamedBufferParameteriv(buffer, pname, ptr); }
     }
 
-    public static void GetBufferParameter(GLbuffer buffer, BufferParameter pname, out long parameters) {
+    public static void GetBufferParameter(this GLbuffer buffer, BufferParameter pname, out long parameters) {
         unsafe { fixed (GLint64* ptr = &parameters) gl.Functions.glGetNamedBufferParameteri64v(buffer, pname, ptr); }
     }
 
@@ -239,15 +259,15 @@ partial class hgl {
         unsafe { fixed (void* pData = parameters) gl.Functions.glGetBufferPointerv(target, BufferPointerParameter.BufferMapPointer, (void**)&pData); }
     }
 
-    public static void GetBufferPointer(GLbuffer buffer, out IntPtr parameters) {
+    public static void GetBufferPointer(this GLbuffer buffer, out IntPtr parameters) {
         unsafe { fixed (void* pData = &parameters) gl.Functions.glGetNamedBufferPointerv(buffer, BufferPointerParameter.BufferMapPointer, (void**)&pData); }
     }
 
-    public static void GetBufferPointer<T>(GLbuffer buffer, out T parameters) where T : unmanaged {
+    public static void GetBufferPointer<T>(this GLbuffer buffer, out T parameters) where T : unmanaged {
         unsafe { fixed (void* pData = &parameters) gl.Functions.glGetNamedBufferPointerv(buffer, BufferPointerParameter.BufferMapPointer, (void**)&pData); }
     }
 
-    public static void GetBufferPointer<T>(GLbuffer buffer, out T[] parameters) where T : unmanaged {
+    public static void GetBufferPointer<T>(this GLbuffer buffer, out T[] parameters) where T : unmanaged {
         unsafe { fixed (void* pData = parameters) gl.Functions.glGetNamedBufferPointerv(buffer, BufferPointerParameter.BufferMapPointer, (void**)&pData); }
     }
 
@@ -255,32 +275,8 @@ partial class hgl {
         unsafe { fixed (void* pData = data) gl.Functions.glGetBufferSubData(target, (GLintptr)offset, (GLsizeiptr)size, pData); }
     }
 
-    public static void GetBufferSubData<TData>(GLbuffer buffer, int offset, int size, TData[] data) where TData : unmanaged {
+    public static void GetBufferSubData<TData>(this GLbuffer buffer, int offset, int size, TData[] data) where TData : unmanaged {
         unsafe { fixed (void* pData = data) gl.Functions.glGetNamedBufferSubData(buffer, (GLintptr)offset, (GLsizeiptr)size, pData); }
-    }
-
-    public static void GetVertexArrayIndexed(GLvertexarray vaobj, int index, VertexArrayParameter pname, int[] parameters) {
-        unsafe { fixed (GLint* pParam = parameters) gl.Functions.glGetVertexArrayIndexediv(vaobj, (GLuint)index, pname, pParam); }
-    }
-
-    public static void GetVertexArrayIndexed(GLvertexarray vaobj, int index, VertexArrayParameter pname, out int parameters) {
-        unsafe { fixed (GLint* pParam = &parameters) gl.Functions.glGetVertexArrayIndexediv(vaobj, (GLuint)index, pname, pParam); }
-    }
-
-    public static void GetVertexArrayIndexed(GLvertexarray vaobj, int index, VertexArrayParameter pname, long[] parameters) {
-        unsafe { fixed (GLint64* pParam = parameters) gl.Functions.glGetVertexArrayIndexed64iv(vaobj, (GLuint)index, pname, pParam); }
-    }
-
-    public static void GetVertexArrayIndexed(GLvertexarray vaobj, int index, VertexArrayParameter pname, out long parameters) {
-        unsafe { fixed (GLint64* pParam = &parameters) gl.Functions.glGetVertexArrayIndexed64iv(vaobj, (GLuint)index, pname, pParam); }
-    }
-
-    public static void GetVertexArray(GLvertexarray vaobj, VertexArrayParameter pname, int[] parameters) {
-        unsafe { fixed (GLint* pParam = parameters) gl.Functions.glGetVertexArrayiv(vaobj, pname, pParam); }
-    }
-
-    public static void GetVertexArray(GLvertexarray vaobj, VertexArrayParameter pname, out int parameters) {
-        unsafe { fixed (GLint* pParam = &parameters) gl.Functions.glGetVertexArrayiv(vaobj, pname, pParam); }
     }
 
     public static void GetVertexAttrib(int index, VertexAttribProperty pname, double[] parameters) {
@@ -339,15 +335,15 @@ partial class hgl {
         unsafe { fixed (void* ptr = pointer) gl.Functions.glGetVertexAttribPointerv((GLuint)index, VertexAttribPointerProperty.VertexAttribArrayPointer, (void**)&ptr); }
     }
 
-    public static void InvalidateBufferData(GLbuffer buffer) {
+    public static void InvalidateBufferData(this GLbuffer buffer) {
         unsafe { gl.Functions.glInvalidateBufferData(buffer); }
     }
 
-    public static void InvalidateBufferSubData(GLbuffer buffer, int offset, int length) {
+    public static void InvalidateBufferSubData(this GLbuffer buffer, int offset, int length) {
         unsafe { gl.Functions.glInvalidateBufferSubData(buffer, (GLintptr)offset, (GLsizeiptr)length); }
     }
 
-    public static bool IsBuffer(GLbuffer buffer) {
+    public static bool IsBuffer(this GLbuffer buffer) {
         unsafe { return (gl.Functions.glIsBuffer(buffer) != gl.Constants.GL_FALSE); }
     }
 
@@ -356,8 +352,16 @@ partial class hgl {
         unsafe { return (IntPtr)gl.Functions.glMapBuffer(target, access); }
     }
 
+    public static IntPtr MapBuffer(this GLbuffer buffer, BufferAccess access) {
+        unsafe { return (IntPtr)gl.Functions.glMapNamedBuffer(buffer, access); }
+    }
+
     public static IntPtr MapBufferRange(BufferTarget target, int offset, int length, MapBufferAccessMask access) {
         unsafe { return (IntPtr)gl.Functions.glMapBufferRange(target, (GLintptr)offset, (GLsizeiptr)length, access); }
+    }
+
+    public static IntPtr MapBufferRange(this GLbuffer buffer, int offset, int length, MapBufferAccessMask access) {
+        unsafe { return (IntPtr)gl.Functions.glMapNamedBufferRange(buffer, (GLintptr)offset, (GLsizeiptr)length, access); }
     }
 
     public static void MultiDrawArrays(PrimitiveType mode, int[] first, int[] count, int drawCount) {
@@ -405,8 +409,8 @@ partial class hgl {
         unsafe { return (gl.Functions.glUnmapBuffer(target) != gl.Constants.GL_FALSE); }
     }
 
-    public static void VertexArrayElementBuffer(GLvertexarray vaobj, GLbuffer buffer) {
-        unsafe { gl.Functions.glVertexArrayElementBuffer(vaobj, buffer); }
+    public static bool UnmapBuffer(this GLbuffer buffer) {
+        unsafe { return (gl.Functions.glUnmapNamedBuffer(buffer) != gl.Constants.GL_FALSE); }
     }
 
     public static void VertexAttrib1(int index, double x) {
@@ -669,10 +673,6 @@ partial class hgl {
         unsafe { gl.Functions.glVertexAttribBinding((GLuint)attribIndex, (GLuint)bindingIndex); }
     }
 
-    public static void VertexArrayAttribBinding(GLvertexarray vaobj, int attribIndex, int bindingIndex) {
-        unsafe { gl.Functions.glVertexArrayAttribBinding(vaobj, (GLuint)attribIndex, (GLuint)bindingIndex); }
-    }
-
     public static void VertexAttribDivisor(int index, int divisor) {
         unsafe { gl.Functions.glVertexAttribDivisor((GLuint)index, (GLuint)divisor); }
     }
@@ -689,18 +689,6 @@ partial class hgl {
         unsafe { gl.Functions.glVertexAttribLFormat((GLuint)attribIndex, size, type, (GLuint)relOffset); }
     }
 
-    public static void VertexArrayAttribFormat(GLvertexarray vaobj, int attribIndex, int size, VertexAttribType type, bool normalized, int relOffset) {
-        unsafe { gl.Functions.glVertexArrayAttribFormat(vaobj, (GLuint)attribIndex, size, type, (GLboolean)(normalized ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), (GLuint)relOffset); }
-    }
-
-    public static void VertexArrayAttribIFormat(GLvertexarray vaobj,int attribIndex, int size, VertexAttribType type, int relOffset) {
-        unsafe { gl.Functions.glVertexArrayAttribIFormat(vaobj, (GLuint)attribIndex, size, type, (GLuint)relOffset); }
-    }
-
-    public static void VertexArrayAttribLFormat(GLvertexarray vaobj,int attribIndex, int size, VertexAttribType type, int relOffset) {
-        unsafe { gl.Functions.glVertexArrayAttribLFormat(vaobj, (GLuint)attribIndex, size, type, (GLuint)relOffset); }
-    }
-
     public static void VertexAttribPointer(int index, int size, VertexAttribType type, bool normalized, int stride, int offset) {
         unsafe { gl.Functions.glVertexAttribPointer((GLuint)index, size, type, (GLboolean)(normalized ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), stride, (void*)offset); }
     }
@@ -715,9 +703,5 @@ partial class hgl {
 
     public static void VertexBindingDivisor(int index, int divisor) {
         unsafe { gl.Functions.glVertexBindingDivisor((GLuint)index, (GLuint)divisor); }
-    }
-
-    public static void VertexArrayBindingDivisor(GLvertexarray vaobj, int index, int divisor) {
-        unsafe { gl.Functions.glVertexArrayBindingDivisor(vaobj, (GLuint)index, (GLuint)divisor); }
     }
 }

@@ -94,7 +94,8 @@ class Program {
                         group = new() {
                             Name = newGroupName,
                             Type = newGroupName.EndsWith("Mask") ? "GLbitfield" : "GLenum",
-                            API = targetAPI
+                            API = targetAPI,
+                            Required = Resources.AlwaysRequire.Contains(groupName)
                         };
                         groupList.Add(group);
                     }

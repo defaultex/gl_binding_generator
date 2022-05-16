@@ -4,7 +4,7 @@ partial class hgl {
         unsafe { gl.Functions.glBindFramebuffer(target, framebuffer); }
     }
 
-    public static void BindRenderbuffer(GLrenderbuffer renderbuffer) {
+    public static void BindRenderbuffer(this GLrenderbuffer renderbuffer) {
         unsafe { gl.Functions.glBindRenderbuffer(RenderbufferTarget.Renderbuffer, renderbuffer); }
     }
 
@@ -20,7 +20,7 @@ partial class hgl {
         unsafe { return gl.Functions.glCheckFramebufferStatus(target); }
     }
 
-    public static FramebufferStatus CheckFramebufferStatus(GLframebuffer buffer, FramebufferTarget target) {
+    public static FramebufferStatus CheckFramebufferStatus(this GLframebuffer buffer, FramebufferTarget target) {
         unsafe { return gl.Functions.glCheckNamedFramebufferStatus(buffer, target); }
     }
 
@@ -52,7 +52,7 @@ partial class hgl {
         unsafe { fixed (ColorBuffer* ptr = buffers) gl.Functions.glDrawBuffers(buffers.Length, ptr); }
     }
 
-    public static void DrawBuffers(GLframebuffer buffer, params ColorBuffer[] buffers) {
+    public static void DrawBuffers(this GLframebuffer buffer, params ColorBuffer[] buffers) {
         unsafe { fixed (ColorBuffer* ptr = buffers) gl.Functions.glNamedFramebufferDrawBuffers(buffer, buffers.Length, ptr); }
     }
 
@@ -60,7 +60,7 @@ partial class hgl {
         unsafe { gl.Functions.glFramebufferParameteri(target, pname, param); }
     }
 
-    public static void FramebufferParameter(GLframebuffer buffer, FramebufferParameter pname, int param) {
+    public static void FramebufferParameter(this GLframebuffer buffer, FramebufferParameter pname, int param) {
         unsafe { gl.Functions.glNamedFramebufferParameteri(buffer, pname, param); }
     }
 
@@ -68,7 +68,7 @@ partial class hgl {
         unsafe { gl.Functions.glFramebufferRenderbuffer(target, attachment, RenderbufferTarget.Renderbuffer, renderbuffer); }
     }
 
-    public static void FramebufferRenderbuffer(GLframebuffer buffer, FramebufferAttachment attachment, GLrenderbuffer renderbuffer) {
+    public static void FramebufferRenderbuffer(this GLframebuffer buffer, FramebufferAttachment attachment, GLrenderbuffer renderbuffer) {
         unsafe { gl.Functions.glNamedFramebufferRenderbuffer(buffer, attachment, RenderbufferTarget.Renderbuffer, renderbuffer); }
     }
 
@@ -88,7 +88,7 @@ partial class hgl {
         unsafe { gl.Functions.glFramebufferTexture3D(target, attachment, textarget, texture, (GLint)level, (GLint)zoffset); }
     }
 
-    public static void FramebufferTexture(GLframebuffer buffer, FramebufferAttachment attachment, GLtexture texture, int level) {
+    public static void FramebufferTexture(this GLframebuffer buffer, FramebufferAttachment attachment, GLtexture texture, int level) {
         unsafe { gl.Functions.glNamedFramebufferTexture(buffer, attachment, texture, (GLint)level); }
     }
 
@@ -96,7 +96,7 @@ partial class hgl {
         unsafe { gl.Functions.glFramebufferTextureLayer(target, attachment, texture, level, layer); }
     }
 
-    public static void FramebufferTextureLayer(GLframebuffer buffer, FramebufferAttachment attachment, GLtexture texture, int level, int layer) {
+    public static void FramebufferTextureLayer(this GLframebuffer buffer, FramebufferAttachment attachment, GLtexture texture, int level, int layer) {
         unsafe { gl.Functions.glNamedFramebufferTextureLayer(buffer, attachment, texture, level, layer); }
     }
 
@@ -128,7 +128,7 @@ partial class hgl {
         unsafe { fixed (GLint* ptr = &parameters) gl.Functions.glGetFramebufferAttachmentParameteriv(target, attachment, pname, ptr); }
     }
 
-    public static void GetFramebufferAttachmentParameter(GLframebuffer buffer, FramebufferAttachment attachment, FramebufferAttachmentParameter pname, out int parameters) {
+    public static void GetFramebufferAttachmentParameter(this GLframebuffer buffer, FramebufferAttachment attachment, FramebufferAttachmentParameter pname, out int parameters) {
         unsafe { fixed (GLint* ptr = &parameters) gl.Functions.glGetNamedFramebufferAttachmentParameteriv(buffer, attachment, pname, ptr); }
     }
 
@@ -136,7 +136,7 @@ partial class hgl {
         unsafe { fixed (GLint* ptr = &parameters) gl.Functions.glGetFramebufferParameteriv(target, pname, ptr); }
     }
 
-    public static void GetFramebufferParameter(GLframebuffer buffer, FramebufferParameter pname, out int parameters) {
+    public static void GetFramebufferParameter(this GLframebuffer buffer, FramebufferParameter pname, out int parameters) {
         unsafe { fixed (GLint* ptr = &parameters) gl.Functions.glGetNamedFramebufferParameteriv(buffer, pname, ptr); }
     }
 
@@ -144,7 +144,7 @@ partial class hgl {
         unsafe { fixed (GLint* ptr = &parameters) gl.Functions.glGetRenderbufferParameteriv(RenderbufferTarget.Renderbuffer, pname, ptr); }
     }
 
-    public static void GetRenderbufferParameter(GLrenderbuffer buffer, RenderbufferParameter pname, out GLint parameters) {
+    public static void GetRenderbufferParameter(this GLrenderbuffer buffer, RenderbufferParameter pname, out GLint parameters) {
         unsafe { fixed (GLint* ptr = &parameters) gl.Functions.glGetNamedRenderbufferParameteriv(buffer, pname, ptr); }
     }
 
@@ -152,7 +152,7 @@ partial class hgl {
         unsafe { fixed (FramebufferAttachment* pAttach = attachments) gl.Functions.glInvalidateFramebuffer(target, attachments.Length, pAttach); }
     }
 
-    public static void InvalidateFramebuffer(GLframebuffer buffer, FramebufferAttachment[] attachments) {
+    public static void InvalidateFramebuffer(this GLframebuffer buffer, FramebufferAttachment[] attachments) {
         unsafe { fixed (FramebufferAttachment* pAttach = attachments) gl.Functions.glInvalidateNamedFramebufferData(buffer, attachments.Length, pAttach); }
     }
 
@@ -160,15 +160,15 @@ partial class hgl {
         unsafe { fixed (FramebufferAttachment* pAttach = attachments) gl.Functions.glInvalidateSubFramebuffer(target, attachments.Length, pAttach, x, y, width, height); }
     }
 
-    public static void InvalidateSubFramebuffer(GLframebuffer buffer, FramebufferAttachment[] attachments, int x, int y, int width, int height) {
+    public static void InvalidateSubFramebuffer(this GLframebuffer buffer, FramebufferAttachment[] attachments, int x, int y, int width, int height) {
         unsafe { fixed (FramebufferAttachment* pAttach = attachments) gl.Functions.glInvalidateNamedFramebufferSubData(buffer, attachments.Length, pAttach, x, y, width, height); }
     }
 
-    public static GLboolean IsFramebuffer(GLframebuffer framebuffer) {
+    public static GLboolean IsFramebuffer(this GLframebuffer framebuffer) {
         unsafe { return gl.Functions.glIsFramebuffer(framebuffer); }
     }
 
-    public static GLboolean IsRenderbuffer(GLrenderbuffer renderbuffer) {
+    public static GLboolean IsRenderbuffer(this GLrenderbuffer renderbuffer) {
         unsafe { return gl.Functions.glIsRenderbuffer(renderbuffer); }
     }
 
@@ -176,7 +176,7 @@ partial class hgl {
         unsafe { gl.Functions.glRenderbufferStorage(RenderbufferTarget.Renderbuffer, internalformat, width, height); }
     }
 
-    public static void RenderbufferStorage(GLrenderbuffer buffer, InternalFormat internalformat, int width, int height) {
+    public static void RenderbufferStorage(this GLrenderbuffer buffer, InternalFormat internalformat, int width, int height) {
         unsafe { gl.Functions.glNamedRenderbufferStorage(buffer, internalformat, width, height); }
     }
 
@@ -184,7 +184,7 @@ partial class hgl {
         unsafe { gl.Functions.glRenderbufferStorageMultisample(RenderbufferTarget.Renderbuffer, samples, internalformat, width, height); }
     }
 
-    public static void RenderbufferStorageMultisample(GLrenderbuffer buffer, int samples, InternalFormat internalformat, int width, int height) {
+    public static void RenderbufferStorageMultisample(this GLrenderbuffer buffer, int samples, InternalFormat internalformat, int width, int height) {
         unsafe { gl.Functions.glNamedRenderbufferStorageMultisample(buffer, samples, internalformat, width, height); }
     }
 
