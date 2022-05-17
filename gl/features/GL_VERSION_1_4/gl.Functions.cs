@@ -17,15 +17,15 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<PrimitiveType, GLsizei*, ElementType, void**, GLsizei, void> glMultiDrawElements;
 
         /// <summary>void glPointParameterf(GLenum pname, GLfloat param);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<PointParameter, GLfloat, void> glPointParameterf;
+        public static unsafe delegate* unmanaged[Cdecl]<GLenum, GLfloat, void> glPointParameterf;
 
         /// <summary>void glPointParameterfv(GLenum pname, GLfloat* params);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<PointParameter, GLfloat*, void> glPointParameterfv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLenum, GLfloat*, void> glPointParameterfv;
 
         /// <summary>void glPointParameteri(GLenum pname, GLint param);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<PointParameter, GLint, void> glPointParameteri;
+        public static unsafe delegate* unmanaged[Cdecl]<GLenum, GLint, void> glPointParameteri;
 
         /// <summary>void glPointParameteriv(GLenum pname, GLint* params);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<PointParameter, GLint*, void> glPointParameteriv;
+        public static unsafe delegate* unmanaged[Cdecl]<GLenum, GLint*, void> glPointParameteriv;
     }
 }

@@ -104,7 +104,7 @@ public partial class gl {
         public static unsafe delegate* unmanaged[Cdecl]<GLfloat, void> glPointSize;
 
         /// <summary>void glPolygonMode(GLenum face, GLenum mode);</summary>
-        public static unsafe delegate* unmanaged[Cdecl]<MaterialFace, PolygonMode, void> glPolygonMode;
+        public static unsafe delegate* unmanaged[Cdecl]<FaceDirection, PolygonMode, void> glPolygonMode;
 
         /// <summary>void glReadBuffer(GLenum src);</summary>
         public static unsafe delegate* unmanaged[Cdecl]<ColorBuffer, void> glReadBuffer;

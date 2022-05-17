@@ -53,6 +53,7 @@ public static partial class Resources {
 
         { "CullFaceMode", "FaceDirection" },
         { "StencilFaceDirection", "FaceDirection" },
+        { "MaterialFace", "FaceDirection" },
 
         { "InvalidateFramebufferAttachment", "FramebufferAttachment" },
 
@@ -82,8 +83,6 @@ public static partial class Resources {
         { "PatchParameterName", "PatchParameter" },
 
         { "PipelineParameterName", "PipelineParameter" },
-
-        { "PointParameterNameARB", "PointParameter" },
 
         { "GetPointervPName", "PointerParameter" },
 
@@ -188,12 +187,14 @@ public static partial class Resources {
         "CoordS", 
         "ClampedStencilValue", 
         "ReplacementCodeSUN", 
-        "SampleMaskNV"
+        "SampleMaskNV",
+        "PointParameterNameARB" // declared but gets in the way of allowed values for glPointParameter functions
     };
 
     public static readonly string[] GroupBlacklist = new[] { 
         "Boolean",
         "SpecialNumbers",
+        "PointParameterNameARB"
     };
 
     // types that are not explicitly required, but are actually needed
