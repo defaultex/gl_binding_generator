@@ -1,3 +1,5 @@
+namespace HGL;
+
 partial class hgl {
     public static void DispatchCompute(int groupCountX, int groupCountY, int groupCountZ) {
         unsafe { gl.Functions.glDispatchCompute((GLuint)groupCountX, (GLuint)groupCountY, (GLuint)groupCountZ); }

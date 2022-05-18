@@ -1,3 +1,5 @@
+namespace HGL;
+
 partial class hgl {
     
     public static SyncStatus ClientWaitSync(this GLsync sync, ulong timeout) {

@@ -1,3 +1,5 @@
+namespace HGL;
+
 [StructLayout(LayoutKind.Explicit)]
 public struct DrawArraysIndirectCommand {
     [FieldOffset(sizeof(uint) * 0)]

@@ -1,3 +1,5 @@
+namespace HGL;
+
 partial class hgl {
 
     public static void BindFramebuffer(FramebufferTarget target, GLframebuffer framebuffer) {

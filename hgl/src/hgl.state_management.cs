@@ -1,46 +1,7 @@
-partial class hgl {
-    // glBlendColor
-    // glBlendEquation
-    // glBlendEquationSeparate
-    // glBlendFunc
-    // glBlendFuncSeparate
-    // glClampColor
-    // glClipControl
-    // glColorMask
-    // glCullFace
-    // glDepthFunc
-    // glDepthMask
-    // glDepthRange
-    // glDepthRangeArray
-    // glDepthRangeIndexed
-    // glDisable
-    // glEnable
-    // glFrontFace
-    // glGet
-    // glGetError
-    // glHint
-    // glIsEnabled
-    // glLineWidth
-    // glLogicOp
-    // glPixelStore
-    // glPointParameter
-    // glPointSize
-    // glPolygonMode
-    // glPolygonOffset
-    // glSampleCoverage
-    // glScissor
-    // glScissorArray
-    // glScissorIndexed
-    // glStencilFunc
-    // glStencilFuncSeparate
-    // glStencilMask
-    // glStencilMaskSeparate
-    // glStencilOp
-    // glStencilOpSeparate
-    // glViewport
-    // glViewportArray
-    // glViewportIndexed
+namespace HGL;
 
+partial class hgl {
+    
     public static void BlendColor(float red, float green, float blue, float alpha) {
         unsafe { gl.Functions.glBlendColor(red, green, blue, alpha); }
     }

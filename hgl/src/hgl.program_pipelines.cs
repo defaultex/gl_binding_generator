@@ -1,3 +1,5 @@
+namespace HGL;
+
 partial class hgl {
 
     public static void ActiveShaderProgram(this GLprogrampipeline pipeline, GLprogram program) {
