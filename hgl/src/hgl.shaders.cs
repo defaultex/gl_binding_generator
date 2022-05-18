@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
 
     public static void AttachShader(this GLprogram program, GLshader shader) {
         unsafe { gl.Functions.glAttachShader(program, shader); }

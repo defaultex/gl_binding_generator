@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
     const string GL_DLL = @"/usr/lib/x86_64-linux-gnu/libGL.so";
 
     /// <summary>

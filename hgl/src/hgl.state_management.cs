@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
     
     public static void BlendColor(float red, float green, float blue, float alpha) {
         unsafe { gl.Functions.glBlendColor(red, green, blue, alpha); }

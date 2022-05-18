@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
 
     public static void Clear(ClearBufferMask mask) {
         unsafe { gl.Functions.glClear(mask); }

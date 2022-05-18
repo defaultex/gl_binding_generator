@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
     
     public static void BindVertexArray(this GLvertexarray array) {
         unsafe { gl.Functions.glBindVertexArray(array); }

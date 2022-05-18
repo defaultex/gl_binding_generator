@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
 
     public static void ActiveTexture(TextureUnit textureUnit) {
         unsafe { gl.Functions.glActiveTexture(textureUnit); }

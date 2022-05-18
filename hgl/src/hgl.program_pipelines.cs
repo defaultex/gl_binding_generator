@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
 
     public static void ActiveShaderProgram(this GLprogrampipeline pipeline, GLprogram program) {
         unsafe { gl.Functions.glActiveShaderProgram(pipeline, program); }

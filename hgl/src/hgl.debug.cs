@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
 
     public static void DebugMessageCallback(GLDEBUGPROC callback, IntPtr userParam) {
         unsafe { gl.Functions.glDebugMessageCallback(callback, (void*)userParam); }

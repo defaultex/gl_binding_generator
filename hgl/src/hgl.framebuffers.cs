@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
 
     public static void BindFramebuffer(FramebufferTarget target, GLframebuffer framebuffer) {
         unsafe { gl.Functions.glBindFramebuffer(target, framebuffer); }

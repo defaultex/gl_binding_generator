@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
     public static void BindSampler(GLuint unit, GLsampler sampler) {
         unsafe { gl.Functions.glBindSampler(unit, sampler); }
     }

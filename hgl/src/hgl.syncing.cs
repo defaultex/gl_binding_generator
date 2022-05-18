@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
     
     public static SyncStatus ClientWaitSync(this GLsync sync, ulong timeout) {
         unsafe { return gl.Functions.glClientWaitSync(sync, SyncObjectMask.SyncFlushCommands, timeout); }

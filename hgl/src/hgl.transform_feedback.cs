@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
 
     public static void BeginTransformFeedback(PrimitiveType mode) {
         unsafe { gl.Functions.glBeginTransformFeedback(mode); }

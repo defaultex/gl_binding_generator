@@ -1,6 +1,6 @@
 namespace HGL;
 
-partial class hgl {
+public static partial class hgl {
     public static void BeginConditionalRender(this GLquery id, ConditionalRenderMode mode) {
         unsafe { gl.Functions.glBeginConditionalRender(id, mode); }
     }

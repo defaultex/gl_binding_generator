@@ -56,7 +56,7 @@ public struct DrawElementsIndirectCommand {
     }
 }
 
-partial class hgl {
+public static partial class hgl {
     
     public static void BindBuffer(BufferTarget target, GLbuffer buffer) {
         unsafe { gl.Functions.glBindBuffer(target, buffer); }
