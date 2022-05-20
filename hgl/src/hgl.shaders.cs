@@ -272,17 +272,53 @@ public static partial class hgl {
         }
     }
 
-    public static void GetUniform(this GLprogram program, int location, GLfloat[] parameters) {
+    public static void GetUniform(this GLprogram program, int location, double[] parameters) {
+        unsafe { fixed (GLdouble* ptr = parameters) gl.Functions.glGetUniformdv(program, location, ptr); }
+    }
+
+    public static void GetUniform(this GLprogram program, int location, int count, double[] parameters) {
+        unsafe { fixed (GLdouble* ptr = parameters) gl.Functions.glGetnUniformdv(program, location, count, ptr); }
+    }
+
+    public static void GetUniform(this GLprogram program, int location, float[] parameters) {
         unsafe { fixed (GLfloat* ptr = parameters) gl.Functions.glGetUniformfv(program, location, ptr); }
     }
 
-    public static void GetUniform(this GLprogram program, int location, GLint[] parameters) {
+    public static void GetUniform(this GLprogram program, int location, int count, float[] parameters) {
+        unsafe { fixed (GLfloat* ptr = parameters) gl.Functions.glGetnUniformfv(program, location, count, ptr); }
+    }
+
+    public static void GetUniform(this GLprogram program, int location, int[] parameters) {
         unsafe { fixed (GLint* ptr = parameters) gl.Functions.glGetUniformiv(program, location, ptr); }
     }
 
-    public static void GetUniform(this GLprogram program, int location, GLuint[] parameters) {
+    public static void GetUniform(this GLprogram program, int location, int count, int[] parameters) {
+        unsafe { fixed (GLint* ptr = parameters) gl.Functions.glGetnUniformiv(program, location, count, ptr); }
+    }
+
+    public static void GetUniform(this GLprogram program, int location, uint[] parameters) {
         unsafe { fixed (GLuint* ptr = parameters) gl.Functions.glGetUniformuiv(program, location, ptr); }
     }
+
+    public static void GetUniform(this GLprogram program, int location, int count, uint[] parameters) {
+        unsafe { fixed (GLuint* ptr = parameters) gl.Functions.glGetnUniformuiv(program, location, count, ptr); }
+    }
+
+    public unsafe static void GetUniform(this GLprogram program, int location, double* parameters) => gl.Functions.glGetUniformdv(program, location, parameters);
+
+    public unsafe static void GetUniform(this GLprogram program, int location, int count, double* parameters) => gl.Functions.glGetnUniformdv(program, location, count, parameters);
+
+    public unsafe static void GetUniform(this GLprogram program, int location, float* parameters) => gl.Functions.glGetUniformfv(program, location, parameters);
+
+    public unsafe static void GetUniform(this GLprogram program, int location, int count, float* parameters) => gl.Functions.glGetnUniformfv(program, location, count, parameters);
+
+    public unsafe static void GetUniform(this GLprogram program, int location, int* parameters) => gl.Functions.glGetUniformiv(program, location, parameters);
+
+    public unsafe static void GetUniform(this GLprogram program, int location, int count, int* parameters) => gl.Functions.glGetnUniformiv(program, location, count, parameters);
+
+    public unsafe static void GetUniform(this GLprogram program, int location, uint* parameters) => gl.Functions.glGetUniformuiv(program, location, parameters);
+
+    public unsafe static void GetUniform(this GLprogram program, int location, int count, uint* parameters) => gl.Functions.glGetnUniformuiv(program, location, count, parameters);
 
     public static GLuint GetUniformBlockIndex(this GLprogram program, string uniformBlockName) {
         unsafe { fixed (GLchar* ptr = Encoding.UTF8.GetBytes(uniformBlockName)) return gl.Functions.glGetUniformBlockIndex(program, ptr); }
@@ -335,221 +371,261 @@ public static partial class hgl {
         unsafe { gl.Functions.glProgramParameteri(program, pname, value); }
     }
 
-    public static void ProgramUniform1(this GLprogram program, int location, GLfloat v0) {
-        unsafe { gl.Functions.glProgramUniform1f(program, location, v0); }
-    }
+    #region ProgramUniform (float)
 
-    public static void ProgramUniform2(this GLprogram program, int location, GLfloat v0, GLfloat v1) {
-        unsafe { gl.Functions.glProgramUniform2f(program, location, v0, v1); }
-    }
+    public static void ProgramUniform1(this GLprogram program, int location, float v0) { unsafe { gl.Functions.glProgramUniform1f(program, location, v0); } }
 
-    public static void ProgramUniform3(this GLprogram program, int location, GLfloat v0, GLfloat v1, GLfloat v2) {
-        unsafe { gl.Functions.glProgramUniform3f(program, location, v0, v1, v2); }
-    }
+    public static void ProgramUniform2(this GLprogram program, int location, float v0, float v1) { unsafe { gl.Functions.glProgramUniform2f(program, location, v0, v1); } }
 
-    public static void ProgramUniform4(this GLprogram program, int location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) {
-        unsafe { gl.Functions.glProgramUniform4f(program, location, v0, v1, v2, v3); }
-    }
+    public static void ProgramUniform3(this GLprogram program, int location, float v0, float v1, float v2) { unsafe { gl.Functions.glProgramUniform3f(program, location, v0, v1, v2); } }
 
-    public static void ProgramUniform1(this GLprogram program, int location, GLint v0) {
-        unsafe { gl.Functions.glProgramUniform1i(program, location, v0); }
-    }
+    public static void ProgramUniform4(this GLprogram program, int location, float v0, float v1, float v2, float v3) { unsafe { gl.Functions.glProgramUniform4f(program, location, v0, v1, v2, v3); } }
 
-    public static void ProgramUniform2(this GLprogram program, int location, GLint v0, GLint v1) {
-        unsafe { gl.Functions.glProgramUniform2i(program, location, v0, v1); }
-    }
+    public static void ProgramUniform1(this GLprogram program, int location, int count, float[] value) { unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniform1fv(program, location, count, ptr); } }
 
-    public static void ProgramUniform3(this GLprogram program, int location, GLint v0, GLint v1, GLint v2) {
-        unsafe { gl.Functions.glProgramUniform3i(program, location, v0, v1, v2); }
-    }
+    public static void ProgramUniform2(this GLprogram program, int location, int count, float[] value) { unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniform2fv(program, location, count, ptr); } }
 
-    public static void ProgramUniform4(this GLprogram program, int location, GLint v0, GLint v1, GLint v2, GLint v3) {
-        unsafe { gl.Functions.glProgramUniform4i(program, location, v0, v1, v2, v3); }
-    }
+    public static void ProgramUniform3(this GLprogram program, int location, int count, float[] value) { unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniform3fv(program, location, count, ptr); } }
 
-    public static void ProgramUniform1(this GLprogram program, int location, GLuint v0) {
-        unsafe { gl.Functions.glProgramUniform1ui(program, location, v0); }
-    }
+    public static void ProgramUniform4(this GLprogram program, int location, int count, float[] value) { unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniform4fv(program, location, count, ptr); } }
 
-    public static void ProgramUniform2(this GLprogram program, int location, GLuint v0, GLuint v1) {
-        unsafe { gl.Functions.glProgramUniform2ui(program, location, v0, v1); }
-    }
+    public unsafe static void ProgramUniform1(this GLprogram program, int location, int count, float* ptr) { unsafe { gl.Functions.glProgramUniform1fv(program, location, count, ptr); } }
 
-    public static void ProgramUniform3(this GLprogram program, int location, GLuint v0, GLuint v1, GLuint v2) {
-        unsafe { gl.Functions.glProgramUniform3ui(program, location, v0, v1, v2); }
-    }
+    public unsafe static void ProgramUniform2(this GLprogram program, int location, int count, float* ptr) { unsafe { gl.Functions.glProgramUniform2fv(program, location, count, ptr); } }
 
-    public static void ProgramUniform4(this GLprogram program, int location, GLuint v0, GLuint v1, GLuint v2, GLuint v3) {
-        unsafe { gl.Functions.glProgramUniform4ui(program, location, v0, v1, v2, v3); }
-    }
+    public unsafe static void ProgramUniform3(this GLprogram program, int location, int count, float* ptr) { unsafe { gl.Functions.glProgramUniform3fv(program, location, count, ptr); } }
 
-    public static void ProgramUniform1(this GLprogram program, int location, int count, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniform1fv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform1(this GLprogram program, int location, int count, GLfloat* ptr) {
-        unsafe { gl.Functions.glProgramUniform1fv(program, location, count, ptr); }
-    }
-
-    public static void ProgramUniform2(this GLprogram program, int location, int count, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniform2fv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform2(this GLprogram program, int location, int count, GLfloat* ptr) {
-        unsafe { gl.Functions.glProgramUniform2fv(program, location, count, ptr); }
-    }
-
-    public static void ProgramUniform3(this GLprogram program, int location, int count, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniform3fv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform3(this GLprogram program, int location, int count, GLfloat* ptr) {
-        unsafe { gl.Functions.glProgramUniform3fv(program, location, count, ptr); }
-    }
-
-    public static void ProgramUniform4(this GLprogram program, int location, int count, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniform4fv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform4(this GLprogram program, int location, int count, GLfloat* ptr) {
-        unsafe { gl.Functions.glProgramUniform4fv(program, location, count, ptr); }
-    }
-
-    public static void ProgramUniform1(this GLprogram program, int location, int count, GLint[] value) {
-        unsafe { fixed (GLint* ptr = value) gl.Functions.glProgramUniform1iv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform1(this GLprogram program, int location, int count, GLint* ptr) {
-        unsafe { gl.Functions.glProgramUniform1iv(program, location, count, ptr); }
-    }
-
-    public static void ProgramUniform2(this GLprogram program, int location, int count, GLint[] value) {
-        unsafe { fixed (GLint* ptr = value) gl.Functions.glProgramUniform2iv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform2(this GLprogram program, int location, int count, GLint* ptr) {
-        unsafe { gl.Functions.glProgramUniform2iv(program, location, count, ptr); }
-    }
-
-    public static void ProgramUniform3(this GLprogram program, int location, int count, GLint[] value) {
-        unsafe { fixed (GLint* ptr = value) gl.Functions.glProgramUniform3iv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform3(this GLprogram program, int location, int count, GLint* ptr) {
-        unsafe { gl.Functions.glProgramUniform3iv(program, (GLint)location, (GLsizei)count, ptr); }
-    }
-
-    public static void ProgramUniform4(this GLprogram program, int location, int count, GLint[] value) {
-        unsafe { fixed (GLint* ptr = value) gl.Functions.glProgramUniform4iv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform4(this GLprogram program, int location, int count, GLint* ptr) {
-        unsafe { gl.Functions.glProgramUniform4iv(program, location, count, ptr); }
-    }
-
-    public static void ProgramUniform1(this GLprogram program, int location, int count, GLuint[] value) {
-        unsafe { fixed (GLuint* ptr = value) gl.Functions.glProgramUniform1uiv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform1(this GLprogram program, int location, int count, GLuint* ptr) {
-        gl.Functions.glProgramUniform1uiv(program, location, count, ptr);
-    }
-
-    public static void ProgramUniform2(this GLprogram program, int location, int count, GLuint[] value) {
-        unsafe { fixed (GLuint* ptr = value) gl.Functions.glProgramUniform2uiv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform2(this GLprogram program, int location, int count, GLuint* ptr) {
-        gl.Functions.glProgramUniform2uiv(program, location, count, ptr);
-    }
-
-    public static void ProgramUniform3(this GLprogram program, int location, int count, GLuint[] value) {
-        unsafe { fixed (GLuint* ptr = value) gl.Functions.glProgramUniform3uiv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform3(this GLprogram program, int location, int count, GLuint* ptr) {
-        gl.Functions.glProgramUniform3uiv(program, location, count, ptr);
-    }
-
-    public static void ProgramUniform4(this GLprogram program, int location, int count, GLuint[] value) {
-        unsafe { fixed (GLuint* ptr = value) gl.Functions.glProgramUniform4uiv(program, location, count, ptr); }
-    }
-
-    public unsafe static void ProgramUniform4(this GLprogram program, int location, int count, GLuint* ptr) {
-        gl.Functions.glProgramUniform4uiv(program, location, count, ptr);
-    }
+    public unsafe static void ProgramUniform4(this GLprogram program, int location, int count, float* ptr) { unsafe { gl.Functions.glProgramUniform4fv(program, location, count, ptr); } }
 
     public static void ProgramUniformMatrix2(this GLprogram program, int location, int count, bool transpose, float[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniformMatrix2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+        unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniformMatrix2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix3(this GLprogram program, int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniformMatrix3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix4(this GLprogram program, int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniformMatrix4fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix2x3(this GLprogram program, int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniformMatrix2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix2x4(this GLprogram program, int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniformMatrix2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix3x2(this GLprogram program, int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniformMatrix3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix3x4(this GLprogram program, int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniformMatrix3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix4x2(this GLprogram program, int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniformMatrix4x2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix4x3(this GLprogram program, int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glProgramUniformMatrix4x3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
     public unsafe static void ProgramUniformMatrix2(this GLprogram program, int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glProgramUniformMatrix2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void ProgramUniformMatrix3(this GLprogram program, int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniformMatrix3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void ProgramUniformMatrix3(this GLprogram program, int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void ProgramUniformMatrix3(this GLprogram program, int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glProgramUniformMatrix3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void ProgramUniformMatrix4(this GLprogram program, int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniformMatrix4fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void ProgramUniformMatrix4(this GLprogram program, int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void ProgramUniformMatrix4(this GLprogram program, int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glProgramUniformMatrix4fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void ProgramUniformMatrix2x3(this GLprogram program, int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniformMatrix2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void ProgramUniformMatrix2x3(this GLprogram program, int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void ProgramUniformMatrix2x3(this GLprogram program, int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glProgramUniformMatrix2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void ProgramUniformMatrix2x4(this GLprogram program, int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniformMatrix2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void ProgramUniformMatrix2x4(this GLprogram program, int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void ProgramUniformMatrix2x4(this GLprogram program, int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glProgramUniformMatrix2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void ProgramUniformMatrix3x2(this GLprogram program, int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniformMatrix3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void ProgramUniformMatrix3x2(this GLprogram program, int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void ProgramUniformMatrix3x2(this GLprogram program, int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glProgramUniformMatrix3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void ProgramUniformMatrix3x4(this GLprogram program, int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniformMatrix3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void ProgramUniformMatrix3x4(this GLprogram program, int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void ProgramUniformMatrix3x4(this GLprogram program, int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glProgramUniformMatrix3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void ProgramUniformMatrix4x2(this GLprogram program, int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniformMatrix4x2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void ProgramUniformMatrix4x2(this GLprogram program, int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void ProgramUniformMatrix4x2(this GLprogram program, int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glProgramUniformMatrix4x2fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void ProgramUniformMatrix4x3(this GLprogram program, int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glProgramUniformMatrix4x3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void ProgramUniformMatrix4x3(this GLprogram program, int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void ProgramUniformMatrix4x3(this GLprogram program, int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glProgramUniformMatrix4x3fv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
+
+    #endregion ProgramUniform (float)
+
+    #region ProgramUniform (int)
+
+    public static void ProgramUniform1(this GLprogram program, int location, int v0) { unsafe { gl.Functions.glProgramUniform1i(program, location, v0); } }
+
+    public static void ProgramUniform2(this GLprogram program, int location, int v0, int v1) { unsafe { gl.Functions.glProgramUniform2i(program, location, v0, v1); } }
+
+    public static void ProgramUniform3(this GLprogram program, int location, int v0, int v1, int v2) { unsafe { gl.Functions.glProgramUniform3i(program, location, v0, v1, v2); } }
+
+    public static void ProgramUniform4(this GLprogram program, int location, int v0, int v1, int v2, int v3) { unsafe { gl.Functions.glProgramUniform4i(program, location, v0, v1, v2, v3); } }
+
+    public static void ProgramUniform1(this GLprogram program, int location, int count, int[] value) { unsafe { fixed (int* ptr = value) gl.Functions.glProgramUniform1iv(program, location, count, ptr); } }
+
+    public static void ProgramUniform2(this GLprogram program, int location, int count, int[] value) { unsafe { fixed (int* ptr = value) gl.Functions.glProgramUniform2iv(program, location, count, ptr); } }
+
+    public static void ProgramUniform3(this GLprogram program, int location, int count, int[] value) { unsafe { fixed (int* ptr = value) gl.Functions.glProgramUniform3iv(program, location, count, ptr); } }
+
+    public static void ProgramUniform4(this GLprogram program, int location, int count, int[] value) { unsafe { fixed (int* ptr = value) gl.Functions.glProgramUniform4iv(program, location, count, ptr); } }
+
+    public unsafe static void ProgramUniform1(this GLprogram program, int location, int count, int* ptr) { unsafe { gl.Functions.glProgramUniform1iv(program, location, count, ptr); } }
+
+    public unsafe static void ProgramUniform2(this GLprogram program, int location, int count, int* ptr) { unsafe { gl.Functions.glProgramUniform2iv(program, location, count, ptr); } }
+
+    public unsafe static void ProgramUniform3(this GLprogram program, int location, int count, int* ptr) { unsafe { gl.Functions.glProgramUniform3iv(program, location, count, ptr); } }
+
+    public unsafe static void ProgramUniform4(this GLprogram program, int location, int count, int* ptr) { unsafe { gl.Functions.glProgramUniform4iv(program, location, count, ptr); } }
+
+    #endregion ProgramUniform (int)
+
+    #region ProgramUniform (uint)
+
+    public static void ProgramUniform1(this GLprogram program, int location, uint v0) { unsafe { gl.Functions.glProgramUniform1ui(program, location, v0); } }
+
+    public static void ProgramUniform2(this GLprogram program, int location, uint v0, uint v1) { unsafe { gl.Functions.glProgramUniform2ui(program, location, v0, v1); } }
+
+    public static void ProgramUniform3(this GLprogram program, int location, uint v0, uint v1, uint v2) { unsafe { gl.Functions.glProgramUniform3ui(program, location, v0, v1, v2); } }
+
+    public static void ProgramUniform4(this GLprogram program, int location, uint v0, uint v1, uint v2, uint v3) { unsafe { gl.Functions.glProgramUniform4ui(program, location, v0, v1, v2, v3); } }
+
+    public static void ProgramUniform1(this GLprogram program, int location, int count, uint[] value) { unsafe { fixed (uint* ptr = value) gl.Functions.glProgramUniform1uiv(program, location, count, ptr); } }
+
+    public static void ProgramUniform2(this GLprogram program, int location, int count, uint[] value) { unsafe { fixed (uint* ptr = value) gl.Functions.glProgramUniform2uiv(program, location, count, ptr); } }
+
+    public static void ProgramUniform3(this GLprogram program, int location, int count, uint[] value) { unsafe { fixed (uint* ptr = value) gl.Functions.glProgramUniform3uiv(program, location, count, ptr); } }
+
+    public static void ProgramUniform4(this GLprogram program, int location, int count, uint[] value) { unsafe { fixed (uint* ptr = value) gl.Functions.glProgramUniform4uiv(program, location, count, ptr); } }
+
+    public unsafe static void ProgramUniform1(this GLprogram program, int location, int count, uint* ptr) { gl.Functions.glProgramUniform1uiv(program, location, count, ptr); }
+
+    public unsafe static void ProgramUniform2(this GLprogram program, int location, int count, uint* ptr) { gl.Functions.glProgramUniform2uiv(program, location, count, ptr); }
+
+    public unsafe static void ProgramUniform3(this GLprogram program, int location, int count, uint* ptr) { gl.Functions.glProgramUniform3uiv(program, location, count, ptr); }
+
+    public unsafe static void ProgramUniform4(this GLprogram program, int location, int count, uint* ptr) { gl.Functions.glProgramUniform4uiv(program, location, count, ptr); }
+
+    #endregion ProgramUniform (uint)
+
+    #region ProgramUniform (double)
+
+    public static void ProgramUniform1(this GLprogram program, int location, double v0) { unsafe { gl.Functions.glProgramUniform1d(program, location, v0); } }
+
+    public static void ProgramUniform2(this GLprogram program, int location, double v0, double v1) { unsafe { gl.Functions.glProgramUniform2d(program, location, v0, v1); } }
+
+    public static void ProgramUniform3(this GLprogram program, int location, double v0, double v1, double v2) { unsafe { gl.Functions.glProgramUniform3d(program, location, v0, v1, v2); } }
+
+    public static void ProgramUniform4(this GLprogram program, int location, double v0, double v1, double v2, double v3) { unsafe { gl.Functions.glProgramUniform4d(program, location, v0, v1, v2, v3); } }
+
+    public static void ProgramUniform1(this GLprogram program, int location, int count, double[] value) { unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniform1dv(program, location, count, ptr); } }
+
+    public static void ProgramUniform2(this GLprogram program, int location, int count, double[] value) { unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniform2dv(program, location, count, ptr); } }
+
+    public static void ProgramUniform3(this GLprogram program, int location, int count, double[] value) { unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniform3dv(program, location, count, ptr); } }
+
+    public static void ProgramUniform4(this GLprogram program, int location, int count, double[] value) { unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniform4dv(program, location, count, ptr); } }
+
+    public unsafe static void ProgramUniform1(this GLprogram program, int location, int count, double* ptr) { unsafe { gl.Functions.glProgramUniform1dv(program, location, count, ptr); } }
+
+    public unsafe static void ProgramUniform2(this GLprogram program, int location, int count, double* ptr) { unsafe { gl.Functions.glProgramUniform2dv(program, location, count, ptr); } }
+
+    public unsafe static void ProgramUniform3(this GLprogram program, int location, int count, double* ptr) { unsafe { gl.Functions.glProgramUniform3dv(program, location, count, ptr); } }
+
+    public unsafe static void ProgramUniform4(this GLprogram program, int location, int count, double* ptr) { unsafe { gl.Functions.glProgramUniform4dv(program, location, count, ptr); } }
+
+    public static void ProgramUniformMatrix2(this GLprogram program, int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniformMatrix2dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix3(this GLprogram program, int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniformMatrix3dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix4(this GLprogram program, int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniformMatrix4dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix2x3(this GLprogram program, int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniformMatrix2dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix2x4(this GLprogram program, int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniformMatrix2dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix3x2(this GLprogram program, int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniformMatrix3dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix3x4(this GLprogram program, int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniformMatrix3dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix4x2(this GLprogram program, int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniformMatrix4x2dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void ProgramUniformMatrix4x3(this GLprogram program, int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glProgramUniformMatrix4x3dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void ProgramUniformMatrix2(this GLprogram program, int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glProgramUniformMatrix2dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void ProgramUniformMatrix3(this GLprogram program, int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glProgramUniformMatrix3dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void ProgramUniformMatrix4(this GLprogram program, int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glProgramUniformMatrix4dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void ProgramUniformMatrix2x3(this GLprogram program, int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glProgramUniformMatrix2dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void ProgramUniformMatrix2x4(this GLprogram program, int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glProgramUniformMatrix2dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void ProgramUniformMatrix3x2(this GLprogram program, int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glProgramUniformMatrix3dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void ProgramUniformMatrix3x4(this GLprogram program, int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glProgramUniformMatrix3dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void ProgramUniformMatrix4x2(this GLprogram program, int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glProgramUniformMatrix4x2dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void ProgramUniformMatrix4x3(this GLprogram program, int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glProgramUniformMatrix4x3dv(program, location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    #endregion ProgramUniform (double)
 
     public static void ReleaseShaderCompiler() {
         unsafe { gl.Functions.glReleaseShaderCompiler(); }
@@ -571,221 +647,261 @@ public static partial class hgl {
         unsafe { gl.Functions.glShaderStorageBlockBinding(program, (GLuint)storageBlockIndex, (GLuint)storageBlockBinding); }
     }
 
-    public static void Uniform1(int location, GLfloat v0) {
-        unsafe { gl.Functions.glUniform1f(location, v0); }
-    }
+    #region Uniform (float)
 
-    public static void Uniform2(int location, GLfloat v0, GLfloat v1) {
-        unsafe { gl.Functions.glUniform2f(location, v0, v1); }
-    }
+    public static void Uniform1(int location, float v0) { unsafe { gl.Functions.glUniform1f(location, v0); } }
 
-    public static void Uniform3(int location, GLfloat v0, GLfloat v1, GLfloat v2) {
-        unsafe { gl.Functions.glUniform3f(location, v0, v1, v2); }
-    }
+    public static void Uniform2(int location, float v0, float v1) { unsafe { gl.Functions.glUniform2f(location, v0, v1); } }
 
-    public static void Uniform4(int location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3) {
-        unsafe { gl.Functions.glUniform4f(location, v0, v1, v2, v3); }
-    }
+    public static void Uniform3(int location, float v0, float v1, float v2) { unsafe { gl.Functions.glUniform3f(location, v0, v1, v2); } }
 
-    public static void Uniform1(int location, GLint v0) {
-        unsafe { gl.Functions.glUniform1i(location, v0); }
-    }
+    public static void Uniform4(int location, float v0, float v1, float v2, float v3) { unsafe { gl.Functions.glUniform4f(location, v0, v1, v2, v3); } }
 
-    public static void Uniform2(int location, GLint v0, GLint v1) {
-        unsafe { gl.Functions.glUniform2i(location, v0, v1); }
-    }
+    public static void Uniform1(int location, int count, float[] value) { unsafe { fixed (float* ptr = value) gl.Functions.glUniform1fv(location, count, ptr); } }
 
-    public static void Uniform3(int location, GLint v0, GLint v1, GLint v2) {
-        unsafe { gl.Functions.glUniform3i(location, v0, v1, v2); }
-    }
+    public static void Uniform2(int location, int count, float[] value) { unsafe { fixed (float* ptr = value) gl.Functions.glUniform2fv(location, count, ptr); } }
 
-    public static void Uniform4(int location, GLint v0, GLint v1, GLint v2, GLint v3) {
-        unsafe { gl.Functions.glUniform4i(location, v0, v1, v2, v3); }
-    }
+    public static void Uniform3(int location, int count, float[] value) { unsafe { fixed (float* ptr = value) gl.Functions.glUniform3fv(location, count, ptr); } }
 
-    public static void Uniform1(int location, GLuint v0) {
-        unsafe { gl.Functions.glUniform1ui(location, v0); }
-    }
+    public static void Uniform4(int location, int count, float[] value) { unsafe { fixed (float* ptr = value) gl.Functions.glUniform4fv(location, count, ptr); } }
 
-    public static void Uniform2(int location, GLuint v0, GLuint v1) {
-        unsafe { gl.Functions.glUniform2ui(location, v0, v1); }
-    }
+    public unsafe static void Uniform1(int location, int count, float* ptr) { unsafe { gl.Functions.glUniform1fv(location, count, ptr); } }
 
-    public static void Uniform3(int location, GLuint v0, GLuint v1, GLuint v2) {
-        unsafe { gl.Functions.glUniform3ui(location, v0, v1, v2); }
-    }
+    public unsafe static void Uniform2(int location, int count, float* ptr) { unsafe { gl.Functions.glUniform2fv(location, count, ptr); } }
 
-    public static void Uniform4(int location, GLuint v0, GLuint v1, GLuint v2, GLuint v3) {
-        unsafe { gl.Functions.glUniform4ui(location, v0, v1, v2, v3); }
-    }
+    public unsafe static void Uniform3(int location, int count, float* ptr) { unsafe { gl.Functions.glUniform3fv(location, count, ptr); } }
 
-    public static void Uniform1(int location, int count, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniform1fv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform1(int location, int count, GLfloat* ptr) {
-        unsafe { gl.Functions.glUniform1fv(location, count, ptr); }
-    }
-
-    public static void Uniform2(int location, int count, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniform2fv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform2(int location, int count, GLfloat* ptr) {
-        unsafe { gl.Functions.glUniform2fv(location, count, ptr); }
-    }
-
-    public static void Uniform3(int location, int count, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniform3fv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform3(int location, int count, GLfloat* ptr) {
-        unsafe { gl.Functions.glUniform3fv(location, count, ptr); }
-    }
-
-    public static void Uniform4(int location, int count, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniform4fv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform4(int location, int count, GLfloat* ptr) {
-        unsafe { gl.Functions.glUniform4fv(location, count, ptr); }
-    }
-
-    public static void Uniform1(int location, int count, GLint[] value) {
-        unsafe { fixed (GLint* ptr = value) gl.Functions.glUniform1iv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform1(int location, int count, GLint* ptr) {
-        unsafe { gl.Functions.glUniform1iv(location, count, ptr); }
-    }
-
-    public static void Uniform2(int location, int count, GLint[] value) {
-        unsafe { fixed (GLint* ptr = value) gl.Functions.glUniform2iv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform2(int location, int count, GLint* ptr) {
-        unsafe { gl.Functions.glUniform2iv(location, count, ptr); }
-    }
-
-    public static void Uniform3(int location, int count, GLint[] value) {
-        unsafe { fixed (GLint* ptr = value) gl.Functions.glUniform3iv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform3(int location, int count, GLint* ptr) {
-        unsafe { gl.Functions.glUniform3iv((GLint)location, (GLsizei)count, ptr); }
-    }
-
-    public static void Uniform4(int location, int count, GLint[] value) {
-        unsafe { fixed (GLint* ptr = value) gl.Functions.glUniform4iv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform4(int location, int count, GLint* ptr) {
-        unsafe { gl.Functions.glUniform4iv(location, count, ptr); }
-    }
-
-    public static void Uniform1(int location, int count, GLuint[] value) {
-        unsafe { fixed (GLuint* ptr = value) gl.Functions.glUniform1uiv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform1(int location, int count, GLuint* ptr) {
-        gl.Functions.glUniform1uiv(location, count, ptr);
-    }
-
-    public static void Uniform2(int location, int count, GLuint[] value) {
-        unsafe { fixed (GLuint* ptr = value) gl.Functions.glUniform2uiv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform2(int location, int count, GLuint* ptr) {
-        gl.Functions.glUniform2uiv(location, count, ptr);
-    }
-
-    public static void Uniform3(int location, int count, GLuint[] value) {
-        unsafe { fixed (GLuint* ptr = value) gl.Functions.glUniform3uiv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform3(int location, int count, GLuint* ptr) {
-        gl.Functions.glUniform3uiv(location, count, ptr);
-    }
-
-    public static void Uniform4(int location, int count, GLuint[] value) {
-        unsafe { fixed (GLuint* ptr = value) gl.Functions.glUniform4uiv(location, count, ptr); }
-    }
-
-    public unsafe static void Uniform4(int location, int count, GLuint* ptr) {
-        gl.Functions.glUniform4uiv(location, count, ptr);
-    }
+    public unsafe static void Uniform4(int location, int count, float* ptr) { unsafe { gl.Functions.glUniform4fv(location, count, ptr); } }
 
     public static void UniformMatrix2(int location, int count, bool transpose, float[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniformMatrix2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+        unsafe { fixed (float* ptr = value) gl.Functions.glUniformMatrix2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix3(int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glUniformMatrix3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix4(int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glUniformMatrix4fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix2x3(int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glUniformMatrix2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix2x4(int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glUniformMatrix2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix3x2(int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glUniformMatrix3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix3x4(int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glUniformMatrix3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix4x2(int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glUniformMatrix4x2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix4x3(int location, int count, bool transpose, float[] value) {
+        unsafe { fixed (float* ptr = value) gl.Functions.glUniformMatrix4x3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
     public unsafe static void UniformMatrix2(int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glUniformMatrix2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void UniformMatrix3(int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniformMatrix3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void UniformMatrix3(int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void UniformMatrix3(int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glUniformMatrix3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void UniformMatrix4(GLint location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniformMatrix4fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void UniformMatrix4(GLint location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void UniformMatrix4(int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glUniformMatrix4fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void UniformMatrix2x3(int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniformMatrix2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void UniformMatrix2x3(int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void UniformMatrix2x3(int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glUniformMatrix2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void UniformMatrix2x4(int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniformMatrix2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void UniformMatrix2x4(int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void UniformMatrix2x4(int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glUniformMatrix2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void UniformMatrix3x2(int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniformMatrix3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void UniformMatrix3x2(int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void UniformMatrix3x2(int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glUniformMatrix3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void UniformMatrix3x4(int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniformMatrix3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void UniformMatrix3x4(int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void UniformMatrix3x4(int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glUniformMatrix3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void UniformMatrix4x2(int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniformMatrix4x2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void UniformMatrix4x2(int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void UniformMatrix4x2(int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glUniformMatrix4x2fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
 
-    public static void UniformMatrix4x3(int location, int count, bool transpose, GLfloat[] value) {
-        unsafe { fixed (GLfloat* ptr = value) gl.Functions.glUniformMatrix4x3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
-    }
-
-    public unsafe static void UniformMatrix4x3(int location, int count, bool transpose, GLfloat* ptr) {
+    public unsafe static void UniformMatrix4x3(int location, int count, bool transpose, float* ptr) {
         unsafe { gl.Functions.glUniformMatrix4x3fv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
     }
+
+    #endregion Uniform (float)
+
+    #region Uniform (int)
+
+    public static void Uniform1(int location, int v0) { unsafe { gl.Functions.glUniform1i(location, v0); } }
+
+    public static void Uniform2(int location, int v0, int v1) { unsafe { gl.Functions.glUniform2i(location, v0, v1); } }
+
+    public static void Uniform3(int location, int v0, int v1, int v2) { unsafe { gl.Functions.glUniform3i(location, v0, v1, v2); } }
+
+    public static void Uniform4(int location, int v0, int v1, int v2, int v3) { unsafe { gl.Functions.glUniform4i(location, v0, v1, v2, v3); } }
+
+    public static void Uniform1(int location, int count, int[] value) { unsafe { fixed (int* ptr = value) gl.Functions.glUniform1iv(location, count, ptr); } }
+
+    public static void Uniform2(int location, int count, int[] value) { unsafe { fixed (int* ptr = value) gl.Functions.glUniform2iv(location, count, ptr); } }
+
+    public static void Uniform3(int location, int count, int[] value) { unsafe { fixed (int* ptr = value) gl.Functions.glUniform3iv(location, count, ptr); } }
+
+    public static void Uniform4(int location, int count, int[] value) { unsafe { fixed (int* ptr = value) gl.Functions.glUniform4iv(location, count, ptr); } }
+
+    public unsafe static void Uniform1(int location, int count, int* ptr) { unsafe { gl.Functions.glUniform1iv(location, count, ptr); } }
+
+    public unsafe static void Uniform2(int location, int count, int* ptr) { unsafe { gl.Functions.glUniform2iv(location, count, ptr); } }
+
+    public unsafe static void Uniform3(int location, int count, int* ptr) { unsafe { gl.Functions.glUniform3iv((int)location, (GLsizei)count, ptr); } }
+
+    public unsafe static void Uniform4(int location, int count, int* ptr) { unsafe { gl.Functions.glUniform4iv(location, count, ptr); } }
+
+    #endregion Uniform (int)
+
+    #region Uniform (uint)
+
+    public static void Uniform1(int location, uint v0) { unsafe { gl.Functions.glUniform1ui(location, v0); } }
+
+    public static void Uniform2(int location, uint v0, uint v1) { unsafe { gl.Functions.glUniform2ui(location, v0, v1); } }
+
+    public static void Uniform3(int location, uint v0, uint v1, uint v2) { unsafe { gl.Functions.glUniform3ui(location, v0, v1, v2); } }
+
+    public static void Uniform4(int location, uint v0, uint v1, uint v2, uint v3) { unsafe { gl.Functions.glUniform4ui(location, v0, v1, v2, v3); } }
+
+    public static void Uniform1(int location, int count, uint[] value) { unsafe { fixed (uint* ptr = value) gl.Functions.glUniform1uiv(location, count, ptr); } }
+
+    public static void Uniform2(int location, int count, uint[] value) { unsafe { fixed (uint* ptr = value) gl.Functions.glUniform2uiv(location, count, ptr); } }
+
+    public static void Uniform3(int location, int count, uint[] value) { unsafe { fixed (uint* ptr = value) gl.Functions.glUniform3uiv(location, count, ptr); } }
+
+    public static void Uniform4(int location, int count, uint[] value) { unsafe { fixed (uint* ptr = value) gl.Functions.glUniform4uiv(location, count, ptr); } }
+
+    public unsafe static void Uniform1(int location, int count, uint* ptr) { gl.Functions.glUniform1uiv(location, count, ptr); }
+
+    public unsafe static void Uniform2(int location, int count, uint* ptr) { gl.Functions.glUniform2uiv(location, count, ptr); }
+
+    public unsafe static void Uniform3(int location, int count, uint* ptr) { gl.Functions.glUniform3uiv(location, count, ptr); }
+
+    public unsafe static void Uniform4(int location, int count, uint* ptr) { gl.Functions.glUniform4uiv(location, count, ptr); }
+
+    #endregion Uniform (uint)
+
+    #region Uniform (double)
+
+    public static void Uniform1(int location, double v0) { unsafe { gl.Functions.glUniform1d(location, v0); } }
+
+    public static void Uniform2(int location, double v0, double v1) { unsafe { gl.Functions.glUniform2d(location, v0, v1); } }
+
+    public static void Uniform3(int location, double v0, double v1, double v2) { unsafe { gl.Functions.glUniform3d(location, v0, v1, v2); } }
+
+    public static void Uniform4(int location, double v0, double v1, double v2, double v3) { unsafe { gl.Functions.glUniform4d(location, v0, v1, v2, v3); } }
+
+    public static void Uniform1(int location, int count, double[] value) { unsafe { fixed (double* ptr = value) gl.Functions.glUniform1dv(location, count, ptr); } }
+
+    public static void Uniform2(int location, int count, double[] value) { unsafe { fixed (double* ptr = value) gl.Functions.glUniform2dv(location, count, ptr); } }
+
+    public static void Uniform3(int location, int count, double[] value) { unsafe { fixed (double* ptr = value) gl.Functions.glUniform3dv(location, count, ptr); } }
+
+    public static void Uniform4(int location, int count, double[] value) { unsafe { fixed (double* ptr = value) gl.Functions.glUniform4dv(location, count, ptr); } }
+
+    public unsafe static void Uniform1(int location, int count, double* ptr) { unsafe { gl.Functions.glUniform1dv(location, count, ptr); } }
+
+    public unsafe static void Uniform2(int location, int count, double* ptr) { unsafe { gl.Functions.glUniform2dv(location, count, ptr); } }
+
+    public unsafe static void Uniform3(int location, int count, double* ptr) { unsafe { gl.Functions.glUniform3dv(location, count, ptr); } }
+
+    public unsafe static void Uniform4(int location, int count, double* ptr) { unsafe { gl.Functions.glUniform4dv(location, count, ptr); } }
+
+    public static void UniformMatrix2(int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glUniformMatrix2dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix3(int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glUniformMatrix3dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix4(int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glUniformMatrix4dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix2x3(int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glUniformMatrix2dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix2x4(int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glUniformMatrix2dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix3x2(int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glUniformMatrix3dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix3x4(int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glUniformMatrix3dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix4x2(int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glUniformMatrix4x2dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public static void UniformMatrix4x3(int location, int count, bool transpose, double[] value) {
+        unsafe { fixed (double* ptr = value) gl.Functions.glUniformMatrix4x3dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void UniformMatrix2(int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glUniformMatrix2dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void UniformMatrix3(int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glUniformMatrix3dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void UniformMatrix4(int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glUniformMatrix4dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void UniformMatrix2x3(int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glUniformMatrix2dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void UniformMatrix2x4(int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glUniformMatrix2dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void UniformMatrix3x2(int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glUniformMatrix3dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void UniformMatrix3x4(int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glUniformMatrix3dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void UniformMatrix4x2(int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glUniformMatrix4x2dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    public unsafe static void UniformMatrix4x3(int location, int count, bool transpose, double* ptr) {
+        unsafe { gl.Functions.glUniformMatrix4x3dv(location, count, (GLboolean)(transpose ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE), ptr); }
+    }
+
+    #endregion Uniform (double)
 
     public static void UniformBlockBinding(this GLprogram program, int uniformBlockIndex, int uniformBlockBinding) {
         unsafe { gl.Functions.glUniformBlockBinding(program, (GLuint)uniformBlockIndex, (GLuint)uniformBlockBinding); }
