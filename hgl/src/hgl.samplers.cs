@@ -41,32 +41,32 @@ public static partial class hgl {
         unsafe { fixed (GLint* ptr = &parameters) gl.Functions.glGetSamplerParameteriv(sampler, pname, ptr); }
     }
 
+    public static void GetSamplerParameter(this GLsampler sampler, SamplerParameter pname, out MinFilter parameters) {
+        unsafe { fixed (MinFilter* ptr = &parameters) gl.Functions.glGetSamplerParameteriv(sampler, pname, (GLint*)ptr); }
+    }
+
+    public static void GetSamplerParameter(this GLsampler sampler, SamplerParameter pname, out MagFilter parameters) {
+        unsafe { fixed (MagFilter* ptr = &parameters) gl.Functions.glGetSamplerParameteriv(sampler, pname, (GLint*)ptr); }
+    }
+
+    public static void GetSamplerParameter(this GLsampler sampler, SamplerParameter pname, out WrapMode parameters) {
+        unsafe { fixed (WrapMode* ptr = &parameters) gl.Functions.glGetSamplerParameteriv(sampler, pname, (GLint*)ptr); }
+    }
+
+    public static void GetSamplerParameter(this GLsampler sampler, SamplerParameter pname, out CompareMode parameters) {
+        unsafe { fixed (CompareMode* ptr = &parameters) gl.Functions.glGetSamplerParameteriv(sampler, pname, (GLint*)ptr); }
+    }
+
+    public static void GetSamplerParameter(this GLsampler sampler, SamplerParameter pname, out CompareFunction parameters) {
+        unsafe { fixed (CompareFunction* ptr = &parameters) gl.Functions.glGetSamplerParameteriv(sampler, pname, (GLint*)ptr); }
+    }
+
     public static void GetSamplerParameterI(this GLsampler sampler, SamplerParameter pname, int[] parameters) {
         unsafe { fixed (GLint* ptr = parameters) gl.Functions.glGetSamplerParameterIiv(sampler, pname, ptr); }
     }
 
     public static void GetSamplerParameterI(this GLsampler sampler, SamplerParameter pname, out int parameters) {
         unsafe { fixed (GLint* ptr = &parameters) gl.Functions.glGetSamplerParameterIiv(sampler, pname, ptr); }
-    }
-
-    public static void GetSamplerParameter(this GLsampler sampler, SamplerParameter pname, out MinFilter parameters) {
-        unsafe { fixed (MinFilter* ptr = &parameters) gl.Functions.glGetSamplerParameterIiv(sampler, pname, (GLint*)ptr); }
-    }
-
-    public static void GetSamplerParameter(this GLsampler sampler, SamplerParameter pname, out MagFilter parameters) {
-        unsafe { fixed (MagFilter* ptr = &parameters) gl.Functions.glGetSamplerParameterIiv(sampler, pname, (GLint*)ptr); }
-    }
-
-    public static void GetSamplerParameter(this GLsampler sampler, SamplerParameter pname, out WrapMode parameters) {
-        unsafe { fixed (WrapMode* ptr = &parameters) gl.Functions.glGetSamplerParameterIiv(sampler, pname, (GLint*)ptr); }
-    }
-
-    public static void GetSamplerParameter(GLsampler sampler, SamplerParameter pname, out CompareMode parameters) {
-        unsafe { fixed (CompareMode* ptr = &parameters) gl.Functions.glGetSamplerParameterIiv(sampler, pname, (GLint*)ptr); }
-    }
-
-    public static void GetSamplerParameter(this GLsampler sampler, SamplerParameter pname, out CompareFunction parameters) {
-        unsafe { fixed (CompareFunction* ptr = &parameters) gl.Functions.glGetSamplerParameterIiv(sampler, pname, (GLint*)ptr); }
     }
 
     public static void GetSamplerParameterI(this GLsampler sampler, SamplerParameter pname, uint[] parameters) {
@@ -77,8 +77,8 @@ public static partial class hgl {
         unsafe { fixed (GLuint* ptr = &parameters) gl.Functions.glGetSamplerParameterIuiv(sampler, pname, ptr); }
     }
 
-    public static GLboolean IsSampler(this GLsampler sampler) {
-        unsafe { return gl.Functions.glIsSampler(sampler); }
+    public static bool IsSampler(this GLsampler sampler) {
+        unsafe { return (gl.Functions.glIsSampler(sampler) != gl.Constants.GL_FALSE); }
     }
 
     public static void SamplerParameter(this GLsampler sampler, SamplerParameter pname, int parameter) {
@@ -97,28 +97,28 @@ public static partial class hgl {
         unsafe { fixed (GLfloat* ptr = parameters) gl.Functions.glSamplerParameterfv(sampler, pname, ptr); }
     }
 
-    public static void SamplerParameterI(this GLsampler sampler, SamplerParameter pname, params GLint[] parameters) {
-        unsafe { fixed (GLint* ptr = parameters) gl.Functions.glSamplerParameterIiv(sampler, pname, ptr); }
-    }
-
     public static void SamplerParameter(this GLsampler sampler, SamplerParameter pname, MinFilter parameters) {
-        unsafe { gl.Functions.glSamplerParameterIiv(sampler, pname, (GLint*)&parameters); }
+        unsafe { gl.Functions.glSamplerParameteri(sampler, pname, (GLint)parameters); }
     }
 
     public static void SamplerParameter(this GLsampler sampler, SamplerParameter pname, MagFilter parameters) {
-        unsafe { gl.Functions.glSamplerParameterIiv(sampler, pname, (GLint*)&parameters); }
+        unsafe { gl.Functions.glSamplerParameteri(sampler, pname, (GLint)parameters); }
     }
 
     public static void SamplerParameter(this GLsampler sampler, SamplerParameter pname, WrapMode parameters) {
-        unsafe { gl.Functions.glSamplerParameterIiv(sampler, pname, (GLint*)&parameters); }
+        unsafe { gl.Functions.glSamplerParameteri(sampler, pname, (GLint)parameters); }
     }
 
-    public static void SamplerParameter(GLsampler sampler, SamplerParameter pname, CompareMode parameters) {
-        unsafe { gl.Functions.glSamplerParameterIiv(sampler, pname, (GLint*)&parameters); }
+    public static void SamplerParameter(this GLsampler sampler, SamplerParameter pname, CompareMode parameters) {
+        unsafe { gl.Functions.glSamplerParameteri(sampler, pname, (GLint)parameters); }
     }
 
     public static void SamplerParameter(this GLsampler sampler, SamplerParameter pname, CompareFunction parameters) {
-        unsafe { gl.Functions.glSamplerParameterIiv(sampler, pname, (GLint*)&parameters); }
+        unsafe { gl.Functions.glSamplerParameteri(sampler, pname, (GLint)parameters); }
+    }
+
+    public static void SamplerParameterI(this GLsampler sampler, SamplerParameter pname, params int[] parameters) {
+        unsafe { fixed (GLint* ptr = parameters) gl.Functions.glSamplerParameterIiv(sampler, pname, ptr); }
     }
 
     public static void SamplerParameterI(this GLsampler sampler, SamplerParameter pname, params uint[] parameters) {

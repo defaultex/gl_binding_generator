@@ -32,7 +32,7 @@ public struct GLrenderbuffer : IEquatable<GLrenderbuffer>, IEquatable<GLuint> {
     public static bool operator !=(GLrenderbuffer a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLrenderbuffer b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLrenderbuffer obj) => obj.m_handle;
+    public static explicit operator GLuint(GLrenderbuffer obj) => obj.m_handle;
     public static explicit operator GLrenderbuffer(GLuint handle) => new(handle);
 
     #endregion

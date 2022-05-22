@@ -32,7 +32,7 @@ public struct GLtexture : IEquatable<GLtexture>, IEquatable<GLuint> {
     public static bool operator !=(GLtexture a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLtexture b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLtexture obj) => obj.m_handle;
+    public static explicit operator GLuint(GLtexture obj) => obj.m_handle;
     public static explicit operator GLtexture(GLuint handle) => new(handle);
 
     #endregion

@@ -32,7 +32,7 @@ public struct GLshader : IEquatable<GLshader>, IEquatable<GLuint> {
     public static bool operator !=(GLshader a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLshader b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLshader obj) => obj.m_handle;
+    public static explicit operator GLuint(GLshader obj) => obj.m_handle;
     public static explicit operator GLshader(GLuint handle) => new(handle);
 
     #endregion

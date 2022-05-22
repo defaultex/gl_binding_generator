@@ -32,7 +32,7 @@ public struct GLframebuffer : IEquatable<GLframebuffer>, IEquatable<GLuint> {
     public static bool operator !=(GLframebuffer a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLframebuffer b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLframebuffer obj) => obj.m_handle;
+    public static explicit operator GLuint(GLframebuffer obj) => obj.m_handle;
     public static explicit operator GLframebuffer(GLuint handle) => new(handle);
 
     #endregion

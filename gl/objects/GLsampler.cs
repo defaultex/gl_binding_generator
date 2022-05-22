@@ -32,7 +32,7 @@ public struct GLsampler : IEquatable<GLsampler>, IEquatable<GLuint> {
     public static bool operator !=(GLsampler a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLsampler b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLsampler obj) => obj.m_handle;
+    public static explicit operator GLuint(GLsampler obj) => obj.m_handle;
     public static explicit operator GLsampler(GLuint handle) => new(handle);
 
     #endregion

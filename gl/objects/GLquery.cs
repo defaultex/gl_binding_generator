@@ -32,7 +32,7 @@ public struct GLquery : IEquatable<GLquery>, IEquatable<GLuint> {
     public static bool operator !=(GLquery a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLquery b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLquery obj) => obj.m_handle;
+    public static explicit operator GLuint(GLquery obj) => obj.m_handle;
     public static explicit operator GLquery(GLuint handle) => new(handle);
 
     #endregion

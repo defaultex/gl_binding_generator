@@ -38,7 +38,7 @@ public struct " + ObjectName + @" : IEquatable<" + ObjectName + @">, IEquatable<
     public static bool operator !=(" + ObjectName + @" a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, " + ObjectName + @" b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(" + ObjectName + @" obj) => obj.m_handle;
+    public static explicit operator GLuint(" + ObjectName + @" obj) => obj.m_handle;
     public static explicit operator " + ObjectName + @"(GLuint handle) => new(handle);
 
     #endregion

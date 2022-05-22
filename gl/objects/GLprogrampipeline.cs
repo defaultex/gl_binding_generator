@@ -32,7 +32,7 @@ public struct GLprogrampipeline : IEquatable<GLprogrampipeline>, IEquatable<GLui
     public static bool operator !=(GLprogrampipeline a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLprogrampipeline b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLprogrampipeline obj) => obj.m_handle;
+    public static explicit operator GLuint(GLprogrampipeline obj) => obj.m_handle;
     public static explicit operator GLprogrampipeline(GLuint handle) => new(handle);
 
     #endregion

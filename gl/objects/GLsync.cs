@@ -32,7 +32,7 @@ public struct GLsync : IEquatable<GLsync>, IEquatable<GLuint> {
     public static bool operator !=(GLsync a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLsync b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLsync obj) => obj.m_handle;
+    public static explicit operator GLuint(GLsync obj) => obj.m_handle;
     public static explicit operator GLsync(GLuint handle) => new(handle);
 
     #endregion

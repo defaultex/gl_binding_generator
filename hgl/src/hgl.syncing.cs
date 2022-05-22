@@ -23,8 +23,8 @@ public static partial class hgl {
         }
     }
 
-    public static GLboolean IsSync(this GLsync sync) {
-        unsafe { return gl.Functions.glIsSync(sync); }
+    public static bool IsSync(this GLsync sync) {
+        unsafe { return (gl.Functions.glIsSync(sync) != gl.Constants.GL_FALSE); }
     }
 
     public static void TextureBarrier() {

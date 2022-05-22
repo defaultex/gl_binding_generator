@@ -46,25 +46,25 @@ public static partial class hgl {
         }
     }
 
-    public static void GetObjectLabel(GLbuffer buffer, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Buffer, buffer, bufSize, out label);
+    public static void GetObjectLabel(GLbuffer buffer, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Buffer, (GLuint)buffer, bufSize, out label);
 
-    public static void GetObjectLabel(GLframebuffer buffer, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Framebuffer, buffer, bufSize, out label);
+    public static void GetObjectLabel(GLframebuffer buffer, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Framebuffer, (GLuint)buffer, bufSize, out label);
 
-    public static void GetObjectLabel(GLprogram program, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Program, program, bufSize, out label);
+    public static void GetObjectLabel(GLprogram program, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Program, (GLuint)program, bufSize, out label);
 
-    public static void GetObjectLabel(GLprogrampipeline pipeline, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.ProgramPipeline, pipeline, bufSize, out label);
+    public static void GetObjectLabel(GLprogrampipeline pipeline, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.ProgramPipeline, (GLuint)pipeline, bufSize, out label);
 
-    public static void GetObjectLabel(GLquery query, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Query, query, bufSize, out label);
+    public static void GetObjectLabel(GLquery query, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Query, (GLuint)query, bufSize, out label);
 
-    public static void GetObjectLabel(GLrenderbuffer buffer, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Renderbuffer, buffer, bufSize, out label);
+    public static void GetObjectLabel(GLrenderbuffer buffer, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Renderbuffer, (GLuint)buffer, bufSize, out label);
 
-    public static void GetObjectLabel(GLsampler sampler, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Sampler, sampler, bufSize, out label);
+    public static void GetObjectLabel(GLsampler sampler, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Sampler, (GLuint)sampler, bufSize, out label);
 
-    public static void GetObjectLabel(GLtexture texture, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Texture, texture, bufSize, out label);
+    public static void GetObjectLabel(GLtexture texture, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.Texture, (GLuint)texture, bufSize, out label);
 
-    public static void GetObjectLabel(GLtransformfeedback buffer, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.TransformFeedback, buffer, bufSize, out label);
+    public static void GetObjectLabel(GLtransformfeedback buffer, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.TransformFeedback, (GLuint)buffer, bufSize, out label);
 
-    public static void GetObjectLabel(GLvertexarray vaobj, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.VertexArray, vaobj, bufSize, out label);
+    public static void GetObjectLabel(GLvertexarray vaobj, int bufSize, out string label) => GetObjectLabel(ObjectIdentifier.VertexArray, (GLuint)vaobj, bufSize, out label);
 
     public static void GetObjectPtrLabel(IntPtr ptr, int bufSize, out string label) {
         unsafe {
@@ -96,27 +96,27 @@ public static partial class hgl {
         unsafe { fixed (GLchar* pLabel = lbl) gl.Functions.glObjectLabel(identifier, name, lbl.Length, pLabel); }
     }
 
-    public static void ObjectLabel(GLbuffer buffer, string label) => ObjectLabel(ObjectIdentifier.Buffer, buffer, label);
+    public static void ObjectLabel(GLbuffer buffer, string label) => ObjectLabel(ObjectIdentifier.Buffer, (GLuint)buffer, label);
 
-    public static void ObjectLabel(GLframebuffer buffer, string label) => ObjectLabel(ObjectIdentifier.Framebuffer, buffer, label);
+    public static void ObjectLabel(GLframebuffer buffer, string label) => ObjectLabel(ObjectIdentifier.Framebuffer, (GLuint)buffer, label);
 
-    public static void ObjectLabel(GLprogram program, string label) => ObjectLabel(ObjectIdentifier.Program, program, label);
+    public static void ObjectLabel(GLprogram program, string label) => ObjectLabel(ObjectIdentifier.Program, (GLuint)program, label);
 
-    public static void ObjectLabel(GLprogrampipeline pipeline, string label) => ObjectLabel(ObjectIdentifier.ProgramPipeline, pipeline, label);
+    public static void ObjectLabel(GLprogrampipeline pipeline, string label) => ObjectLabel(ObjectIdentifier.ProgramPipeline, (GLuint)pipeline, label);
 
-    public static void ObjectLabel(GLquery query, string label) => ObjectLabel(ObjectIdentifier.Query, query, label);
+    public static void ObjectLabel(GLquery query, string label) => ObjectLabel(ObjectIdentifier.Query, (GLuint)query, label);
 
-    public static void ObjectLabel(GLrenderbuffer buffer, string label) => ObjectLabel(ObjectIdentifier.Renderbuffer, buffer, label);
+    public static void ObjectLabel(GLrenderbuffer buffer, string label) => ObjectLabel(ObjectIdentifier.Renderbuffer, (GLuint)buffer, label);
 
-    public static void ObjectLabel(GLsampler sampler, string label) => ObjectLabel(ObjectIdentifier.Sampler, sampler, label);
+    public static void ObjectLabel(GLsampler sampler, string label) => ObjectLabel(ObjectIdentifier.Sampler, (GLuint)sampler, label);
 
-    public static void ObjectLabel(GLshader shader, string label) => ObjectLabel(ObjectIdentifier.Shader, shader, label);
+    public static void ObjectLabel(GLshader shader, string label) => ObjectLabel(ObjectIdentifier.Shader, (GLuint)shader, label);
 
-    public static void ObjectLabel(GLtexture texture, string label) => ObjectLabel(ObjectIdentifier.Texture, texture, label);
+    public static void ObjectLabel(GLtexture texture, string label) => ObjectLabel(ObjectIdentifier.Texture, (GLuint)texture, label);
 
-    public static void ObjectLabel(GLtransformfeedback buffer, string label) => ObjectLabel(ObjectIdentifier.TransformFeedback, buffer, label);
+    public static void ObjectLabel(GLtransformfeedback buffer, string label) => ObjectLabel(ObjectIdentifier.TransformFeedback, (GLuint)buffer, label);
 
-    public static void ObjectLabel(GLvertexarray vaobj, string label) => ObjectLabel(ObjectIdentifier.VertexArray, vaobj, label);
+    public static void ObjectLabel(GLvertexarray vaobj, string label) => ObjectLabel(ObjectIdentifier.VertexArray, (GLuint)vaobj, label);
 
     public static void ObjectPtrLabel(IntPtr ptr, string label) {
         byte[] lbl = Encoding.UTF8.GetBytes(label);

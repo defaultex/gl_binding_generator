@@ -22,8 +22,11 @@ global using GLuint64EXT = System.UInt64;
 global using System;
 global using System.Runtime.InteropServices;
 
-public unsafe delegate void GLDEBUGPROC(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate void GLDEBUGPROC(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, IntPtr message, IntPtr userParam);
 
-public unsafe delegate void GLDEBUGPROCARB(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate void GLDEBUGPROCARB(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, IntPtr message, IntPtr userParam);
 
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void GLVULKANPROCNV();

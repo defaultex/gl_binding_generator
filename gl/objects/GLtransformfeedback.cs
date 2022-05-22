@@ -32,7 +32,7 @@ public struct GLtransformfeedback : IEquatable<GLtransformfeedback>, IEquatable<
     public static bool operator !=(GLtransformfeedback a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLtransformfeedback b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLtransformfeedback obj) => obj.m_handle;
+    public static explicit operator GLuint(GLtransformfeedback obj) => obj.m_handle;
     public static explicit operator GLtransformfeedback(GLuint handle) => new(handle);
 
     #endregion

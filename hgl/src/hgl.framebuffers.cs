@@ -166,12 +166,12 @@ public static partial class hgl {
         unsafe { fixed (FramebufferAttachment* pAttach = attachments) gl.Functions.glInvalidateNamedFramebufferSubData(buffer, attachments.Length, pAttach, x, y, width, height); }
     }
 
-    public static GLboolean IsFramebuffer(this GLframebuffer framebuffer) {
-        unsafe { return gl.Functions.glIsFramebuffer(framebuffer); }
+    public static bool IsFramebuffer(this GLframebuffer framebuffer) {
+        unsafe { return (gl.Functions.glIsFramebuffer(framebuffer) != gl.Constants.GL_FALSE); }
     }
 
-    public static GLboolean IsRenderbuffer(this GLrenderbuffer renderbuffer) {
-        unsafe { return gl.Functions.glIsRenderbuffer(renderbuffer); }
+    public static bool IsRenderbuffer(this GLrenderbuffer renderbuffer) {
+        unsafe { return (gl.Functions.glIsRenderbuffer(renderbuffer) != gl.Constants.GL_FALSE); }
     }
 
     public static void RenderbufferStorage(InternalFormat internalformat, int width, int height) {

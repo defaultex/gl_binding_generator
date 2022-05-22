@@ -32,7 +32,7 @@ public struct GLvertexarray : IEquatable<GLvertexarray>, IEquatable<GLuint> {
     public static bool operator !=(GLvertexarray a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLvertexarray b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLvertexarray obj) => obj.m_handle;
+    public static explicit operator GLuint(GLvertexarray obj) => obj.m_handle;
     public static explicit operator GLvertexarray(GLuint handle) => new(handle);
 
     #endregion

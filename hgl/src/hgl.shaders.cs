@@ -277,7 +277,8 @@ public static partial class hgl {
     }
 
     public static void GetUniform(this GLprogram program, int location, int count, double[] parameters) {
-        unsafe { fixed (GLdouble* ptr = parameters) gl.Functions.glGetnUniformdv(program, location, count, ptr); }
+        int bufSize = sizeof(double) * count;
+        unsafe { fixed (GLdouble* ptr = parameters) gl.Functions.glGetnUniformdv(program, location, bufSize, ptr); }
     }
 
     public static void GetUniform(this GLprogram program, int location, float[] parameters) {
@@ -285,7 +286,8 @@ public static partial class hgl {
     }
 
     public static void GetUniform(this GLprogram program, int location, int count, float[] parameters) {
-        unsafe { fixed (GLfloat* ptr = parameters) gl.Functions.glGetnUniformfv(program, location, count, ptr); }
+        int bufSize = sizeof(float) * count;
+        unsafe { fixed (GLfloat* ptr = parameters) gl.Functions.glGetnUniformfv(program, location, bufSize, ptr); }
     }
 
     public static void GetUniform(this GLprogram program, int location, int[] parameters) {
@@ -293,7 +295,8 @@ public static partial class hgl {
     }
 
     public static void GetUniform(this GLprogram program, int location, int count, int[] parameters) {
-        unsafe { fixed (GLint* ptr = parameters) gl.Functions.glGetnUniformiv(program, location, count, ptr); }
+        int bufSize = sizeof(int) * count;
+        unsafe { fixed (GLint* ptr = parameters) gl.Functions.glGetnUniformiv(program, location, bufSize, ptr); }
     }
 
     public static void GetUniform(this GLprogram program, int location, uint[] parameters) {
@@ -301,24 +304,37 @@ public static partial class hgl {
     }
 
     public static void GetUniform(this GLprogram program, int location, int count, uint[] parameters) {
-        unsafe { fixed (GLuint* ptr = parameters) gl.Functions.glGetnUniformuiv(program, location, count, ptr); }
+        int bufSize = sizeof(uint) * count;
+        unsafe { fixed (GLuint* ptr = parameters) gl.Functions.glGetnUniformuiv(program, location, bufSize, ptr); }
     }
 
     public unsafe static void GetUniform(this GLprogram program, int location, double* parameters) => gl.Functions.glGetUniformdv(program, location, parameters);
 
-    public unsafe static void GetUniform(this GLprogram program, int location, int count, double* parameters) => gl.Functions.glGetnUniformdv(program, location, count, parameters);
+    public unsafe static void GetUniform(this GLprogram program, int location, int count, double* parameters) {
+        int bufSize = sizeof(double) * count;
+        gl.Functions.glGetnUniformdv(program, location, bufSize, parameters);
+    }
 
     public unsafe static void GetUniform(this GLprogram program, int location, float* parameters) => gl.Functions.glGetUniformfv(program, location, parameters);
 
-    public unsafe static void GetUniform(this GLprogram program, int location, int count, float* parameters) => gl.Functions.glGetnUniformfv(program, location, count, parameters);
+    public unsafe static void GetUniform(this GLprogram program, int location, int count, float* parameters) {
+        int bufSize = sizeof(float) * count;
+        gl.Functions.glGetnUniformfv(program, location, bufSize, parameters);
+    }
 
     public unsafe static void GetUniform(this GLprogram program, int location, int* parameters) => gl.Functions.glGetUniformiv(program, location, parameters);
 
-    public unsafe static void GetUniform(this GLprogram program, int location, int count, int* parameters) => gl.Functions.glGetnUniformiv(program, location, count, parameters);
+    public unsafe static void GetUniform(this GLprogram program, int location, int count, int* parameters) {
+        int bufSize = sizeof(int) * count;
+        gl.Functions.glGetnUniformiv(program, location, bufSize, parameters);
+    }
 
     public unsafe static void GetUniform(this GLprogram program, int location, uint* parameters) => gl.Functions.glGetUniformuiv(program, location, parameters);
 
-    public unsafe static void GetUniform(this GLprogram program, int location, int count, uint* parameters) => gl.Functions.glGetnUniformuiv(program, location, count, parameters);
+    public unsafe static void GetUniform(this GLprogram program, int location, int count, uint* parameters) {
+        int bufSize = sizeof(uint) * count;
+        gl.Functions.glGetnUniformuiv(program, location, bufSize, parameters);
+    }
 
     public static GLuint GetUniformBlockIndex(this GLprogram program, string uniformBlockName) {
         unsafe { fixed (GLchar* ptr = Encoding.UTF8.GetBytes(uniformBlockName)) return gl.Functions.glGetUniformBlockIndex(program, ptr); }

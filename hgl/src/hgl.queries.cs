@@ -2,7 +2,7 @@ namespace HGL;
 
 public static partial class hgl {
     public static void BeginConditionalRender(this GLquery id, ConditionalRenderMode mode) {
-        unsafe { gl.Functions.glBeginConditionalRender(id, mode); }
+        unsafe { gl.Functions.glBeginConditionalRender((GLuint)id, mode); }
     }
 
     public static void BeginQuery(QueryTarget target, GLquery id) {
@@ -73,8 +73,8 @@ public static partial class hgl {
         unsafe { fixed (GLint* ptr = &result) gl.Functions.glGetQueryIndexediv(target, (GLuint)index, pname, ptr); }
     }
 
-    public static GLboolean IsQuery(this GLquery id) {
-        unsafe { return gl.Functions.glIsQuery(id); }
+    public static bool IsQuery(this GLquery id) {
+        unsafe { return (gl.Functions.glIsQuery(id) != gl.Constants.GL_FALSE); }
     }
 
     public static void QueryCounter(this GLquery id) {

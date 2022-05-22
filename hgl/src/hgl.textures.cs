@@ -73,25 +73,25 @@ public static partial class hgl {
     public static void CopyImageSubData(GLtexture srcTexture, ImageSubDataTarget srcTarget, int srcLevel, int srcX, int srcY, int srcZ,
                                         GLtexture dstTexture, ImageSubDataTarget dstTarget, int dstLevel, int dstX, int dstY, int dstZ,
                                         int width, int height, int depth) {
-        unsafe { gl.Functions.glCopyImageSubData(srcTexture, srcTarget, srcLevel, srcX, srcY, srcZ, dstTexture, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth); }
+        unsafe { gl.Functions.glCopyImageSubData((GLuint)srcTexture, srcTarget, srcLevel, srcX, srcY, srcZ, (GLuint)dstTexture, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth); }
     }
 
     public static void CopyImageSubData(GLtexture srcTexture, ImageSubDataTarget srcTarget, int srcLevel, int srcX, int srcY, int srcZ,
                                         GLrenderbuffer dstTexture, ImageSubDataTarget dstTarget, int dstLevel, int dstX, int dstY, int dstZ,
                                         int width, int height, int depth) {
-        unsafe { gl.Functions.glCopyImageSubData(srcTexture, srcTarget, srcLevel, srcX, srcY, srcZ, dstTexture, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth); }
+        unsafe { gl.Functions.glCopyImageSubData((GLuint)srcTexture, srcTarget, srcLevel, srcX, srcY, srcZ, (GLuint)dstTexture, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth); }
     }
 
     public static void CopyImageSubData(GLrenderbuffer srcTexture, ImageSubDataTarget srcTarget, int srcLevel, int srcX, int srcY, int srcZ,
                                         GLtexture dstTexture, ImageSubDataTarget dstTarget, int dstLevel, int dstX, int dstY, int dstZ,
                                         int width, int height, int depth) {
-        unsafe { gl.Functions.glCopyImageSubData(srcTexture, srcTarget, srcLevel, srcX, srcY, srcZ, dstTexture, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth); }
+        unsafe { gl.Functions.glCopyImageSubData((GLuint)srcTexture, srcTarget, srcLevel, srcX, srcY, srcZ, (GLuint)dstTexture, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth); }
     }
 
     public static void CopyImageSubData(GLrenderbuffer srcTexture, ImageSubDataTarget srcTarget, int srcLevel, int srcX, int srcY, int srcZ,
                                         GLrenderbuffer dstTexture, ImageSubDataTarget dstTarget, int dstLevel, int dstX, int dstY, int dstZ,
                                         int width, int height, int depth) {
-        unsafe { gl.Functions.glCopyImageSubData(srcTexture, srcTarget, srcLevel, srcX, srcY, srcZ, dstTexture, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth); }
+        unsafe { gl.Functions.glCopyImageSubData((GLuint)srcTexture, srcTarget, srcLevel, srcX, srcY, srcZ, (GLuint)dstTexture, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth); }
     }
 
     public static void CopyTexImage1D(TextureTarget target, int level, InternalFormat internalformat, int x, int y, int width) {
@@ -154,24 +154,27 @@ public static partial class hgl {
         unsafe { fixed (void* ptr = img) gl.Functions.glGetnCompressedTexImage(target, level, bufSize, ptr); }
     }
 
-    public static void GetCompressedTextureImage<T>(GLtexture texure, int level, int bufSize, T[] img) where T : unmanaged {
+    public static void GetCompressedTextureImage<T>(GLtexture texure, int level, T[] img) where T : unmanaged {
+        int bufSize = Marshal.SizeOf<T>() * img.Length;
         unsafe { fixed (void* ptr = img) gl.Functions.glGetCompressedTextureImage(texure, level, bufSize, ptr); }
     }
 
     public static void GetCompressedTextureSubImage<T>(GLtexture texture, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, T[] img) where T : unmanaged {
-        unsafe { fixed (void* ptr = img) gl.Functions.glGetCompressedTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, img.Length, ptr); }
+        int bufSize = Marshal.SizeOf<T>() * img.Length;
+        unsafe { fixed (void* ptr = img) gl.Functions.glGetCompressedTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, bufSize, ptr); }
     }
 
     public static void GetTexImage<T>(TextureTarget target, int level, PixelFormat format, PixelType type, T[] pixels) where T : unmanaged {
         unsafe { fixed (void* ptr = pixels) gl.Functions.glGetTexImage(target, level, format, type, ptr); }
     }
 
-    public static void GetTexImage<T>(TextureTarget target, int level, PixelFormat format, PixelType type, int bufSize, T[] pixels) where T : unmanaged {
-        unsafe { fixed (void* ptr = pixels) gl.Functions.glGetnTexImage(target, level, format, type, bufSize, ptr); }
+    public static void GetTexImage<T>(TextureTarget target, int level, PixelFormat format, PixelType type, int bufSize, T[] img) where T : unmanaged {
+        unsafe { fixed (void* ptr = img) gl.Functions.glGetnTexImage(target, level, format, type, bufSize, ptr); }
     }
 
-    public static void GetTextureImage<T>(this GLtexture texture, int level, PixelFormat format, PixelType type, int bufSize, T[] pixels) where T : unmanaged {
-        unsafe { fixed (void* ptr = pixels) gl.Functions.glGetTextureImage(texture, level, format, type, bufSize, ptr); }
+    public static void GetTextureImage<T>(this GLtexture texture, int level, PixelFormat format, PixelType type, T[] img) where T : unmanaged {
+        int bufSize = Marshal.SizeOf<T>() * img.Length;
+        unsafe { fixed (void* ptr = img) gl.Functions.glGetTextureImage(texture, level, format, type, bufSize, ptr); }
     }
 
     public static void GetTexLevelParameter(TextureTarget target, int level, TextureParameter pname, out float parameter) {
@@ -255,7 +258,8 @@ public static partial class hgl {
     }
 
     public static void GetTextureSubImage<T>(this GLtexture texture, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, PixelFormat format, PixelType type, T[] img) where T : unmanaged {
-        unsafe { fixed (void* ptr = img) gl.Functions.glGetTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, img.Length, ptr); }
+        int bufSize = Marshal.SizeOf<T>() * img.Length;
+        unsafe { fixed (void* ptr = img) gl.Functions.glGetTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, bufSize, ptr); }
     }
 
     public static void InvalidateTexImage(this GLtexture texture, int level) {
@@ -266,8 +270,8 @@ public static partial class hgl {
         unsafe { gl.Functions.glInvalidateTexSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth); }
     }
 
-    public static GLboolean IsTexture(this GLtexture texture) {
-        unsafe { return gl.Functions.glIsTexture(texture); }
+    public static bool IsTexture(this GLtexture texture) {
+        unsafe { return (gl.Functions.glIsTexture(texture) != gl.Constants.GL_FALSE); }
     }
 
     public static void TexBuffer(TextureTarget target, SizedInternalFormat internalformat, GLbuffer buffer) {
@@ -306,11 +310,11 @@ public static partial class hgl {
         unsafe { gl.Functions.glTexImage3DMultisample(target, samples, internalformat, width, height, depth, (GLboolean)(fixedsamplelocations ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE)); }
     }
 
-    public static void TexParameterf(TextureTarget target, TextureParameter pname, float param) {
+    public static void TexParameter(TextureTarget target, TextureParameter pname, float param) {
         unsafe { gl.Functions.glTexParameterf(target, pname, param); }
     }
 
-    public static void TexParameteri(TextureTarget target, TextureParameter pname, int param) {
+    public static void TexParameter(TextureTarget target, TextureParameter pname, int param) {
         unsafe { gl.Functions.glTexParameteri(target, pname, param); }
     }
 
@@ -330,11 +334,11 @@ public static partial class hgl {
         unsafe { fixed (GLuint* ptr = parameters) gl.Functions.glTexParameterIuiv(target, pname, ptr); }
     }
 
-    public static void TextureParameterf(this GLtexture texture, TextureParameter pname, float param) {
+    public static void TextureParameter(this GLtexture texture, TextureParameter pname, float param) {
         unsafe { gl.Functions.glTextureParameterf(texture, pname, param); }
     }
 
-    public static void TextureParameteri(this GLtexture texture, TextureParameter pname, int param) {
+    public static void TextureParameter(this GLtexture texture, TextureParameter pname, int param) {
         unsafe { gl.Functions.glTextureParameteri(texture, pname, param); }
     }
 
@@ -417,6 +421,24 @@ public static partial class hgl {
     public static void TextureSubImage3D<T>(this GLtexture texture, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, PixelFormat format, PixelType type, T[] pixels) where T : unmanaged {
         unsafe { fixed (void* ptr = pixels) gl.Functions.glTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, ptr); }
     }
+
+    public unsafe static void TexSubImage1D<T>(TextureTarget target, int level, int xoffset, int width, PixelFormat format, PixelType type, T* pixels) where T : unmanaged 
+        => gl.Functions.glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
+
+    public unsafe static void TextureSubImage1D<T>(this GLtexture texture, int level, int xoffset, int width, PixelFormat format, PixelType type, T* pixels) where T : unmanaged 
+        => gl.Functions.glTextureSubImage1D(texture, level, xoffset, width, format, type, pixels);
+
+    public unsafe static void TexSubImage2D<T>(TextureTarget target, int level, int xoffset, int yoffset, int width, int height, PixelFormat format, PixelType type, T* pixels) where T : unmanaged 
+        => gl.Functions.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
+
+    public unsafe static void TextureSubImage2D<T>(this GLtexture texture, int level, int xoffset, int yoffset, int width, int height, PixelFormat format, PixelType type, T* pixels) where T : unmanaged 
+        => gl.Functions.glTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, type, pixels);
+
+    public unsafe static void TexSubImage3D<T>(TextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, PixelFormat format, PixelType type, T* pixels) where T : unmanaged 
+        => gl.Functions.glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
+
+    public unsafe static void TextureSubImage3D<T>(this GLtexture texture, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, PixelFormat format, PixelType type, T* pixels) where T : unmanaged 
+        => gl.Functions.glTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 
     public static void TextureView(this GLtexture texture, TextureTarget target, GLtexture origTexture, SizedInternalFormat internalFormat, int minLevel, int levelCount, int minLayer, int layerCount) {
         unsafe { gl.Functions.glTextureView(texture, target, origTexture, internalFormat, (GLuint)minLevel, (GLuint)levelCount, (GLuint)minLayer, (GLuint)layerCount); }

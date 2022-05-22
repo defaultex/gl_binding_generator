@@ -32,7 +32,7 @@ public struct GLprogram : IEquatable<GLprogram>, IEquatable<GLuint> {
     public static bool operator !=(GLprogram a, GLuint b) => !a.m_handle.Equals(b);
     public static bool operator !=(GLuint a, GLprogram b) => !a.Equals(b.m_handle);
 
-    public static implicit operator GLuint(GLprogram obj) => obj.m_handle;
+    public static explicit operator GLuint(GLprogram obj) => obj.m_handle;
     public static explicit operator GLprogram(GLuint handle) => new(handle);
 
     #endregion

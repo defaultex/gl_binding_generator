@@ -48,14 +48,19 @@ global using System.Runtime.InteropServices;
         
         // delegates must appear after everything else and need extra line spacing
         { "GLDEBUGPROC", @"
-public unsafe delegate void GLDEBUGPROC(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);" },
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate void GLDEBUGPROC(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, IntPtr message, IntPtr userParam);" },
         { "GLDEBUGPROCARB", @"
-public unsafe delegate void GLDEBUGPROCARB(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);" },
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate void GLDEBUGPROCARB(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, IntPtr message, IntPtr userParam);" },
         { "GLDEBUGPROCKHR", @"
-public unsafe delegate void GLDEBUGPROCKHR(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);" },
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate void GLDEBUGPROCKHR(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, IntPtr message, IntPtr userParam);" },
         { "GLDEBUGPROCAMD", @"
-public unsafe delegate void GLDEBUGPROCAMD(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, GLchar* message, void* userParam);" },
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate void GLDEBUGPROCAMD(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, IntPtr message, IntPtr userParam);" },
         { "GLVULKANPROCNV", @"
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void GLVULKANPROCNV();" }
     };
 
