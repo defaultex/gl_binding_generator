@@ -71,8 +71,8 @@ public static partial class hgl {
         unsafe { fixed (GLint* pParam = &parameters) gl.Functions.glGetVertexArrayiv(vaobj, pname, pParam); }
     }
 
-    public static GLboolean IsVertexArray(this GLvertexarray array) {
-        unsafe { return gl.Functions.glIsVertexArray(array); }
+    public static bool IsVertexArray(this GLvertexarray array) {
+        unsafe { return (gl.Functions.glIsVertexArray(array) != gl.Constants.GL_FALSE); }
     }
 
     public static void VertexArrayElementBuffer(this GLvertexarray vaobj, GLbuffer buffer) {
