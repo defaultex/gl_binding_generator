@@ -12,14 +12,21 @@ public static partial class hgl {
     public static void BindToContext(Func<string, IntPtr> getProcAddr, Func<string, bool> isExtensionSupported, (string, Type)[] extensions = null) {
         _ = getProcAddr ?? throw new ArgumentNullException(nameof(getProcAddr));
 
-        foreach (FieldInfo field in typeof(gl.Functions).GetFields(BindingFlags.Public | BindingFlags.Static)) {
-            BindFunction(field, getProcAddr);
+        FieldInfo[] fields = typeof(gl.Functions).GetFields(BindingFlags.Public | BindingFlags.Static);
+        if (fields != null) {
+            Trace.WriteLine($"[{DateTime.Now.ToUniversalTime()} {DateTime.Now.Millisecond}ms] Binding OpenGL commands.");
+            foreach (FieldInfo field in fields) {
+                BindFunction(field, getProcAddr);
+            }
+            Trace.WriteLine($"[{DateTime.Now.ToUniversalTime()} {DateTime.Now.Millisecond}ms] {fields.Length} commands bound.");
         }
 
         if (extensions != null && isExtensionSupported != null) {
+            Trace.WriteLine($"[{DateTime.Now.ToUniversalTime()} {DateTime.Now.Millisecond}ms] Binding OpenGL extension commands.");
             foreach ((string, Type) extension in extensions) {
                 LoadExtension(getProcAddr, isExtensionSupported, extension.Item1, extension.Item2);
             }
+            Trace.WriteLine($"[{DateTime.Now.ToUniversalTime()} {DateTime.Now.Millisecond}ms] {extensions.Length} extension commands bound.");
         }
     }
 

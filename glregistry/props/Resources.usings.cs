@@ -48,19 +48,14 @@ global using System.Runtime.InteropServices;
         
         // delegates must appear after everything else and need extra line spacing
         { "GLDEBUGPROC", @"
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void GLDEBUGPROC(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, IntPtr message, IntPtr userParam);" },
         { "GLDEBUGPROCARB", @"
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void GLDEBUGPROCARB(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, IntPtr message, IntPtr userParam);" },
         { "GLDEBUGPROCKHR", @"
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void GLDEBUGPROCKHR(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, IntPtr message, IntPtr userParam);" },
         { "GLDEBUGPROCAMD", @"
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void GLDEBUGPROCAMD(DebugSource source, DebugType type, GLuint id, DebugSeverity sevirity, GLsizei length, IntPtr message, IntPtr userParam);" },
         { "GLVULKANPROCNV", @"
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void GLVULKANPROCNV();" }
     };
 

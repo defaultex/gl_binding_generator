@@ -8,7 +8,11 @@ public static partial class hgl {
 
     public static void DebugMessageControl(DebugSource source, DebugType type, DebugSeverity severity, GLuint[] ids, bool enabled) {
         byte isEnabled = (GLboolean)(enabled ? gl.Constants.GL_TRUE : gl.Constants.GL_FALSE);
-        unsafe { fixed (GLuint* pIds = ids) gl.Functions.glDebugMessageControl(source, type, severity, ids.Length, pIds, isEnabled); }
+        if (ids != null) {
+            unsafe { fixed (GLuint* pIds = ids) gl.Functions.glDebugMessageControl(source, type, severity, ids.Length, pIds, isEnabled); }
+        } else {
+            unsafe { gl.Functions.glDebugMessageControl(source, type, severity, 0, null, isEnabled); }
+        }
     }
 
     public static void DebugMessageInsert(DebugSource source, DebugType type, GLuint id, DebugSeverity severity, string message) {

@@ -57,7 +57,7 @@ public struct DrawElementsIndirectCommand {
 }
 
 public static partial class hgl {
-    
+
     public static void BindBuffer(BufferTarget target, GLbuffer buffer) {
         unsafe { gl.Functions.glBindBuffer(target, buffer); }
     }
@@ -97,25 +97,43 @@ public static partial class hgl {
         }
     }
 
+    public unsafe static void BufferData(BufferTarget target, int size, void* data, BufferUsage usage)
+        => gl.Functions.glBufferData(target, (GLsizeiptr)size, data, usage);
+
     public static void BufferData<T>(BufferTarget target, int size, T[] data, BufferUsage usage) where T : unmanaged {
         unsafe { fixed (T* pData = data) gl.Functions.glBufferData(target, (GLsizeiptr)size, pData, usage); }
     }
+
+    public unsafe static void BufferData(this GLbuffer buffer, int size, void* data, BufferUsage usage)
+        => gl.Functions.glNamedBufferData(buffer, (GLsizeiptr)size, data, usage);
 
     public static void BufferData<T>(this GLbuffer buffer, int size, T[] data, BufferUsage usage) where T : unmanaged {
         unsafe { fixed (T* pData = data) gl.Functions.glNamedBufferData(buffer, (GLsizeiptr)size, pData, usage); }
     }
 
+    public unsafe static void BufferStorage(BufferTarget target, int size, void* data, BufferStorageMask flags) 
+        => gl.Functions.glBufferStorage(target, (GLsizeiptr)size, data, flags); 
+
     public static void BufferStorage<T>(BufferTarget target, int size, T[] data, BufferStorageMask flags) where T : unmanaged {
         unsafe { fixed (T* pData = data) gl.Functions.glBufferStorage(target, (GLsizeiptr)size, pData, flags); }
     }
+
+    public unsafe static void BufferStorage(this GLbuffer buffer, int size, void* data, BufferStorageMask flags) 
+        => gl.Functions.glNamedBufferStorage(buffer, (GLsizeiptr)size, data, flags); 
 
     public static void BufferStorage<T>(this GLbuffer buffer, int size, T[] data, BufferStorageMask flags) where T : unmanaged {
         unsafe { fixed (T* pData = data) gl.Functions.glNamedBufferStorage(buffer, (GLsizeiptr)size, pData, flags); }
     }
 
+    public unsafe static void BufferSubData(BufferTarget target, int offset, int size, void* data)
+        => gl.Functions.glBufferSubData(target, (GLintptr)offset, (GLsizeiptr)size, data);
+
     public static void BufferSubData<T>(BufferTarget target, int offset, int size, T[] data) where T : unmanaged {
         unsafe { fixed (T* pData = data) gl.Functions.glBufferSubData(target, (GLintptr)offset, (GLsizeiptr)size, pData); }
     }
+
+    public unsafe static void BufferSubData(this GLbuffer buffer, int offset, int size, void* data)
+        => gl.Functions.glNamedBufferSubData(buffer, (GLintptr)offset, (GLsizeiptr)size, data);
 
     public static void BufferSubData<T>(this GLbuffer buffer, int offset, int size, T[] data) where T : unmanaged {
         unsafe { fixed (T* pData = data) gl.Functions.glNamedBufferSubData(buffer, (GLintptr)offset, (GLsizeiptr)size, pData); }
@@ -273,9 +291,15 @@ public static partial class hgl {
         unsafe { fixed (void* pData = parameters) gl.Functions.glGetNamedBufferPointerv(buffer, BufferPointerParameter.BufferMapPointer, (void**)&pData); }
     }
 
+    public unsafe static void GetBufferSubData(BufferTarget target, int offset, int size, void* data)
+        => gl.Functions.glGetBufferSubData(target, (GLintptr)offset, (GLsizeiptr)size, data);
+
     public static void GetBufferSubData<TData>(BufferTarget target, int offset, int size, TData[] data) where TData : unmanaged {
         unsafe { fixed (void* pData = data) gl.Functions.glGetBufferSubData(target, (GLintptr)offset, (GLsizeiptr)size, pData); }
     }
+
+    public unsafe static void GetBufferSubData(this GLbuffer buffer, int offset, int size, void* data)
+        => gl.Functions.glGetNamedBufferSubData(buffer, (GLintptr)offset, (GLsizeiptr)size, data);
 
     public static void GetBufferSubData<TData>(this GLbuffer buffer, int offset, int size, TData[] data) where TData : unmanaged {
         unsafe { fixed (void* pData = data) gl.Functions.glGetNamedBufferSubData(buffer, (GLintptr)offset, (GLsizeiptr)size, pData); }
